@@ -58,7 +58,7 @@ public class ActivityMainCompetitions extends AppCompatActivity {
         gyms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityMainCompetitions.this, ActivityMainGyms.class);
+                Intent intent = new Intent(ActivityMainCompetitions.this, FragmentGyms.class);
                 startActivity(intent);
             }
         });
@@ -73,7 +73,7 @@ public class ActivityMainCompetitions extends AppCompatActivity {
         climbers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityMainCompetitions.this, ActivityMainClimbers.class);
+                Intent intent = new Intent(ActivityMainCompetitions.this, FragmentClimbers.class);
                 startActivity(intent);
             }
         });

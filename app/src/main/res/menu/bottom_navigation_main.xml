@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_gyms"
+        android:enabled="true"
+        android:title="@string/tab_gyms"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_schedules"
+        android:enabled="true"
+        android:title="@string/tab_competitions"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_climbers"
+        android:enabled="true"
+        android:title="@string/tab_climbers"
+        app:showAsAction="ifRoom" />
+</menu>
