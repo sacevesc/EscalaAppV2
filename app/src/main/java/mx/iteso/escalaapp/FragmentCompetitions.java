@@ -6,7 +6,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,10 +23,12 @@ public class FragmentCompetitions extends Fragment {
     /**
      * Created by aceve on 04/03/2018.
      */
-    private RecyclerView.LayoutManager mLayoutManager;
     private ViewPager mViewPager;
     private AdapterSectionPager mSectionsPagerAdapter;
-    private boolean isOnLiveTab, isOnComingUpTab;
+    private boolean isOnLiveTab, isOnComingUpTab, isonEnded;
+
+    public FragmentCompetitions() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,10 +54,14 @@ public class FragmentCompetitions extends Fragment {
             @Override
             public void onPageSelected(int position) {
 
-                if (isOnLiveTab = position == 1)
+                if (isonEnded = position == 0)
                     getActivity().invalidateOptionsMenu();
 
-                if (isOnComingUpTab = position == 2)
+
+                else if (isOnLiveTab = position == 1)
+                    getActivity().invalidateOptionsMenu();
+
+                else if (isOnComingUpTab = position == 2)
                     getActivity().invalidateOptionsMenu();
             }
 
@@ -114,6 +119,11 @@ public class FragmentCompetitions extends Fragment {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+        if (id == R.id.action_judging) {
+            Intent intent = new Intent(getActivity(), ActivityJudging.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);

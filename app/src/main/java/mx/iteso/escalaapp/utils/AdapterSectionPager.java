@@ -11,7 +11,7 @@ import mx.iteso.escalaapp.FragmentCompetitionLive;
 
 public class AdapterSectionPager extends FragmentPagerAdapter {
 
-    private String fragments[] = {"Gyms", "Competitions", "Climbers"};
+    private String fragments[] = {"Ended", "Live", "Coming Up"};
     private FragmentCompetitionEnded fragmentCompetitionEnded;
     private FragmentCompetitionComingUp fragmentCompetitionComingUp;
     private FragmentCompetitionLive fragmentCompetitionLive;

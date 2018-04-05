@@ -81,8 +81,9 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="competitions_ended_results">Results</string>
-    <string name="descripcion_prueba">Esta es una prueba del perfil de un escaldor haber cuantas palabras se escriben y que no se vea tan mal,
-        asi que aqui va otra y una mas asi es que no lo hay gracias a la comida de mañana sera un nuevo dia .</string>
+    <string name="descripcion_prueba">"Some component types have responsive elevation, meaning they change elevation in response "
+        "to user input (e.g., normal, focused, and pressed) or system events. These elevation "
+        "elevation.\n\n".</string>
 
     <string-array name="round">
         <item>Qualifications</item>

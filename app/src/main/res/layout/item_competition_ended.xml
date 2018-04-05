@@ -60,7 +60,7 @@
                 android:layout_weight="0.29"
                 android:background="@drawable/button_1"
                 android:text="@string/competitions_ended_results"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorWhite"
                 android:textSize="12sp" />
 
         </LinearLayout>
