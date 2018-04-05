@@ -49,7 +49,7 @@ public class ActivitySignIn extends AppCompatActivity {
 
                 if (checkDataUser()) {
                     saveUser();
-                    Intent intent = new Intent(ActivitySignIn.this, ActivityMainCompetitions.class);
+                    Intent intent = new Intent(ActivitySignIn.this, ActivityMain.class);
                     startActivity(intent);
                     finish();
                 }

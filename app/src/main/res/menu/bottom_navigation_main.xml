@@ -7,7 +7,7 @@
         android:title="@string/tab_gyms"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_schedules"
+        android:id="@+id/action_competitions"
         android:enabled="true"
         android:title="@string/tab_competitions"
         app:showAsAction="ifRoom" />

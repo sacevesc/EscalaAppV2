@@ -24,7 +24,7 @@ public class ActivityLogin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveUser();
-                Intent intent = new Intent(ActivityLogin.this, ActivityMainCompetitions.class);
+                Intent intent = new Intent(ActivityLogin.this, ActivityMain.class);
                 startActivity(intent);
                 finish();
             }

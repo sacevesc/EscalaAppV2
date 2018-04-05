@@ -28,8 +28,7 @@
                 android:layout_width="@dimen/no_dp"
                 android:layout_height="@dimen/image_80"
                 android:layout_gravity="center|left"
-                android:layout_weight="0.2"
-                android:background="@drawable/sebas_perfil" />
+                android:layout_weight="0.2" />
 
 
             <LinearLayout

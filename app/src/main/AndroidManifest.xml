@@ -25,17 +25,15 @@
             android:name=".ActivitySignIn"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".ActivityMainCompetitions"
-            android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".ActivityProfile" />
         <activity android:name=".ActivityGym" />
         <activity android:name=".ActivityClimber" />
         <activity android:name=".ActivityCompetition" />
         <activity android:name=".ActivityJudging" />
         <activity android:name=".ActivityResults" />
-        <activity android:name=".ActivityMain" />
+        <activity
+            android:name=".ActivityMain"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

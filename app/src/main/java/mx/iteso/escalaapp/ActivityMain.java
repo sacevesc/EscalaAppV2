@@ -15,7 +15,7 @@ public class ActivityMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setFragment(new FragmentClimbers());
+        setFragment(new FragmentGyms());
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
@@ -29,14 +29,17 @@ public class ActivityMain extends AppCompatActivity {
                             case R.id.action_gyms:
                                 activeFragment = new FragmentGyms();
                                 setFragment(activeFragment);
-                                break;
-
+                                return true;
+                            case R.id.action_competitions:
+                                activeFragment = new FragmentCompetitions();
+                                setFragment(activeFragment);
+                                return true;
                             case R.id.action_climbers:
                                 activeFragment = new FragmentClimbers();
                                 setFragment(activeFragment);
-                                break;
+                                return true;
                         }
-                        return true;
+                        return false;
                     }
                 });
 
