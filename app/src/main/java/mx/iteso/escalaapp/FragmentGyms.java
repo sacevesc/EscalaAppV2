@@ -57,12 +57,12 @@ public class FragmentGyms extends Fragment {
         return view;
     }
 
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // Inflate the menu; this adds items to the action bar if it is present.
         inflater.inflate(R.menu.menu_activity_main, menu);
         super.onCreateOptionsMenu(menu, inflater);
-
     }
 
     @Override
@@ -73,6 +73,16 @@ public class FragmentGyms extends Fragment {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+        if (id == R.id.action_judging) {
+            Intent intent = new Intent(getActivity(), ActivityJudging.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_results) {
+            Intent intent = new Intent(getActivity(), ActivityResults.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);

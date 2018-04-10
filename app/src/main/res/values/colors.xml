@@ -5,8 +5,8 @@
 
 
     -->
-    <color name="colorPrimary">#91ceec</color>
-    <color name="colorPrimaryDark">#6394ac</color>
+    <color name="colorPrimary">#6394ac</color>
+    <color name="colorPrimaryDark">#91ceec</color>
 
 
     <color name="colorBlue">#289afb</color>
@@ -22,6 +22,7 @@
     <color name="colorBlack">#000000</color>
 
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhiteDark">#e1e1e1</color>
 
 
     <!--  <color name="colorAccent">#FF4081</color>-->

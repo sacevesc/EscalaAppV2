@@ -42,7 +42,7 @@
                     android:id="@+id/item_comp_comingup_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:textColor="@color/colorBlack" />
 
                 <TextView
                     android:id="@+id/item_comp_comingup_gym"
@@ -54,11 +54,10 @@
 
             <Button
                 android:id="@+id/item_comp_comingup_more"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="26dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="@dimen/five"
-                android:layout_weight="0.29"
                 android:background="@drawable/button_1"
                 android:text="@string/competitions_comingup_more_info"
                 android:textColor="@color/colorWhite"
@@ -68,8 +67,8 @@
 
         <ImageView
             android:id="@+id/item_comp_comingup_entrants_image"
-            android:layout_width="15dp"
-            android:layout_height="22dp"
+            android:layout_width="18dp"
+            android:layout_height="20dp"
             android:layout_below="@id/item_comingup_info"
             android:layout_marginStart="@dimen/ten"
             android:background="@drawable/climber"
@@ -82,7 +81,7 @@
             android:layout_alignBottom="@+id/item_comp_comingup_entrants_image"
             android:layout_marginStart="@dimen/ten"
             android:layout_toEndOf="@+id/item_comp_comingup_entrants_image"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@color/colorPrimary" />
 
         <ImageView
             android:id="@+id/item_comp_comingup_date_image"
@@ -91,7 +90,7 @@
             android:layout_below="@+id/item_comingup_info"
             android:layout_marginStart="@dimen/twenty"
             android:layout_toEndOf="@+id/item_comp_comingup_entrants"
-            android:background="@drawable/calendar"
+            android:background="@drawable/calendar_blue"
             android:scaleType="centerCrop" />
 
         <TextView
@@ -102,7 +101,8 @@
             android:layout_below="@id/item_ended_info"
             android:layout_marginStart="@dimen/eight"
             android:layout_toEndOf="@+id/item_comp_comingup_date_image"
-            android:gravity="bottom" />
+            android:gravity="bottom"
+            android:textColor="@color/colorPrimary" />
 
 
     </RelativeLayout>

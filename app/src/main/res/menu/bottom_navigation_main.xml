@@ -4,16 +4,19 @@
     <item
         android:id="@+id/action_gyms"
         android:enabled="true"
+        android:icon="@drawable/pavilions"
         android:title="@string/tab_gyms"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_competitions"
         android:enabled="true"
+        android:icon="@drawable/podium_blue"
         android:title="@string/tab_competitions"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_climbers"
         android:enabled="true"
+        android:icon="@drawable/climber"
         android:title="@string/tab_climbers"
         app:showAsAction="ifRoom" />
 </menu>

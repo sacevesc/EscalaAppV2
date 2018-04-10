@@ -43,7 +43,7 @@
                     android:id="@+id/item_gym_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/colorBlack"
                     />
 
                 <TextView

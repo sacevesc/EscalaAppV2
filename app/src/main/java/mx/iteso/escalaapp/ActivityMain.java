@@ -55,7 +55,9 @@ public class ActivityMain extends AppCompatActivity {
         transaction.commit();
     }
 
-
-
-
+    @Override
+    public void onBackPressed() {
+        this.finish();
+        super.onBackPressed();
+    }
 }

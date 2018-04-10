@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -39,7 +38,7 @@
                     android:src="@drawable/icono_blanco" />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center"
@@ -55,12 +54,12 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorWhite"
             app:tabGravity="fill"
-            app:tabIndicatorColor="@color/colorWhite"
+            app:tabIndicatorColor="@color/colorPrimary"
             app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/colorWhite"
-            app:tabTextColor="@color/colorPrimaryDark"></android.support.design.widget.TabLayout>
+            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabTextColor="@color/colorPrimary" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager

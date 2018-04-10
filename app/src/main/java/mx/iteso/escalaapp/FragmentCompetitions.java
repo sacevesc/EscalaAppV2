@@ -43,7 +43,7 @@ public class FragmentCompetitions extends Fragment {
         mSectionsPagerAdapter = new AdapterSectionPager(getChildFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) view.findViewById(R.id.container);
+        mViewPager = view.findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -72,7 +72,7 @@ public class FragmentCompetitions extends Fragment {
         });
 
 
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        TabLayout tabLayout = view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -108,7 +108,6 @@ public class FragmentCompetitions extends Fragment {
         // Inflate the menu; this adds items to the action bar if it is present.
         inflater.inflate(R.menu.menu_activity_main, menu);
         super.onCreateOptionsMenu(menu, inflater);
-
     }
 
     @Override
@@ -123,6 +122,11 @@ public class FragmentCompetitions extends Fragment {
         }
         if (id == R.id.action_judging) {
             Intent intent = new Intent(getActivity(), ActivityJudging.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_results) {
+            Intent intent = new Intent(getActivity(), ActivityResults.class);
             startActivity(intent);
             return true;
         }

@@ -34,25 +34,26 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/climber_facebook_logo"
+            android:id="@+id/facebook_logo"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:layout_marginEnd="@dimen/ten"
+            android:layout_marginEnd="@dimen/eight"
+            android:layout_marginTop="@dimen/ten"
             android:background="@drawable/fb_logo_50" />
 
         <ImageButton
-            android:id="@+id/climber_instagram_logo"
+            android:id="@+id/instagram_logo"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:layout_marginEnd="@dimen/ten"
-            android:layout_marginStart="@dimen/ten"
+            android:layout_marginStart="@dimen/eight"
+            android:layout_marginTop="@dimen/ten"
             android:background="@drawable/instagram_logo" />
 
         <ImageButton
-            android:id="@+id/climber_twitter_logo"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="@dimen/ten"
+            android:id="@+id/twitter_logo"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/eight"
             android:background="@drawable/twitter_logo" />
 
     </LinearLayout>
@@ -85,7 +86,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_margin="@dimen/four"
-            android:background="@drawable/pullups" />
+            android:background="@drawable/pavilions" />
 
         <TextView
             android:id="@+id/climber_gym_name"

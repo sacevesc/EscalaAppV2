@@ -60,7 +60,7 @@ public class ActivitySignIn extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ActivitySignIn.this, "Iniciar sesion mediante Facebook", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(ActivitySignIn.this, ActivityMainCompetitions.class);
+                Intent intent = new Intent(ActivitySignIn.this, ActivityMain.class);
 
             }
         });

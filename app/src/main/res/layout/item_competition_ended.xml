@@ -42,7 +42,7 @@
                     android:id="@+id/item_comp_ended_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:textColor="@color/colorBlack" />
 
                 <TextView
                     android:id="@+id/item_comp_ended_gym"
@@ -67,8 +67,8 @@
 
         <ImageView
             android:id="@+id/item_comp_ended_entrants_image"
-            android:layout_width="15dp"
-            android:layout_height="22dp"
+            android:layout_width="18dp"
+            android:layout_height="20dp"
             android:layout_below="@id/item_ended_info"
             android:layout_marginLeft="@dimen/ten"
             android:background="@drawable/climber"
@@ -81,7 +81,7 @@
             android:layout_alignBottom="@+id/item_comp_ended_entrants_image"
             android:layout_marginLeft="@dimen/ten"
             android:layout_toEndOf="@+id/item_comp_ended_entrants_image"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@color/colorPrimary" />
 
         <ImageView
             android:id="@+id/item_comp_ended_date_image"
@@ -90,7 +90,7 @@
             android:layout_below="@+id/item_ended_info"
             android:layout_marginStart="@dimen/twenty"
             android:layout_toEndOf="@+id/item_comp_ended_entrants"
-            android:background="@drawable/calendar"
+            android:background="@drawable/calendar_blue"
             android:scaleType="centerCrop" />
 
         <TextView
@@ -101,7 +101,8 @@
             android:layout_below="@id/item_ended_info"
             android:layout_marginLeft="@dimen/eight"
             android:layout_toEndOf="@+id/item_comp_ended_date_image"
-            android:gravity="bottom" />
+            android:gravity="bottom"
+            android:textColor="@color/colorPrimary" />
 
 
     </RelativeLayout>
