@@ -1,13 +1,16 @@
 package mx.iteso.escalaapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.facebook.common.util.UriUtil;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 
@@ -19,6 +22,7 @@ import mx.iteso.escalaapp.beans.Competition;
 
 public class AdapterCompetitionEnded extends RecyclerView.Adapter<AdapterCompetitionEnded.ViewHolder> {
 
+    public Uri uri;
     ArrayList<Competition> compsEnded;
 
     public AdapterCompetitionEnded(ArrayList<Competition> compsEnded) {
@@ -40,18 +44,19 @@ public class AdapterCompetitionEnded extends RecyclerView.Adapter<AdapterCompeti
 
         switch (compsEnded.get(position).getImage()) {
             case 0:
-                holder.mImage.setImageResource(R.drawable.ameyalli);
+                uri = new Uri.Builder().scheme(UriUtil.LOCAL_RESOURCE_SCHEME).path(String.valueOf(R.drawable.ameyalli)).build();
                 break;
             case 1:
-                holder.mImage.setImageResource(R.drawable.bloce);
+                uri = new Uri.Builder().scheme(UriUtil.LOCAL_RESOURCE_SCHEME).path(String.valueOf(R.drawable.bloce)).build();
                 break;
             case 2:
-                holder.mImage.setImageResource(R.drawable.motion);
+                uri = new Uri.Builder().scheme(UriUtil.LOCAL_RESOURCE_SCHEME).path(String.valueOf(R.drawable.motion)).build();
                 break;
             default:
-                holder.mImage.setImageResource(R.drawable.ameyalli);
+                uri = new Uri.Builder().scheme(UriUtil.LOCAL_RESOURCE_SCHEME).path(String.valueOf(R.drawable.ameyalli)).build();
                 break;
         }
+        holder.draweeView.setImageURI(uri);
 
         holder.mDetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +76,7 @@ public class AdapterCompetitionEnded extends RecyclerView.Adapter<AdapterCompeti
         public TextView mGym;
         public TextView mDate;
         public TextView mParticipants;
-        public ImageView mImage;
+        public SimpleDraweeView draweeView;
         public RelativeLayout mDetail;
 
         public ViewHolder(View v) {
@@ -80,7 +85,7 @@ public class AdapterCompetitionEnded extends RecyclerView.Adapter<AdapterCompeti
             mGym = v.findViewById(R.id.item_comp_ended_gym);
             mParticipants = v.findViewById(R.id.item_comp_ended_entrants);
             mDetail = v.findViewById(R.id.item_ended_relative);
-            mImage = v.findViewById(R.id.item_gym_profile_picture);
+            draweeView = (SimpleDraweeView) v.findViewById(R.id.item_gym_profile_picture);
             mDate = v.findViewById(R.id.item_comp_ended_date);
         }
     }

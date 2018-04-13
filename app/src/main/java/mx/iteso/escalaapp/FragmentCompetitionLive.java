@@ -19,7 +19,7 @@ import mx.iteso.escalaapp.beans.Competition;
 public class FragmentCompetitionLive extends Fragment {
     protected ArrayList<Competition> compsLive;
     private RecyclerView.LayoutManager mLayoutManager;
-    private AdapterCompetitionLive adapterCompetitionLive;
+    private AdapterCompetition adapterCompetitionLive;
 
     public FragmentCompetitionLive() {
         // Required empty public constructor
@@ -44,16 +44,10 @@ public class FragmentCompetitionLive extends Fragment {
         compsLive.add(new Competition("Summer Jam", "Bloce", "JAMMMM", 1, "67", "10-07-2017"));
 
 
-        adapterCompetitionLive = new AdapterCompetitionLive(compsLive);
+        adapterCompetitionLive = new AdapterCompetition(compsLive);
         recyclerView.setAdapter(adapterCompetitionLive);
         return view;
     }
 
-    public AdapterCompetitionLive getAdapter() {
-        return this.adapterCompetitionLive;
-    }
 
-    public ArrayList<Competition> getArrayCompetitions() {
-        return compsLive;
-    }
 }

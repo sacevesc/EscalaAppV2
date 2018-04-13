@@ -18,7 +18,7 @@ import mx.iteso.escalaapp.beans.Competition;
 
 public class FragmentCompetitionComingUp extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
-    private AdapterCompetitionComingUp adapterCompetitionComingUp;
+    private AdapterCompetition adapterCompetitionComingUp;
 
     public FragmentCompetitionComingUp() {
         // Required empty public constructor
@@ -40,15 +40,14 @@ public class FragmentCompetitionComingUp extends Fragment {
         compsComingUp.add(new Competition("3do Aniversario ", "Motion", "8vo aniversario de motion", 2, "12", "02-02-2019"));
         compsComingUp.add(new Competition("2do maratón ", "Ameyali", "9no aniversario de ameyalli", 2, "139", "02-01-2020"));
         compsComingUp.add(new Competition("Estatal Ruta", "Ameyalli", "proxima compe de jalisco en ruta", 2, "24", "25-04-2021"));
-        compsComingUp.add(new Competition("Summer Jam", "Bloce", "JAMMMM", 2, "67", "10-07-2017"));
 
 
-        adapterCompetitionComingUp = new AdapterCompetitionComingUp(compsComingUp);
+        adapterCompetitionComingUp = new AdapterCompetition(compsComingUp);
         recyclerView.setAdapter(adapterCompetitionComingUp);
         return view;
     }
 
-    public AdapterCompetitionComingUp getAdapter() {
+    public AdapterCompetition getAdapter() {
         return this.adapterCompetitionComingUp;
     }
 }

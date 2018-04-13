@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/climber_100"
-    android:layout_margin="5dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/two"
+    android:padding="@dimen/two"
     android:scrollbarStyle="outsideOverlay"
     card_view:cardCornerRadius="4dp">
 
@@ -23,54 +25,63 @@
             android:orientation="horizontal">
 
 
-            <ImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/item_climber_profile_picture"
-                android:layout_width="@dimen/no_dp"
-                android:layout_height="@dimen/image_80"
-                android:layout_gravity="center|left"
-                android:layout_weight="0.2" />
-
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="@dimen/five"
+                android:layout_marginStart="@dimen/fifeteen"
+                android:layout_marginTop="@dimen/five"
+                android:scaleType="centerCrop"
+                fresco:roundAsCircle="true" />
 
             <LinearLayout
-                android:id="@+id/item_climber_name"
-                android:layout_width="@dimen/no_dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/five"
-                android:layout_marginTop="5dp"
-                android:layout_weight="0.3"
-                android:orientation="horizontal">
+                android:layout_marginStart="@dimen/twenty"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/item_climber_firstname"
+                <LinearLayout
+                    android:id="@+id/item_climber_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/five"
-                    android:text="Sebastian"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/twenty_Sp"
-                    android:textStyle="italic" />
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/item_climber_firstname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sebastian santiago"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="18dp"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/item_climber_lastname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/five"
+                        android:text="Aceves"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="18dp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/item_climber_lastname"
+                    android:id="@+id/item_climber_gym"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Aceves"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/twenty_Sp"
-                    android:textStyle="italic" />
-
+                    android:layout_marginTop="@dimen/five"
+                    android:text="Rocodromo Ameyalli"
+                    android:textColor="@color/colorPrimary" />
             </LinearLayout>
+
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/item_climber_gym"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="right"
-            android:layout_marginRight="@dimen/five"
-            android:text="Rocodromo Ameyalli" />
+
     </RelativeLayout>
+
 </android.support.v7.widget.CardView>
 

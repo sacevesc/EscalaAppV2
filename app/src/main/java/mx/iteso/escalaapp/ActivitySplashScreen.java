@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -14,6 +16,7 @@ public class ActivitySplashScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fresco.initialize(this);//FRESCO SE INICILIZA
         setContentView(R.layout.activity_splash);
         TimerTask task = new TimerTask() {
             @Override

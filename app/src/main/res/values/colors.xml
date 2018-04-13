@@ -7,6 +7,7 @@
     -->
     <color name="colorPrimary">#6394ac</color>
     <color name="colorPrimaryDark">#91ceec</color>
+    <color name="colorCardViews">#e4f6ff</color>
 
 
     <color name="colorBlue">#289afb</color>

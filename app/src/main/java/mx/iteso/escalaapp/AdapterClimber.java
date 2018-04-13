@@ -1,13 +1,16 @@
 package mx.iteso.escalaapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.facebook.common.util.UriUtil;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 
@@ -20,6 +23,7 @@ import mx.iteso.escalaapp.beans.Climber;
 
 public class AdapterClimber extends RecyclerView.Adapter<AdapterClimber.ViewHolder> {
 
+    public Uri uri;
     ArrayList<Climber> climbers;
     public AdapterClimber(ArrayList<Climber> climbers) {
         this.climbers = climbers;
@@ -39,25 +43,25 @@ public class AdapterClimber extends RecyclerView.Adapter<AdapterClimber.ViewHold
 
         switch (climbers.get(position).getPhoto()) {
             case 0:
-                holder.mImage.setImageResource(R.drawable.arturo_perfil);
+                uri = new Uri.Builder().scheme(UriUtil.LOCAL_RESOURCE_SCHEME).path(String.valueOf(R.drawable.arturo_perfil)).build();
                 break;
             case 1:
-                holder.mImage.setImageResource(R.drawable.ger_perfil);
+                uri = new Uri.Builder().scheme(UriUtil.LOCAL_RESOURCE_SCHEME).path(String.valueOf(R.drawable.ger_perfil)).build();
                 break;
             case 2:
-                holder.mImage.setImageResource(R.drawable.keko_perfil);
+                uri = new Uri.Builder().scheme(UriUtil.LOCAL_RESOURCE_SCHEME).path(String.valueOf(R.drawable.keko_perfil)).build();
                 break;
             case 3:
-                holder.mImage.setImageResource(R.drawable.luis_perfil);
+                uri = new Uri.Builder().scheme(UriUtil.LOCAL_RESOURCE_SCHEME).path(String.valueOf(R.drawable.luis_perfil)).build();
                 break;
             case 4:
-                holder.mImage.setImageResource(R.drawable.sebas_perfil);
+                uri = new Uri.Builder().scheme(UriUtil.LOCAL_RESOURCE_SCHEME).path(String.valueOf(R.drawable.sebas_perfil)).build();
                 break;
             default:
-                holder.mImage.setImageResource(R.drawable.keko_perfil);
+                uri = new Uri.Builder().scheme(UriUtil.LOCAL_RESOURCE_SCHEME).path(String.valueOf(R.drawable.keko_perfil)).build();
                 break;
         }
-
+        holder.draweeView.setImageURI(uri);
 
         holder.mDetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,14 +80,14 @@ public class AdapterClimber extends RecyclerView.Adapter<AdapterClimber.ViewHold
         public TextView mFirstName;
         public TextView mLastName;
         public TextView mGym;
-        public ImageView mImage;
+        public SimpleDraweeView draweeView;
         public RelativeLayout mDetail;
 
         public ViewHolder(View v) {
             super(v);
             mFirstName = v.findViewById(R.id.item_climber_firstname);
             mLastName = v.findViewById(R.id.item_climber_lastname);
-            mImage = v.findViewById(R.id.item_climber_profile_picture);
+            draweeView = (SimpleDraweeView) v.findViewById(R.id.item_climber_profile_picture);
             mGym = v.findViewById(R.id.item_climber_gym);
             mDetail = v.findViewById(R.id.item_climber_relative);
         }

@@ -1,9 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_ended_relative"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="mx.iteso.escalaapp.ActivityCompetition">
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/five">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/item_ended_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/twenty"
+        android:layout_marginTop="@dimen/five"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/item_gym_profile_picture"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.2"
+            android:src="@drawable/ameyalli"></ImageView>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/ten"
+            android:layout_weight="0.8"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/item_comp_ended_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack" />
+
+            <TextView
+                android:id="@+id/item_comp_ended_gym"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/item_comp_comingup_more"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_alignBaseline="@+id/item_comp_ended_date"
+        android:layout_alignBottom="@+id/item_comp_ended_date"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/five"
+        android:background="@drawable/button_1"
+        android:text="@string/competitions_ended_results"
+        android:textColor="@color/colorWhite"
+        android:textSize="12sp" />
+
+
+    <ImageView
+        android:id="@+id/item_comp_ended_entrants_image"
+        android:layout_width="18dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/item_ended_info"
+        android:layout_marginLeft="@dimen/ten"
+        android:background="@drawable/climber"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/item_comp_ended_entrants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/item_comp_ended_entrants_image"
+        android:layout_marginLeft="@dimen/ten"
+        android:layout_toEndOf="@+id/item_comp_ended_entrants_image"
+        android:textColor="@color/colorPrimary" />
+
+    <ImageView
+        android:id="@+id/item_comp_ended_date_image"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/item_ended_info"
+        android:layout_marginStart="@dimen/twenty"
+        android:layout_toEndOf="@+id/item_comp_ended_entrants"
+        android:background="@drawable/calendar_blue"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/item_comp_ended_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/item_comp_ended_entrants_image"
+        android:layout_below="@id/item_ended_info"
+        android:layout_marginLeft="@dimen/eight"
+        android:layout_toEndOf="@+id/item_comp_ended_date_image"
+        android:gravity="bottom"
+        android:textColor="@color/colorPrimary" />
+
+
+</RelativeLayout>
+

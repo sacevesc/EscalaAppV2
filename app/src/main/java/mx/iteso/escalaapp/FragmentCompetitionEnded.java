@@ -18,7 +18,7 @@ import mx.iteso.escalaapp.beans.Competition;
 
 public class FragmentCompetitionEnded extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
-    private AdapterCompetitionEnded adapterCompetitionEnded;
+    private AdapterCompetition adapterCompetitionEnded;
 
 
     public FragmentCompetitionEnded() {
@@ -43,13 +43,9 @@ public class FragmentCompetitionEnded extends Fragment {
         compsEnded.add(new Competition("3do Aniversario ", "Motion", "1er aniversario de motion", 0, "12", "02-02-2017"));
         compsEnded.add(new Competition("2do maratón ", "Ameyali", "1er aniversario de motion", 0, "139", "02-01-2017"));
 
-        adapterCompetitionEnded = new AdapterCompetitionEnded(compsEnded);
+        adapterCompetitionEnded = new AdapterCompetition(compsEnded);
         recyclerView.setAdapter(adapterCompetitionEnded);
         return view;
-    }
-
-    public AdapterCompetitionEnded getAdapter() {
-        return this.adapterCompetitionEnded;
     }
 
 

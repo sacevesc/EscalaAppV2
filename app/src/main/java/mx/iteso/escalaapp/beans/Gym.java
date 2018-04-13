@@ -1,6 +1,5 @@
 package mx.iteso.escalaapp.beans;
 
-import android.graphics.drawable.Drawable;
 import android.widget.Button;
 
 /**
@@ -11,10 +10,10 @@ public class Gym {
     private String name;
     private String description;
     private String city;
-    private Drawable photo;
+    private int photo;
     private Button Competitions;
 
-    public Gym(String name, String description, String city, Drawable photo ) {
+    public Gym(String name, String description, String city, int photo) {
         this.name = name;
         this.description = description;
         this.city= city;
@@ -45,11 +44,11 @@ public class Gym {
         this.city = city;
     }
 
-    public Drawable getPhoto() {
+    public int getPhoto() {
         return photo;
     }
 
-    public void setPhoto(Drawable photo) {
+    public void setPhoto(int photo) {
         this.photo = photo;
     }
 
