@@ -45,25 +45,25 @@
 
             <ImageButton
                 android:id="@+id/facebook_logo"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginEnd="@dimen/eight"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:layout_marginTop="@dimen/ten"
                 android:background="@drawable/fb_logo_50" />
 
             <ImageButton
                 android:id="@+id/instagram_logo"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="@dimen/eight"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginStart="@dimen/ten"
                 android:layout_marginTop="@dimen/ten"
                 android:background="@drawable/instagram_logo" />
 
             <ImageButton
                 android:id="@+id/twitter_logo"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_margin="@dimen/eight"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="@dimen/five"
+                android:layout_marginTop="7dp"
                 android:background="@drawable/twitter_logo" />
 
         </LinearLayout>
@@ -71,20 +71,21 @@
 
     <LinearLayout
         android:id="@+id/gym_numbers"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/linear_gym_info"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/thirty_five"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <RelativeLayout
             android:id="@+id/relative_host"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="@dimen/fifeteen">
+            android:layout_margin="@dimen/fifeteen"
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/gym_host_icon"
@@ -118,10 +119,11 @@
 
         <RelativeLayout
             android:id="@+id/relative_members"
-            android:layout_width="89dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="@dimen/fifeteen">
+            android:layout_margin="@dimen/fifeteen"
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/gym_members_icon"
@@ -155,10 +157,11 @@
 
         <RelativeLayout
             android:id="@+id/relative_podiums"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="@dimen/fifeteen">
+            android:layout_margin="@dimen/fifeteen"
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/gym_podiums_icon"

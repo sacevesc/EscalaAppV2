@@ -34,6 +34,7 @@
         <activity
             android:name=".ActivityMain"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ActivityCompRegister"></activity>
     </application>
 
 </manifest>

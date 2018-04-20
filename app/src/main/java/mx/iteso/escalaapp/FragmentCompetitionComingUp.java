@@ -47,7 +47,4 @@ public class FragmentCompetitionComingUp extends Fragment {
         return view;
     }
 
-    public AdapterCompetition getAdapter() {
-        return this.adapterCompetitionComingUp;
-    }
 }

@@ -2,17 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="26dp"
     android:layout_height="26dp"
-    android:layout_marginRight="@dimen/four"
+    android:layout_margin="@dimen/four"
     android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/item_boulder_top_tries"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="13dp"
+        android:layout_height="26dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="@dimen/two"
+        android:background="@color/colorPrimary"
+        android:gravity="center|top"
         android:text="4"
         android:textColor="@color/colorWhite" />
 
@@ -24,12 +25,12 @@
 
     <TextView
         android:id="@+id/item_boulder_bonus_tries"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="13dp"
+        android:layout_height="26dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/two"
+        android:layout_alignParentEnd="true"
         android:background="@color/colorPrimary"
+        android:gravity="center|bottom"
         android:text="3"
         android:textColor="@color/colorWhite" />
 </RelativeLayout>

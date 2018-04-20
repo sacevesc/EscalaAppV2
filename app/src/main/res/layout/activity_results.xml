@@ -1,46 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="mx.iteso.escalaapp.ActivityResults">
+    tools:context=".ActivityResults">
 
-    <LinearLayout
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content">
+
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/comp_picture"
+            android:layout_width="124dp"
+            android:layout_height="124dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="@dimen/fifeteen"
+            android:layout_marginStart="@dimen/fifeteen"
+            android:layout_marginTop="20dp"
+            android:scaleType="centerCrop"
+            fresco:roundAsCircle="true" />
+
+
+        <TextView
+            android:id="@+id/comp_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/comp_picture"
+            android:layout_marginEnd="@dimen/fifeteen"
+            android:layout_toEndOf="@id/comp_picture"
+            android:padding="@dimen/two"
+            android:text="Estatal de Jalisco 2018"
+            android:textSize="@dimen/twenty_five_sp" />
+
+
+        <LinearLayout
+            android:id="@+id/comp_gym_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/comp_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="@dimen/fifeteen"
+            android:layout_marginTop="@dimen/ten"
+            android:gravity="center"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/image_rounded"
-            android:src="@drawable/sebas_nacional_2_recortada" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2.5"
-            android:orientation="vertical">
+            android:id="@+id/comp_gym_icon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_margin="@dimen/four"
+            android:background="@drawable/pavilions" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
+                android:id="@+id/comp_gym_name"
+                android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+                android:layout_margin="@dimen/four"
+                android:text="Rocodromo Ameyalli"
+                android:textSize="12sp" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/comp_city_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/comp_gym_info"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="@dimen/fifeteen"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/comp_city_icon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_margin="@dimen/four"
+                android:background="@drawable/marker_red" />
 
+            <TextView
+                android:id="@+id/comp_city_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/four"
+                android:text="Guadalajara, Jalisco."
+                android:textSize="12sp" />
+        </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="8"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/comp_city_info"
+        android:layout_margin="@dimen/fifeteen"
+        android:orientation="horizontal">
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Results" />
+
+        <Spinner
+            android:id="@+id/activity_results_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_column="1"
+            android:layout_row="1"
+            android:layout_weight="1"
+            android:entries="@array/round" />
     </LinearLayout>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/results_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/four"
+        android:padding="@dimen/four"
+        android:scrollbarStyle="outsideOverlay" />
 
 
 </LinearLayout>
