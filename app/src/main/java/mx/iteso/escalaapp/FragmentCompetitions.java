@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import mx.iteso.escalaapp.utils.AdapterSectionPager;
 
 public class FragmentCompetitions extends Fragment {
@@ -26,6 +28,7 @@ public class FragmentCompetitions extends Fragment {
     private ViewPager mViewPager;
     private AdapterSectionPager mSectionsPagerAdapter;
     private boolean isOnLiveTab, isOnComingUpTab, isonEnded;
+
 
     public FragmentCompetitions() {
     }
@@ -95,7 +98,7 @@ public class FragmentCompetitions extends Fragment {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ActivityClimber.class);
+                Intent intent = new Intent(getActivity(), ActivityProfile.class);
                 startActivity(intent);
             }
         });
@@ -127,6 +130,12 @@ public class FragmentCompetitions extends Fragment {
         }
         if (id == R.id.action_results) {
             Intent intent = new Intent(getActivity(), ActivityResults.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_logout) {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(getActivity(), ActivitySplashScreen.class);
             startActivity(intent);
             return true;
         }

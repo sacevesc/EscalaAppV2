@@ -25,10 +25,12 @@
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/item_gym_profile_picture"
-                android:layout_width="0dp"
-                android:layout_height="80dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:layout_weight="0.20"
+                android:layout_marginBottom="@dimen/five"
+                android:layout_marginStart="@dimen/fifeteen"
+                android:layout_marginTop="@dimen/five"
                 android:scaleType="centerCrop"
                 fresco:roundAsCircle="true" />
 
@@ -36,7 +38,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="@dimen/ten"
+                android:layout_marginBottom="@dimen/ten"
+                android:layout_marginEnd="@dimen/ten"
+                android:layout_marginStart="@dimen/twenty_five"
+                android:layout_marginTop="@dimen/ten"
                 android:layout_weight="0.40"
                 android:orientation="vertical">
 

@@ -26,10 +26,12 @@
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/item_gym_profile_picture"
-                android:layout_width="0dp"
-                android:layout_height="80dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:layout_weight="0.2"
+                android:layout_marginBottom="@dimen/five"
+                android:layout_marginStart="@dimen/fifeteen"
+                android:layout_marginTop="@dimen/five"
                 android:scaleType="centerCrop"
                 fresco:roundAsCircle="true" />
 
@@ -45,6 +47,7 @@
                     android:id="@+id/item_gym_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/fifeteen"
                     android:textColor="@color/colorBlack"
                     />
 
@@ -52,6 +55,7 @@
                     android:id="@+id/item_gym_city"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/fifeteen"
                     android:textColor="@color/colorPrimary"/>
 
             </LinearLayout>

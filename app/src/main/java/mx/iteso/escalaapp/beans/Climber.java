@@ -9,12 +9,80 @@ public class Climber {
     private String lastname;
     private String gym;
     private int photo;
+    private String description;
+    private String city;
+    private String state;
+    private boolean owner = false;
+
+    public Climber() {
+        this.firstname = "";
+        this.lastname = "";
+        this.gym = "";
+        this.description = "";
+        this.city = "";
+        this.state = "";
+    }
 
     public Climber(String firstname, String lastname, String gym, int photo) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.gym = gym;
         this.photo = photo;
+    }
+
+    public Climber(String firstname, String lastname, String gym, int photo, String description, String city, String state) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.gym = gym;
+        this.photo = photo;
+        this.description = description;
+        this.city = city;
+        this.state = state;
+    }
+
+    public boolean isOwner() {
+        return owner;
+    }
+
+    public void setOwner(boolean owner) {
+        this.owner = owner;
+    }
+
+    @Override
+    public String toString() {
+        return "Climber{" +
+                "firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", gym='" + gym + '\'' +
+                ", photo=" + photo +
+                ", description='" + description + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                '}';
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getFirstname() {

@@ -3,6 +3,7 @@ package mx.iteso.escalaapp;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -19,5 +20,11 @@ public class ActivityClimber extends AppCompatActivity {
                 .path(String.valueOf(R.drawable.sebas_perfil)).build();
         SimpleDraweeView draweeView = (SimpleDraweeView) findViewById(R.id.climber_profile_picture);
         draweeView.setImageURI(uri);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle(getResources().getString(R.string.app_name));
+
     }
 }

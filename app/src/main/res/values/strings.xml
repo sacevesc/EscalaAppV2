@@ -11,6 +11,7 @@
     <string name="tab_climbers">Climbers</string>
 
     <string name="climber_profile_results">Results</string>
+    <string name="climber_profile_edit">Edit Profile</string>
     <string name="climber_profile_results_top_results">Top Results</string>
     <string name="climber_profile_results_all_time">All Time</string>
     <string name="climber_profile_results_months_12">Last 12 Months</string>

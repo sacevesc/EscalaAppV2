@@ -4,8 +4,10 @@ package mx.iteso.escalaapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -34,6 +38,8 @@ public class FragmentClimbers extends Fragment {
         View view = inflater.inflate(R.layout.fragment_climbers, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.fragment_recycler_view);
         setHasOptionsMenu(true);
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
 
         recyclerView.setHasFixedSize(true);
@@ -44,7 +50,7 @@ public class FragmentClimbers extends Fragment {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ActivityClimber.class);
+                Intent intent = new Intent(getActivity(), ActivityProfile.class);
                 startActivity(intent);
             }
         });
@@ -93,6 +99,12 @@ public class FragmentClimbers extends Fragment {
         }
         if (id == R.id.action_results) {
             Intent intent = new Intent(getActivity(), ActivityResults.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_logout) {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(getActivity(), ActivitySplashScreen.class);
             startActivity(intent);
             return true;
         }

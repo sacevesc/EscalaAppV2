@@ -31,7 +31,7 @@ public class AdapterCompetition extends RecyclerView.Adapter<AdapterCompetition.
 
     public AdapterCompetition.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_competition_comingup, parent, false);
+                .inflate(R.layout.item_competition, parent, false);
         AdapterCompetition.ViewHolder vh = new AdapterCompetition.ViewHolder(v);
         return vh;
     }

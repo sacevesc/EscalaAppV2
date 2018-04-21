@@ -17,4 +17,9 @@
         android:orderInCategory="90"
         android:title="Results"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="90"
+        android:title="Log out"
+        app:showAsAction="never" />
 </menu>
