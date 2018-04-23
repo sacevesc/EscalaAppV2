@@ -40,7 +40,7 @@ public class ActivityLogin extends AppCompatActivity {
             public void onClick(View v) {
                 if (!name.getText().toString().isEmpty() || !password.getText().toString().isEmpty()) {
                     //saveUser();
-                    progressDialog.setTitle("Regstering User");
+                    progressDialog.setTitle("Logging User");
                     progressDialog.setMessage("Please wait while your are logging");
                     progressDialog.setCanceledOnTouchOutside(false);
                     progressDialog.show();
@@ -69,7 +69,7 @@ public class ActivityLogin extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             progressDialog.dismiss();
-                            Log.d("Auth", "signInWithEmail:success");
+                            Log.d("Auth", "loginWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             //updateUI(user);
                             Intent intent = new Intent(ActivityLogin.this, ActivityMain.class);

@@ -8,11 +8,12 @@ public class Climber {
     private String firstname;
     private String lastname;
     private String gym;
-    private int photo;
+    private String photo;
+    private String thumb;
     private String description;
     private String city;
     private String state;
-    private boolean owner = false;
+    private String owner = "false";
 
     public Climber() {
         this.firstname = "";
@@ -21,16 +22,18 @@ public class Climber {
         this.description = "";
         this.city = "";
         this.state = "";
+        this.photo = "";
+        this.thumb = "";
     }
 
-    public Climber(String firstname, String lastname, String gym, int photo) {
+    public Climber(String firstname, String lastname, String gym, String photo) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.gym = gym;
         this.photo = photo;
     }
 
-    public Climber(String firstname, String lastname, String gym, int photo, String description, String city, String state) {
+    public Climber(String firstname, String lastname, String gym, String photo, String description, String city, String state) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.gym = gym;
@@ -40,11 +43,19 @@ public class Climber {
         this.state = state;
     }
 
-    public boolean isOwner() {
+    public String getThumb() {
+        return thumb;
+    }
+
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
+    }
+
+    public String getOwner() {
         return owner;
     }
 
-    public void setOwner(boolean owner) {
+    public void setOwner(String owner) {
         this.owner = owner;
     }
 
@@ -101,11 +112,11 @@ public class Climber {
         this.lastname = lastname;
     }
 
-    public int getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(int photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 

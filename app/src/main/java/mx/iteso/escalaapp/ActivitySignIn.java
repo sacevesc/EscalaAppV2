@@ -27,10 +27,14 @@ import java.util.HashMap;
 public class ActivitySignIn extends AppCompatActivity {
     EditText firstname, lastname, email, password, descrption;
     AutoCompleteTextView city, state, gym;
-    Button done, facebook_signin;
+    Button done, facebook_signin, image_btn;
+
+
     private FirebaseAuth mAuth;//firebase auth
     private ProgressDialog progressDialog;
     private DatabaseReference firebaseDatabase;
+    private FirebaseUser currentUser;
+
 
 
     @Override
@@ -47,6 +51,8 @@ public class ActivitySignIn extends AppCompatActivity {
         lastname = findViewById(R.id.sigin_lastname);
         password = findViewById(R.id.sigin_password);
         email = findViewById(R.id.signin_email);
+        image_btn = findViewById(R.id.signin_image_button);
+
 
         city = findViewById(R.id.sigin_city_autocomplete);
         String[] cities = getResources().getStringArray(R.array.ciudades);
@@ -64,13 +70,15 @@ public class ActivitySignIn extends AppCompatActivity {
         ArrayAdapter<String> adapterGyms = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, gyms);
         gym.setAdapter(adapterGyms);
 
+
         done = findViewById(R.id.signin_done_button);
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (checkDataUser()) {
-                    //saveUser();
+                    //saveUser();        progressDialog = new ProgressDialog(this);
+
                     progressDialog.setTitle("Regstering User");
                     progressDialog.setMessage("Please wait while your account is being created");
                     progressDialog.setCanceledOnTouchOutside(false);
@@ -88,7 +96,9 @@ public class ActivitySignIn extends AppCompatActivity {
 
             }
         });
+
     }
+
 
     private void createAccount(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -96,7 +106,7 @@ public class ActivitySignIn extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                            currentUser = FirebaseAuth.getInstance().getCurrentUser();
                             String uid = currentUser.getUid();
                             firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").child(uid);
                             HashMap<String, String> climbersMap = new HashMap<>();
@@ -106,7 +116,8 @@ public class ActivitySignIn extends AppCompatActivity {
                             climbersMap.put("state", state.getText().toString());
                             climbersMap.put("gym", gym.getText().toString());
                             climbersMap.put("description", descrption.getText().toString());
-                            climbersMap.put("image", "default");
+                            climbersMap.put("image", getString(R.string.default_image_icon));
+                            climbersMap.put("thumb", "default");
                             climbersMap.put("owner", "false");
 
 

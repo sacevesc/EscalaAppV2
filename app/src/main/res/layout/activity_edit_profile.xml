@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -65,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:hint="Name"
+                        android:hint="@string/climber_name"
                         android:inputType="textPersonName"
                         android:maxLines="1"
                         android:textColor="@color/colorPrimaryDark" />
@@ -81,7 +82,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:hint="City"
+                        android:hint="@string/city"
                         android:inputType="textPersonName"
                         android:maxLines="1"
                         android:textColor="@color/colorPrimaryDark" />
@@ -124,7 +125,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:hint="Lastname"
+                        android:hint="@string/lastname"
                         android:inputType="textPersonName"
                         android:textColor="@color/colorPrimaryDark" />
                 </android.support.design.widget.TextInputLayout>
@@ -139,7 +140,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:hint="State"
+                        android:hint="@string/state"
                         android:inputType="textPersonName"
                         android:textColor="@color/colorPrimaryDark" />
                 </android.support.design.widget.TextInputLayout>
@@ -156,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:hint="Gym"
+                android:hint="@string/gym"
                 android:inputType="textPersonName"
                 android:maxLines="1"
                 android:textColor="@color/colorPrimaryDark" />
@@ -172,11 +173,29 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:gravity="center"
-                android:hint="Description"
+                android:hint="@string/description"
                 android:inputType="textMultiLine"
                 android:maxLines="5"
                 android:textColor="@color/colorPrimaryDark" />
         </android.support.design.widget.TextInputLayout>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/signin_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/fifeteen"
+            android:scaleType="centerCrop"
+            fresco:placeholderImage="@drawable/climber"
+            fresco:roundAsCircle="true" />
+
+        <Button
+            android:id="@+id/signin_image_button"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:layout_gravity="center"
+            android:text="@string/change_image"
+            android:textSize="@dimen/ten_sp" />
 
 
     </LinearLayout>

@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,7 +24,9 @@ import mx.iteso.escalaapp.beans.Climber;
 public class ActivityProfile extends AppCompatActivity {
 
     ImageView edit_profile;
+    SimpleDraweeView draweeView;
     TextView firstname, lastname, descrption, city, state, gym;
+
     Button results;
     DatabaseReference userDatabase;
     private FirebaseUser currentUser;
@@ -34,11 +35,7 @@ public class ActivityProfile extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_profile);
-            //circle image fresco
-            Uri uri = new Uri.Builder().scheme(UriUtil.LOCAL_RESOURCE_SCHEME) // "res"
-                    .path(String.valueOf(R.drawable.sebas_perfil)).build();
-            SimpleDraweeView draweeView = (SimpleDraweeView) findViewById(R.id.climber_profile_picture);
-            draweeView.setImageURI(uri);
+
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
@@ -62,6 +59,8 @@ public class ActivityProfile extends AppCompatActivity {
             descrption = findViewById(R.id.climber_description);
             gym = findViewById(R.id.climber_gym_name);
             results = findViewById(R.id.climber_results_button);
+            draweeView = (SimpleDraweeView) findViewById(R.id.climber_profile_picture);
+
 
             currentUser = FirebaseAuth.getInstance().getCurrentUser();
             String currentUid = currentUser.getUid();
@@ -76,6 +75,7 @@ public class ActivityProfile extends AppCompatActivity {
                     climber.setState(dataSnapshot.child("state").getValue().toString());
                     climber.setCity(dataSnapshot.child("city").getValue().toString());
                     climber.setDescription(dataSnapshot.child("description").getValue().toString());
+                    climber.setPhoto(dataSnapshot.child("image").getValue().toString());
 
                     firstname.setText(climber.getFirstname());
                     lastname.setText(climber.getLastname());
@@ -83,6 +83,10 @@ public class ActivityProfile extends AppCompatActivity {
                     state.setText(climber.getState());
                     city.setText(climber.getCity());
                     descrption.setText(climber.getDescription());
+
+                    Uri imageUri = Uri.parse(climber.getPhoto());
+                    draweeView.setImageURI(imageUri);
+
 
                 }
 

@@ -2,6 +2,10 @@ package mx.iteso.escalaapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,17 +28,29 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import mx.iteso.escalaapp.beans.Climber;
 
 public class ActivityEditProfile extends AppCompatActivity {
+    private static final int GALLERY_PICK = 1;
     EditText firstname, lastname, email, password, descrption;
     AutoCompleteTextView city, state, gym;
-    Button done;
+    Button done, image_btn;
+    SimpleDraweeView draweeView;
     DatabaseReference userDatabase;
     private FirebaseAuth mAuth;//firebase auth
     private ProgressDialog progressDialog;
     private FirebaseUser curretnUser;
+    private StorageReference mStorageRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +60,8 @@ public class ActivityEditProfile extends AppCompatActivity {
 
         firstname = findViewById(R.id.sigin_firstname);
         lastname = findViewById(R.id.sigin_lastname);
+        image_btn = findViewById(R.id.signin_image_button);
+        draweeView = findViewById(R.id.signin_image);
         //password = findViewById(R.id.sigin_password);
         //email = findViewById(R.id.signin_email);
 
@@ -63,6 +82,11 @@ public class ActivityEditProfile extends AppCompatActivity {
         gym.setAdapter(adapterGyms);
 
         //firebase
+        //image
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+
+
+        //data user
         mAuth = FirebaseAuth.getInstance();
         curretnUser = FirebaseAuth.getInstance().getCurrentUser();
         String currentUid = curretnUser.getUid();
@@ -77,6 +101,7 @@ public class ActivityEditProfile extends AppCompatActivity {
                 climber.setState(dataSnapshot.child("state").getValue().toString());
                 climber.setCity(dataSnapshot.child("city").getValue().toString());
                 climber.setDescription(dataSnapshot.child("description").getValue().toString());
+                climber.setPhoto(dataSnapshot.child("image").getValue().toString());
 
                 firstname.setText(climber.getFirstname());
                 lastname.setText(climber.getLastname());
@@ -84,6 +109,9 @@ public class ActivityEditProfile extends AppCompatActivity {
                 state.setText(climber.getState());
                 city.setText(climber.getCity());
                 descrption.setText(climber.getDescription());
+
+                Uri imageUri = Uri.parse(climber.getPhoto());
+                draweeView.setImageURI(imageUri);
 
             }
 
@@ -113,8 +141,94 @@ public class ActivityEditProfile extends AppCompatActivity {
             }
         });
 
+        image_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
 
+                startActivityForResult(Intent.createChooser(intent, "SELECT IMAGE"), GALLERY_PICK);
+            }
+        });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == GALLERY_PICK && resultCode == RESULT_OK) {
+            final Uri image_uri = data.getData();
+            String userUid = curretnUser.getUid();
+
+            final File thumb_file = new File(image_uri.getPath());
+            // Bitmap thumb_bitmap = new Compressor(ActivityEditProfile.this).setMaxWidth(200).setMaxHeight(200).setQuality(75).compressToBitmap(thumb_file);
+            Bitmap thumb_bitmap = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(thumb_file.getPath()), 200, 200);
+
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            assert thumb_bitmap != null;
+            //thumb_bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
+            final byte[] thumb_byte = byteArrayOutputStream.toByteArray();
+
+            StorageReference filepath = mStorageRef.child("profile_images").child(userUid + ".jpg");
+            final StorageReference thumb_filePath = mStorageRef.child("profile_images").child("thumbs").child(userUid + ".jpg");
+
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Loading Image");
+            progressDialog.setMessage("Please wait while your image is being saved");
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
+
+            filepath.putFile(image_uri)
+                    .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                final String downloadUrl = task.getResult().getDownloadUrl().toString();
+                                draweeView.setImageURI(image_uri);
+
+                                UploadTask uploadTask = thumb_filePath.putBytes(thumb_byte);
+                                uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
+
+                                        String thumb_downloadUrl = thumb_task.getResult().getDownloadUrl().toString();
+
+                                        if (thumb_task.isSuccessful()) {
+
+                                            Map updateHashmap = new HashMap();
+                                            updateHashmap.put("image", downloadUrl);
+                                            updateHashmap.put("thumb", thumb_downloadUrl);
+
+
+                                            userDatabase.updateChildren(updateHashmap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        progressDialog.dismiss();
+                                                        Log.d("Image", "uploadImage:success");
+
+                                                    }
+                                                }
+                                            });
+                                        } else {
+                                            Log.d("Image", "uploadThumbnail:FAILURE");
+                                            progressDialog.dismiss();
+
+                                        }
+
+                                    }
+                                });
+
+                            } else {
+                                Log.d("Image", "uploadImage:FAILURE");
+                                progressDialog.dismiss();
+
+                            }
+                        }
+                    });
+        }
+    }
+
 
     private void updateAccount(final String update, TextView textView) {
         userDatabase.child(update).setValue(textView.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {

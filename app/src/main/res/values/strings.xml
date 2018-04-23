@@ -317,4 +317,12 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="change_image">change image</string>
+    <string name="description">Description</string>
+    <string name="gym">Gym</string>
+    <string name="state">State</string>
+    <string name="lastname">Lastname</string>
+    <string name="city">City</string>
+    <string name="climber_name">Name</string>
+    <string name="default_image_icon"><![CDATA[https://firebasestorage.googleapis.com/v0/b/escalaapp-17103.appspot.com/o/profile_images%2Ficons8-climbing-filled-100.png?alt=media&token=404c82b7-3cc4-4dbf-b9f7-e8ca8daee4cc]]></string>
 </resources>
