@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import mx.iteso.escalaapp.FragmentCompetitionComingUp;
-import mx.iteso.escalaapp.FragmentCompetitionEnded;
-import mx.iteso.escalaapp.FragmentCompetitionLive;
+import mx.iteso.escalaapp.FragmentCompetitions.FragmentCompetitionComingUp;
+import mx.iteso.escalaapp.FragmentCompetitions.FragmentCompetitionEnded;
+import mx.iteso.escalaapp.FragmentCompetitions.FragmentCompetitionLive;
 
 
 public class AdapterSectionPager extends FragmentPagerAdapter {

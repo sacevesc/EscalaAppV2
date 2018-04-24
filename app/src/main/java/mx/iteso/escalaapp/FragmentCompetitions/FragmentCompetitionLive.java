@@ -1,4 +1,4 @@
-package mx.iteso.escalaapp;
+package mx.iteso.escalaapp.FragmentCompetitions;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.beans.Competition;
 
 /**

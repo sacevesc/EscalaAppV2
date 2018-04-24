@@ -1,7 +1,5 @@
 package mx.iteso.escalaapp.beans;
 
-import android.widget.Button;
-
 /**
  * Created by aceve on 03/03/2018.
  */
@@ -10,14 +8,61 @@ public class Gym {
     private String name;
     private String description;
     private String city;
-    private int photo;
-    private Button Competitions;
+    private String state;
+    private String address;
+    private String image;
+    private String owner;
+    private String eslogan;
 
-    public Gym(String name, String description, String city, int photo) {
+    public Gym(String name, String description, String city, String state, String address, String image, String owner, String eslogan) {
         this.name = name;
         this.description = description;
-        this.city= city;
-       this.photo= photo;
+        this.city = city;
+        this.state = state;
+        this.address = address;
+        this.image = image;
+        this.owner = owner;
+        if (!eslogan.isEmpty())
+            this.eslogan = eslogan;
+    }
+
+    public Gym(String name, String description, String city, String photo) {
+        this.name = name;
+        this.description = description;
+        this.city = city;
+        this.image = photo;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public String getEslogan() {
+        return eslogan;
+    }
+
+    public void setEslogan(String eslogan) {
+        this.eslogan = eslogan;
     }
 
     public String getName() {
@@ -44,19 +89,13 @@ public class Gym {
         this.city = city;
     }
 
-    public int getPhoto() {
-        return photo;
+    public String getImage() {
+        return image;
     }
 
-    public void setPhoto(int photo) {
-        this.photo = photo;
+    public void setImage(String photo) {
+        this.image = photo;
     }
 
-    public Button getCompetitions() {
-        return Competitions;
-    }
 
-    public void setCompetitions(Button competitions) {
-        Competitions = competitions;
-    }
 }

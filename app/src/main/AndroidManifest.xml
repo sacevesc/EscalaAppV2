@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ActivitySplashScreen"
+            android:name=".Activities.ActivitySplashScreen"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,28 +21,34 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ActivityLogin"
+            android:name=".Activities.ActivityLogin"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ActivitySignIn"
+            android:name=".Activities.ActivitySignIn"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ActivityProfile"
-            android:parentActivityName=".ActivityMain" />
-        <activity android:name=".ActivityEditProfile" />
-        <activity android:name=".ActivityGym" />
+            android:name=".Activities.ActivityProfile"
+            android:parentActivityName=".Activities.ActivityMain" />
+        <activity android:name=".Activities.ActivityEditProfile" />
+        <activity android:name=".Activities.ActivityGym" />
         <activity
-            android:name=".ActivityClimber"
-            android:parentActivityName=".ActivityMain" />
-        <activity android:name=".ActivityCompetition" />
-        <activity android:name=".ActivityJudging" />
-        <activity android:name=".ActivityResults" />
+            android:name=".Activities.ActivityClimber"
+            android:parentActivityName=".Activities.ActivityMain" />
+        <activity android:name=".Activities.ActivityCompetition" />
+        <activity android:name=".Activities.ActivityJudging" />
+        <activity android:name=".Activities.ActivityResults" />
         <activity
-            android:name=".ActivityMain"
+            android:name=".Activities.ActivityMain"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ActivityCompRegister"></activity>
+        <activity android:name=".Activities.ActivityCompRegister" />
+        <activity android:name=".Activities.ActivitySettings"></activity>
+        <activity
+            android:name=".Activities.ActivitySignGym"
+            android:parentActivityName=".Activities.ActivitySettings"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"></activity>
     </application>
 
 </manifest>

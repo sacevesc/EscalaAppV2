@@ -39,6 +39,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/twenty_five"
                 android:orientation="vertical">
 
@@ -53,9 +54,9 @@
                         android:id="@+id/item_climber_firstname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sebastian "
+                        android:text="SEBASTIAN"
                         android:textColor="@color/colorBlack"
-                        android:textSize="18dp"
+                        android:textSize="14sp"
                         android:textStyle="italic" />
 
                     <TextView
@@ -63,9 +64,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/five"
-                        android:text="Aceves"
+                        android:text="ACEVES"
                         android:textColor="@color/colorBlack"
-                        android:textSize="18dp"
+                        android:textSize="14sp"
                         android:textStyle="italic" />
 
                 </LinearLayout>
@@ -76,11 +77,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/five"
                     android:text="Rocodromo Ameyalli"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/twelve_sp" />
             </LinearLayout>
 
         </LinearLayout>
-
 
     </RelativeLayout>
 

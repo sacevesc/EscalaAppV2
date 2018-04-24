@@ -1,14 +1,14 @@
-package mx.iteso.escalaapp;
+package mx.iteso.escalaapp.FragmentClimbers;
 
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,15 +16,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
+import mx.iteso.escalaapp.Activities.ActivityJudging;
+import mx.iteso.escalaapp.Activities.ActivityProfile;
+import mx.iteso.escalaapp.Activities.ActivityResults;
+import mx.iteso.escalaapp.Activities.ActivitySettings;
+import mx.iteso.escalaapp.Activities.ActivitySplashScreen;
+import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.beans.Climber;
 
 
@@ -64,11 +72,35 @@ public class FragmentClimbers extends Fragment {
             }
         });
 
-        climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers");
+        Query climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").orderByChild("firstname");
 
+        // All climbers list
+        climbersDatabase.addValueEventListener(new ValueEventListener() {
 
-       /* ArrayList<Climber> climbers = new ArrayList<>();
-        climbers.add(new Climber("Arturo", "Garcia", "Mantis", "0"));
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<Climber> climbers = new ArrayList<>();
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Climber climber = postSnapshot.getValue(Climber.class);
+                    climbers.add(climber);
+                    // TODO: handle the post
+                }
+
+                AdapterClimber adapterClimber = new AdapterClimber(climbers);
+                climbersList.setAdapter(adapterClimber);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("Climberlist", "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        });
+
+        //ArrayList<Climber> climbers = new ArrayList<>();
+        /*climbers.add(new Climber("Arturo", "Garcia", "Mantis", "0"));
         climbers.add(new Climber("German", "Sanchez", "", "1"));
         climbers.add(new Climber("Edric", "Freyria", "Motion Boulder", "2"));
         climbers.add(new Climber("Luis", "Vazquez", "", "3"));
@@ -78,21 +110,6 @@ public class FragmentClimbers extends Fragment {
         climbersList.setAdapter(adapterClimber);
         */
         return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        FirebaseRecyclerAdapter<Climber, ClimberViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Climber, ClimberViewHolder>(
-                Climber.class, R.layout.item_climber, ClimberViewHolder.class, climbersDatabase) {
-            @Override
-            protected void populateViewHolder(ClimberViewHolder viewHolder, Climber model, int position) {
-                viewHolder.setClimberData(model.getFirstname(), model.getLastname(), model.getGym(), model.getPhoto());
-            }
-
-        };
-        climbersList.setAdapter(firebaseRecyclerAdapter);
     }
 
     @Override
@@ -110,6 +127,8 @@ public class FragmentClimbers extends Fragment {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(getActivity(), ActivitySettings.class);
+            startActivity(intent);
             return true;
         }
         if (id == R.id.action_judging) {
@@ -131,7 +150,7 @@ public class FragmentClimbers extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-
+/*
     public static class ClimberViewHolder extends RecyclerView.ViewHolder {
         public TextView mFirstName;
         public TextView mLastName;
@@ -168,4 +187,5 @@ public class FragmentClimbers extends Fragment {
         }
 
     }
+    */
 }

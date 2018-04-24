@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorCardViews"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/setting_gym_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/twenty"
+        android:layout_marginStart="@dimen/fifty"
+        android:layout_marginTop="@dimen/ten"
+        android:background="@color/colorCardViews"
+        android:gravity="start|center_vertical"
+        android:text="@string/settings_gym_prof"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/fifeteen_sp" />
+
+    <TextView
+        android:id="@+id/setting_gym_create_comp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/twenty"
+        android:layout_marginStart="@dimen/fifty"
+        android:layout_marginTop="@dimen/ten"
+        android:background="@color/colorCardViews"
+        android:gravity="start|center_vertical"
+        android:text="@string/settings_gym_create_competition"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/fifeteen_sp" />
+
+    <TextView
+        android:id="@+id/setting_gym_payment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/twenty"
+        android:layout_marginStart="@dimen/fifty"
+
+        android:layout_marginTop="@dimen/ten"
+        android:background="@color/colorCardViews"
+        android:gravity="start|center_vertical"
+        android:text="@string/settings_payment"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/fifeteen_sp" />
+
+    <TextView
+        android:id="@+id/setting_gym_help"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/twenty"
+        android:layout_marginStart="@dimen/fifty"
+        android:layout_marginTop="@dimen/ten"
+        android:background="@color/colorCardViews"
+        android:gravity="start|center_vertical"
+        android:text="@string/settings_help"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/fifeteen_sp" />
+
+    <TextView
+        android:id="@+id/create_gym"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fifty"
+        android:layout_marginTop="@dimen/ten"
+        android:background="@color/colorCardViews"
+        android:gravity="start|center_vertical"
+        android:text="@string/settings_add_gym"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/fifeteen_sp" />
+
+</LinearLayout>

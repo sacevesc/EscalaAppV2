@@ -1,4 +1,4 @@
-package mx.iteso.escalaapp;
+package mx.iteso.escalaapp.Activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.beans.Climber;
 
 public class ActivityProfile extends AppCompatActivity {
@@ -75,7 +76,7 @@ public class ActivityProfile extends AppCompatActivity {
                     climber.setState(dataSnapshot.child("state").getValue().toString());
                     climber.setCity(dataSnapshot.child("city").getValue().toString());
                     climber.setDescription(dataSnapshot.child("description").getValue().toString());
-                    climber.setPhoto(dataSnapshot.child("image").getValue().toString());
+                    climber.setImage(dataSnapshot.child("image").getValue().toString());
 
                     firstname.setText(climber.getFirstname());
                     lastname.setText(climber.getLastname());
@@ -84,7 +85,7 @@ public class ActivityProfile extends AppCompatActivity {
                     city.setText(climber.getCity());
                     descrption.setText(climber.getDescription());
 
-                    Uri imageUri = Uri.parse(climber.getPhoto());
+                    Uri imageUri = Uri.parse(climber.getImage());
                     draweeView.setImageURI(imageUri);
 
 

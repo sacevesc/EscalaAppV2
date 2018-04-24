@@ -1,4 +1,4 @@
-package mx.iteso.escalaapp;
+package mx.iteso.escalaapp.FragmentCompetitions;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -14,6 +14,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 
+import mx.iteso.escalaapp.Activities.ActivityCompetition;
+import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.beans.Competition;
 
 /**

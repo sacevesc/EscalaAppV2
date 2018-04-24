@@ -1,4 +1,4 @@
-package mx.iteso.escalaapp;
+package mx.iteso.escalaapp.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+
+import mx.iteso.escalaapp.R;
 
 public class ActivitySignIn extends AppCompatActivity {
     EditText firstname, lastname, email, password, descrption;
@@ -110,10 +112,10 @@ public class ActivitySignIn extends AppCompatActivity {
                             String uid = currentUser.getUid();
                             firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").child(uid);
                             HashMap<String, String> climbersMap = new HashMap<>();
-                            climbersMap.put("firstname", firstname.getText().toString());
-                            climbersMap.put("lastname", lastname.getText().toString());
-                            climbersMap.put("city", city.getText().toString());
-                            climbersMap.put("state", state.getText().toString());
+                            climbersMap.put("firstname", firstname.getText().toString().toUpperCase());
+                            climbersMap.put("lastname", lastname.getText().toString().toUpperCase());
+                            climbersMap.put("city", city.getText().toString().toUpperCase());
+                            climbersMap.put("state", state.getText().toString().toUpperCase());
                             climbersMap.put("gym", gym.getText().toString());
                             climbersMap.put("description", descrption.getText().toString());
                             climbersMap.put("image", getString(R.string.default_image_icon));

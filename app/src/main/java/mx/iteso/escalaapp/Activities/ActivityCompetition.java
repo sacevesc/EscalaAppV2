@@ -1,4 +1,4 @@
-package mx.iteso.escalaapp;
+package mx.iteso.escalaapp.Activities;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import mx.iteso.escalaapp.R;
 
 public class ActivityCompetition extends AppCompatActivity {
 

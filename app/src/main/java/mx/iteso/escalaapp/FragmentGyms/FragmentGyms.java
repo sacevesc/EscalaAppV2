@@ -1,11 +1,11 @@
-package mx.iteso.escalaapp;
+package mx.iteso.escalaapp.FragmentGyms;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,82 +17,39 @@ import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import mx.iteso.escalaapp.utils.AdapterSectionPager;
+import java.util.ArrayList;
 
-public class FragmentCompetitions extends Fragment {
-
-
-    /**
-     * Created by aceve on 04/03/2018.
-     */
-    private ViewPager mViewPager;
-    private AdapterSectionPager mSectionsPagerAdapter;
-    private boolean isOnLiveTab, isOnComingUpTab, isonEnded;
+import mx.iteso.escalaapp.Activities.ActivityJudging;
+import mx.iteso.escalaapp.Activities.ActivityProfile;
+import mx.iteso.escalaapp.Activities.ActivityResults;
+import mx.iteso.escalaapp.Activities.ActivitySettings;
+import mx.iteso.escalaapp.Activities.ActivitySplashScreen;
+import mx.iteso.escalaapp.R;
+import mx.iteso.escalaapp.beans.Gym;
 
 
-    public FragmentCompetitions() {
+public class FragmentGyms extends Fragment {
+
+    //Context context = FragmentGyms.this;
+
+    private RecyclerView.LayoutManager mLayoutManager;
+
+    public FragmentGyms() {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_competitions, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_gyms, container, false);
+        RecyclerView recyclerView = view.findViewById(R.id.fragment_recycler_view);
         setHasOptionsMenu(true);
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
-        mSectionsPagerAdapter = new AdapterSectionPager(getChildFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = view.findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-                if (isonEnded = position == 0)
-                    getActivity().invalidateOptionsMenu();
-
-
-                else if (isOnLiveTab = position == 1)
-                    getActivity().invalidateOptionsMenu();
-
-                else if (isOnComingUpTab = position == 2)
-                    getActivity().invalidateOptionsMenu();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-
-        TabLayout tabLayout = view.findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(tab.getPosition());
-            }
-        });
+        recyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
 
         ImageView imageView = view.findViewById(R.id.activity_main_profile);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +59,14 @@ public class FragmentCompetitions extends Fragment {
                 startActivity(intent);
             }
         });
+        ArrayList<Gym> gyms = new ArrayList<>();
+       /* gyms.add(new Gym("Ameyalli", "Muro de escalada en Zapopan Jalisco.", "Guadalajara", 0));
+        gyms.add(new Gym("Motion", "motiva motion un lugar para boulderear", "Zapopan", 1));
+        gyms.add(new Gym("Bloc-e", "Para ser el mejor, escala con los mejores", "CDMX", 2));
+
+        AdapterGym adapterProduct = new AdapterGym(gyms);
+        recyclerView.setAdapter(adapterProduct);
+        */
         return view;
     }
 
@@ -121,6 +86,8 @@ public class FragmentCompetitions extends Fragment {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(getActivity(), ActivitySettings.class);
+            startActivity(intent);
             return true;
         }
         if (id == R.id.action_judging) {
@@ -141,8 +108,4 @@ public class FragmentCompetitions extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }
-
-

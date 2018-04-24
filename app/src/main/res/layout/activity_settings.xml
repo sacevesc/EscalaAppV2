@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="mx.iteso.escalaapp.Activities.ActivitySettings">
+
+    <LinearLayout
+        android:id="@+id/fragments_settings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/log_out"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/general_settings"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/ten"
+                    android:background="@drawable/edit_profile_blue"
+                    android:onClick="settingsHandler" />
+
+                <Button
+                    android:id="@+id/gym_settings"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/ten"
+                    android:background="@drawable/pavilions"
+                    android:onClick="settingsHandler" />
+
+                <Button
+                    android:id="@+id/other_settings"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/ten"
+                    android:background="@drawable/climber"
+                    android:onClick="settingsHandler" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/frame_settings_fragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="@color/colorCardViews"></FrameLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/log_out"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/settings_profile_picture"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="@dimen/five"
+            android:layout_marginStart="@dimen/fifeteen"
+            android:layout_marginTop="@dimen/five"
+            android:scaleType="centerCrop"
+            fresco:placeholderImage="@drawable/climber"
+            fresco:roundAsCircle="true" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/twenty_five"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/settings_climber_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/settings_climber_firstname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SEBASTIAN"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14sp"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:id="@+id/settings_climber_lastname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/five"
+                    android:text="ACEVES"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14sp"
+                    android:textStyle="italic" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/settings_climber_gym"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/five"
+                android:text="Rocodromo Ameyalli"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/twelve_sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/log_out_action"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/two"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="@dimen/ten"
+                android:background="@drawable/climber" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Log Out"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

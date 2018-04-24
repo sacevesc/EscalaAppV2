@@ -1,4 +1,4 @@
-package mx.iteso.escalaapp;
+package mx.iteso.escalaapp.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -37,6 +37,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.beans.Climber;
 
 public class ActivityEditProfile extends AppCompatActivity {
@@ -101,7 +102,7 @@ public class ActivityEditProfile extends AppCompatActivity {
                 climber.setState(dataSnapshot.child("state").getValue().toString());
                 climber.setCity(dataSnapshot.child("city").getValue().toString());
                 climber.setDescription(dataSnapshot.child("description").getValue().toString());
-                climber.setPhoto(dataSnapshot.child("image").getValue().toString());
+                climber.setImage(dataSnapshot.child("image").getValue().toString());
 
                 firstname.setText(climber.getFirstname());
                 lastname.setText(climber.getLastname());
@@ -110,7 +111,7 @@ public class ActivityEditProfile extends AppCompatActivity {
                 city.setText(climber.getCity());
                 descrption.setText(climber.getDescription());
 
-                Uri imageUri = Uri.parse(climber.getPhoto());
+                Uri imageUri = Uri.parse(climber.getImage());
                 draweeView.setImageURI(imageUri);
 
             }

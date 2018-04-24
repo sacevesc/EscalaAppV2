@@ -1,4 +1,4 @@
-package mx.iteso.escalaapp;
+package mx.iteso.escalaapp.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.beans.User;
 
 public class ActivitySplashScreen extends AppCompatActivity {

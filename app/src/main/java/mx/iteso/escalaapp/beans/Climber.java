@@ -8,12 +8,13 @@ public class Climber {
     private String firstname;
     private String lastname;
     private String gym;
-    private String photo;
+    private String image;
     private String thumb;
     private String description;
     private String city;
     private String state;
     private String owner = "false";
+
 
     public Climber() {
         this.firstname = "";
@@ -22,22 +23,22 @@ public class Climber {
         this.description = "";
         this.city = "";
         this.state = "";
-        this.photo = "";
+        this.image = "";
         this.thumb = "";
     }
 
-    public Climber(String firstname, String lastname, String gym, String photo) {
+    public Climber(String firstname, String lastname, String gym, String image) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.gym = gym;
-        this.photo = photo;
+        this.image = image;
     }
 
-    public Climber(String firstname, String lastname, String gym, String photo, String description, String city, String state) {
+    public Climber(String firstname, String lastname, String gym, String image, String description, String city, String state) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.gym = gym;
-        this.photo = photo;
+        this.image = image;
         this.description = description;
         this.city = city;
         this.state = state;
@@ -65,7 +66,7 @@ public class Climber {
                 "firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", gym='" + gym + '\'' +
-                ", photo=" + photo +
+                ", image=" + image +
                 ", description='" + description + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
@@ -112,12 +113,12 @@ public class Climber {
         this.lastname = lastname;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getImage() {
+        return image;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getGym() {

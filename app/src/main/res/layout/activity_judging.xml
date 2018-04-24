@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mx.iteso.escalaapp.ActivityJudging"
+    android:orientation="vertical"
     android:padding="10dp"
-    android:orientation="vertical">
+    tools:context="mx.iteso.escalaapp.Activities.ActivityJudging">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,15 +13,15 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="Scoring:"
       />
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="Chris Sharma"/>
 
@@ -34,22 +32,22 @@
         android:orientation="horizontal">
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Round:"
-            android:gravity="center"
+            android:layout_column="0"
             android:layout_row="1"
-            android:layout_column="0" />
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Round:" />
 
         <Spinner
             android:id="@+id/activity_judging_roundSpinner"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:entries="@array/round"
+            android:layout_column="1"
             android:layout_row="1"
-            android:layout_column="1" />
+            android:layout_weight="1"
+            android:entries="@array/round" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,21 +55,21 @@
         android:orientation="horizontal">
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Boulder:"
-            android:gravity="center"
+            android:layout_column="0"
             android:layout_row="2"
-            android:layout_column="0">
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Boulder:">
         </TextView>
         <Spinner
             android:id="@+id/activity_judging_boulderSpinner"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:entries="@array/array_boulders"
+            android:layout_column="1"
             android:layout_row="2"
-            android:layout_column="1">
+            android:layout_weight="1"
+            android:entries="@array/array_boulders">
         </Spinner>
 
     </LinearLayout>
@@ -82,8 +80,8 @@
         android:orientation="horizontal">
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
@@ -118,8 +116,8 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="2"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -128,15 +126,15 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Results"/>
                 <Button
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="@string/competition_judge_undo"
-                    android:onClick="undo"/>
+                    android:layout_weight="1"
+                    android:onClick="undo"
+                    android:text="@string/competition_judge_undo" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -145,15 +143,15 @@
 
             <Button
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="@string/competition_judge_add_try"
-                android:onClick="addTry"/>
+                android:layout_weight="1"
+                android:onClick="addTry"
+                android:text="@string/competition_judge_add_try" />
                 <TextView
                     android:id="@+id/activity_judging_triesCounter"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:text="0"/>
             </LinearLayout>
@@ -163,15 +161,15 @@
                 android:orientation="horizontal">
                 <Button
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="@string/competition_judge_add_bonus"
-                    android:onClick="setBonus"/>
+                    android:layout_weight="1"
+                    android:onClick="setBonus"
+                    android:text="@string/competition_judge_add_bonus" />
                 <TextView
                     android:id="@+id/activity_judging_bonusCounter"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:text="0"/>
             </LinearLayout>
@@ -181,17 +179,17 @@
                 android:orientation="horizontal">
                 <Button
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="@string/competition_judge_add_top"
-                    android:onClick="setTop"/>
+                    android:layout_weight="1"
+                    android:onClick="setTop"
+                    android:text="@string/competition_judge_add_top" />
 
                 <TextView
                     android:id="@+id/activity_judging_topCounter"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:layout_height="wrap_content"
                     android:text="0"/>
 
             </LinearLayout><LinearLayout
@@ -202,15 +200,15 @@
             <TextView
                 android:id="@+id/activity_judging_results"
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
 
             <TextView
                 android:id="@+id/activity_judging_timer"
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
 
         </LinearLayout>

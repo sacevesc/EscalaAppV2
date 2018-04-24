@@ -1,4 +1,4 @@
-package mx.iteso.escalaapp;
+package mx.iteso.escalaapp.FragmentGyms;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -9,11 +9,12 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 
+import mx.iteso.escalaapp.Activities.ActivityGym;
+import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.beans.Gym;
 
 /**
@@ -40,7 +41,7 @@ public class AdapterGym extends RecyclerView.Adapter<AdapterGym.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.mName.setText(gyms.get(position).getName());
         holder.mCity.setText(gyms.get(position).getCity());
-        switch (gyms.get(position).getPhoto()) {
+       /* switch (gyms.get(position).getPhoto()) {
             case 0:
                 uri = new Uri.Builder().scheme(UriUtil.LOCAL_RESOURCE_SCHEME).path(String.valueOf(R.drawable.ameyalli)).build();
                 break;
@@ -55,7 +56,7 @@ public class AdapterGym extends RecyclerView.Adapter<AdapterGym.ViewHolder> {
                 break;
         }
         holder.draweeView.setImageURI(uri);
-
+*/
         holder.mDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

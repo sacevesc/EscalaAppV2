@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:theme="@style/AppTheme.AppBarOverlay"
-    tools:context="mx.iteso.escalaapp.FragmentGyms">
+    tools:context="mx.iteso.escalaapp.FragmentGyms.FragmentGyms">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"

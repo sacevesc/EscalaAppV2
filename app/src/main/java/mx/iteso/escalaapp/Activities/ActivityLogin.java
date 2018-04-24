@@ -1,4 +1,4 @@
-package mx.iteso.escalaapp;
+package mx.iteso.escalaapp.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import mx.iteso.escalaapp.R;
 
 public class ActivityLogin extends AppCompatActivity {
     EditText name, password;
