@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -26,11 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import mx.iteso.escalaapp.R;
-import mx.iteso.escalaapp.activities.ActivityJudging;
 import mx.iteso.escalaapp.activities.ActivityProfile;
-import mx.iteso.escalaapp.activities.ActivityResults;
 import mx.iteso.escalaapp.activities.ActivitySettings;
-import mx.iteso.escalaapp.activities.ActivitySplashScreen;
 import mx.iteso.escalaapp.beans.Gym;
 
 
@@ -51,7 +47,7 @@ public class FragmentGyms extends Fragment {
         gymsList = view.findViewById(R.id.fragment_recycler_view);
         setHasOptionsMenu(true);
 
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         gymsList.setHasFixedSize(true);
@@ -116,22 +112,6 @@ public class FragmentGyms extends Fragment {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent intent = new Intent(getActivity(), ActivitySettings.class);
-            startActivity(intent);
-            return true;
-        }
-        if (id == R.id.action_judging) {
-            Intent intent = new Intent(getActivity(), ActivityJudging.class);
-            startActivity(intent);
-            return true;
-        }
-        if (id == R.id.action_results) {
-            Intent intent = new Intent(getActivity(), ActivityResults.class);
-            startActivity(intent);
-            return true;
-        }
-        if (id == R.id.action_logout) {
-            FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(getActivity(), ActivitySplashScreen.class);
             startActivity(intent);
             return true;
         }

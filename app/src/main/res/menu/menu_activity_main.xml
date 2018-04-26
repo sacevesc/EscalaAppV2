@@ -7,19 +7,6 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never"/>
-    <item
-        android:id="@+id/action_judging"
-        android:orderInCategory="90"
-        android:title="Juez"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_results"
-        android:orderInCategory="90"
-        android:title="Results"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_logout"
-        android:orderInCategory="90"
-        android:title="Log out"
-        app:showAsAction="never" />
+
+
 </menu>

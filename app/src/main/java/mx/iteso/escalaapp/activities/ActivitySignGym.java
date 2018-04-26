@@ -190,7 +190,8 @@ public class ActivitySignGym extends AppCompatActivity {
                     // Sign in success, update UI with the signed-in user's information
                     progressDialog.dismiss();
                     Log.d("GYM", "createGym:success");
-                    updateImageGym(gymId);
+                    if (image_gym_id != null)
+                        updateImageGym(gymId);
 
                     Intent intent = new Intent(ActivitySignGym.this, ActivityMain.class);
                     startActivity(intent);
@@ -207,6 +208,28 @@ public class ActivitySignGym extends AppCompatActivity {
 
             ;
         });
+
+        firebaseDatabase.child("Climbers").child(uid).child("owner").setValue("true").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    progressDialog.dismiss();
+                    Log.d("Climber", "owner:success");
+                } else {
+                    // If sign in fails, display a message to the user.
+                    progressDialog.hide();
+                    Log.w("GYM", "CREATEgym:failure", task.getException());
+                    Toast.makeText(ActivitySignGym.this, "Owner failed.",
+                            Toast.LENGTH_SHORT).show();
+                    //updateUI(null);
+                }
+            }
+
+            ;
+        });
+
+
     }
 
 

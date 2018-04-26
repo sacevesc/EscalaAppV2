@@ -120,7 +120,7 @@
             android:layout_marginEnd="@dimen/ten"
             android:layout_weight="1"
             android:background="@drawable/button_comp_options"
-            android:enabled="false"
+            android:enabled="true"
             android:text="@string/competition_judge"
             android:textAllCaps="true"
             android:textSize="12sp" />

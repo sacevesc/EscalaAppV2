@@ -43,6 +43,7 @@ public class ActivitySettings extends AppCompatActivity {
         firstname = findViewById(R.id.settings_climber_firstname);
         lastname = findViewById(R.id.settings_climber_lastname);
         gym = findViewById(R.id.settings_climber_gym);
+        draweeView = findViewById(R.id.settings_profile_picture);
         logout = findViewById(R.id.log_out);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,16 +75,11 @@ public class ActivitySettings extends AppCompatActivity {
 
                 Uri imageUri = Uri.parse(climber.getImage());
                 draweeView.setImageURI(imageUri);
-
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
-
     }
 
 

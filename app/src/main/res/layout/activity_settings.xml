@@ -7,6 +7,7 @@
     tools:context="mx.iteso.escalaapp.activities.ActivitySettings">
 
     <LinearLayout
+        android:baselineAligned="false"
         android:id="@+id/fragments_settings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,13 +21,6 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/general_settings"
@@ -54,7 +48,6 @@
                     android:layout_margin="@dimen/ten"
                     android:background="@drawable/climber"
                     android:onClick="settingsHandler" />
-            </LinearLayout>
 
 
         </LinearLayout>
@@ -107,7 +100,6 @@
                     android:id="@+id/settings_climber_firstname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SEBASTIAN"
                     android:textColor="@color/colorWhite"
                     android:textSize="14sp"
                     android:textStyle="italic|bold" />
@@ -117,7 +109,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/five"
-                    android:text="ACEVES"
                     android:textColor="@color/colorWhite"
                     android:textSize="14sp"
                     android:textStyle="italic|bold" />
@@ -129,7 +120,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/five"
-                android:text="Rocodromo Ameyalli"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/twelve_sp" />
         </LinearLayout>
@@ -154,7 +144,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorWhite"
-                android:text="Log Out"
+                android:text="@string/log_out"
                 android:textSize="12sp" />
         </LinearLayout>
 

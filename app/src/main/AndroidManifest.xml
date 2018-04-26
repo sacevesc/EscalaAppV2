@@ -50,7 +50,9 @@
             android:parentActivityName=".activities.ActivitySettings"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ActivityCreateCompetition"></activity>
+        <activity
+            android:name=".ActivityCreateCompetition"
+            android:windowSoftInputMode="stateHidden"></activity>
     </application>
 
 </manifest>

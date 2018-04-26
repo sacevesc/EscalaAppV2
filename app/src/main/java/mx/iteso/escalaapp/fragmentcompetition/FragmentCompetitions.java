@@ -16,9 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import mx.iteso.escalaapp.R;
-import mx.iteso.escalaapp.activities.ActivityJudging;
 import mx.iteso.escalaapp.activities.ActivityProfile;
-import mx.iteso.escalaapp.activities.ActivityResults;
 import mx.iteso.escalaapp.activities.ActivitySettings;
 import mx.iteso.escalaapp.utils.AdapterSectionPager;
 
@@ -43,7 +41,7 @@ public class FragmentCompetitions extends Fragment {
         View view = inflater.inflate(R.layout.fragment_competitions, container, false);
         setHasOptionsMenu(true);
 
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         mSectionsPagerAdapter = new AdapterSectionPager(getChildFragmentManager());
@@ -125,16 +123,6 @@ public class FragmentCompetitions extends Fragment {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent intent = new Intent(getActivity(), ActivitySettings.class);
-            startActivity(intent);
-            return true;
-        }
-        if (id == R.id.action_judging) {
-            Intent intent = new Intent(getActivity(), ActivityJudging.class);
-            startActivity(intent);
-            return true;
-        }
-        if (id == R.id.action_results) {
-            Intent intent = new Intent(getActivity(), ActivityResults.class);
             startActivity(intent);
             return true;
         }
