@@ -1,4 +1,4 @@
-package mx.iteso.escalaapp.Activities;
+package mx.iteso.escalaapp.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

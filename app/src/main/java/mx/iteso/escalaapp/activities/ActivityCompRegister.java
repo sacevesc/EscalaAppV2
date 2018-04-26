@@ -1,4 +1,4 @@
-package mx.iteso.escalaapp.Activities;
+package mx.iteso.escalaapp.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

@@ -1,7 +1,8 @@
-package mx.iteso.escalaapp.Activities;
+package mx.iteso.escalaapp.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -13,27 +14,36 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import mx.iteso.escalaapp.R;
 
 public class ActivitySignGym extends AppCompatActivity {
     EditText name, eslogan, address, descrption;
     AutoCompleteTextView city, state;
+    private static final int GALLERY_PICK = 1;
     Button done, image_btn;
+    SimpleDraweeView draweeView;
 
 
     //private FirebaseAuth mAuth;//firebase auth
     private ProgressDialog progressDialog;
     private DatabaseReference firebaseDatabase;
     private FirebaseUser currentUser;
+    private StorageReference mStorageRef;
+    private Uri image_gym_id;
 
 
     @Override
@@ -45,11 +55,14 @@ public class ActivitySignGym extends AppCompatActivity {
         //  mAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
         firebaseDatabase = FirebaseDatabase.getInstance().getReference();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
         name = findViewById(R.id.sign_gym_name);
         eslogan = findViewById(R.id.sign_gym_eslogan);
         image_btn = findViewById(R.id.sign_gym_image_button);
+        draweeView = findViewById(R.id.sign_gym_image);
 
 
         city = findViewById(R.id.sign_gym_city_autocomplete);
@@ -83,13 +96,80 @@ public class ActivitySignGym extends AppCompatActivity {
             }
         });
 
+        image_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+
+                startActivityForResult(Intent.createChooser(intent, "SELECT IMAGE"), GALLERY_PICK);
+            }
+        });
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == GALLERY_PICK && resultCode == RESULT_OK) {
+            final Uri image_uri = data.getData();
+            image_gym_id = image_uri;
+            String userUid = currentUser.getUid();
+
+            //final File thumb_file = new File(image_uri.getPath());
+            // Bitmap thumb_bitmap = new Compressor(ActivityEditProfile.this).setMaxWidth(200).setMaxHeight(200).setQuality(75).compressToBitmap(thumb_file);
+            //Bitmap thumb_bitmap = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(thumb_file.getPath()), 200, 200);
+
+            //ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            //assert thumb_bitmap != null;
+            //thumb_bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
+            //final byte[] thumb_byte = byteArrayOutputStream.toByteArray();
+
+            StorageReference filepath = mStorageRef.child("gym_images").child(userUid + ".jpg");
+            //final StorageReference thumb_filePath = mStorageRef.child("gym_images").child("thumbs").child(userUid + ".jpg");
+
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Loading Image");
+            progressDialog.setMessage("Please wait while your image is being saved");
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
+
+            filepath.putFile(image_uri)
+                    .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                final String downloadUrl = task.getResult().getDownloadUrl().toString();
+                                draweeView.setImageURI(image_uri);
+
+                                //UploadTask uploadTask = thumb_filePath.putBytes(thumb_byte);
+                                //uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                //  @Override
+                                //public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
+
+                                //  String thumb_downloadUrl = thumb_task.getResult().getDownloadUrl().toString();
+
+                                //if (thumb_task.isSuccessful()) {
+
+                                progressDialog.dismiss();
+                                Log.d("Image", "uploadImage:success");
+
+
+                            } else {
+                                Log.d("Image", "uploadThumbnail:FAILURE");
+                                progressDialog.dismiss();
+                            }
+                        }
+                    });
+        }
     }
 
 
     private void createGym() {
 
         final String gymId = firebaseDatabase.child("Gyms").push().getKey();
-        currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String uid = currentUser.getUid();
         HashMap<String, String> gymMap = new HashMap<>();
         gymMap.put("name", name.getText().toString().toUpperCase());
@@ -98,7 +178,7 @@ public class ActivitySignGym extends AppCompatActivity {
         gymMap.put("state", state.getText().toString().toUpperCase());
         gymMap.put("address", address.getText().toString());
         gymMap.put("description", descrption.getText().toString());
-        gymMap.put("image", getString(R.string.default_image_icon));
+        gymMap.put("image", getString(R.string.default_image_gym));
         gymMap.put("thumb", "default");
         gymMap.put("owner", uid);
 
@@ -110,8 +190,8 @@ public class ActivitySignGym extends AppCompatActivity {
                     // Sign in success, update UI with the signed-in user's information
                     progressDialog.dismiss();
                     Log.d("GYM", "createGym:success");
-                    //FirebaseUser user = mAuth.getCurrentUser();
-                    //updateUI(user);
+                    updateImageGym(gymId);
+
                     Intent intent = new Intent(ActivitySignGym.this, ActivityMain.class);
                     startActivity(intent);
                     finish();
@@ -124,9 +204,42 @@ public class ActivitySignGym extends AppCompatActivity {
                     //updateUI(null);
                 }
             }
+
+            ;
         });
     }
 
+
+    public void updateImageGym(final String gymId) {
+        StorageReference filepath = mStorageRef.child("gym_images").child(gymId + ".jpg");
+        firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Gyms").child(gymId);
+
+        filepath.putFile(image_gym_id).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if (task.isSuccessful()) {
+                    final String downloadUrl = task.getResult().getDownloadUrl().toString();
+
+                    Map updateHashmap = new HashMap();
+                    updateHashmap.put("image", downloadUrl);
+
+                    firebaseDatabase.updateChildren(updateHashmap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                progressDialog.dismiss();
+                                Log.d("Image", "uploadImage:success");
+                            }
+                        }
+                    });
+
+                } else {
+                    Log.d("Image", "uploadImage:FAILURE");
+                    progressDialog.dismiss();
+                }
+            }
+        });
+    }
 
     public boolean checkDataUser() {
         if (name.getText().toString().isEmpty())

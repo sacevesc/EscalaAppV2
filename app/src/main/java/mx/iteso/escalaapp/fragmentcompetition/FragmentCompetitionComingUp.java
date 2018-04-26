@@ -1,4 +1,4 @@
-package mx.iteso.escalaapp.FragmentCompetitions;
+package mx.iteso.escalaapp.fragmentcompetition;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

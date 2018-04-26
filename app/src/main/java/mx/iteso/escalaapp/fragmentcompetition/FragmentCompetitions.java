@@ -1,4 +1,4 @@
-package mx.iteso.escalaapp.FragmentCompetitions;
+package mx.iteso.escalaapp.fragmentcompetition;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,12 +17,12 @@ import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import mx.iteso.escalaapp.Activities.ActivityJudging;
-import mx.iteso.escalaapp.Activities.ActivityProfile;
-import mx.iteso.escalaapp.Activities.ActivityResults;
-import mx.iteso.escalaapp.Activities.ActivitySettings;
-import mx.iteso.escalaapp.Activities.ActivitySplashScreen;
 import mx.iteso.escalaapp.R;
+import mx.iteso.escalaapp.activities.ActivityJudging;
+import mx.iteso.escalaapp.activities.ActivityProfile;
+import mx.iteso.escalaapp.activities.ActivityResults;
+import mx.iteso.escalaapp.activities.ActivitySettings;
+import mx.iteso.escalaapp.activities.ActivitySplashScreen;
 import mx.iteso.escalaapp.utils.AdapterSectionPager;
 
 public class FragmentCompetitions extends Fragment {

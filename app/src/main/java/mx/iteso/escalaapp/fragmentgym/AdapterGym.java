@@ -1,4 +1,4 @@
-package mx.iteso.escalaapp.FragmentGyms;
+package mx.iteso.escalaapp.fragmentgym;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,8 +13,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 
-import mx.iteso.escalaapp.Activities.ActivityGym;
 import mx.iteso.escalaapp.R;
+import mx.iteso.escalaapp.activities.ActivityGym;
 import mx.iteso.escalaapp.beans.Gym;
 
 /**
@@ -24,7 +24,7 @@ import mx.iteso.escalaapp.beans.Gym;
 
 public class AdapterGym extends RecyclerView.Adapter<AdapterGym.ViewHolder> {
 
-    public Uri uri;
+
     ArrayList<Gym> gyms;
     public AdapterGym(ArrayList<Gym> gyms) {
         this.gyms = gyms;
@@ -41,26 +41,15 @@ public class AdapterGym extends RecyclerView.Adapter<AdapterGym.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.mName.setText(gyms.get(position).getName());
         holder.mCity.setText(gyms.get(position).getCity());
-       /* switch (gyms.get(position).getPhoto()) {
-            case 0:
-                uri = new Uri.Builder().scheme(UriUtil.LOCAL_RESOURCE_SCHEME).path(String.valueOf(R.drawable.ameyalli)).build();
-                break;
-            case 1:
-                uri = new Uri.Builder().scheme(UriUtil.LOCAL_RESOURCE_SCHEME).path(String.valueOf(R.drawable.motion)).build();
-                break;
-            case 2:
-                uri = new Uri.Builder().scheme(UriUtil.LOCAL_RESOURCE_SCHEME).path(String.valueOf(R.drawable.bloce)).build();
-                break;
-            default:
-                uri = new Uri.Builder().scheme(UriUtil.LOCAL_RESOURCE_SCHEME).path(String.valueOf(R.drawable.bloce)).build();
-                break;
-        }
-        holder.draweeView.setImageURI(uri);
-*/
-        holder.mDetail.setOnClickListener(new View.OnClickListener() {
+        holder.mState.setText(gyms.get(position).getState());
+        final Uri image_uri = Uri.parse(gyms.get(position).getImage());
+        holder.draweeView.setImageURI(image_uri);
+
+        holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(v.getContext(),ActivityGym.class);
+                Intent intent = new Intent(v.getContext(), ActivityGym.class);
+                intent.putExtra("gym_id", gyms.get(position).getKey());
                 v.getContext().startActivity(intent);
             }
         });
@@ -71,17 +60,17 @@ public class AdapterGym extends RecyclerView.Adapter<AdapterGym.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView mName;
-        public TextView mCity;
+        public TextView mName, mCity, mState;
         public RelativeLayout mDetail;
         public SimpleDraweeView draweeView;
-
+        View view;
 
         public ViewHolder(View v) {
             super(v);
+            view = v;
             mName = v.findViewById(R.id.item_gym_name);
             mCity = v.findViewById(R.id.item_gym_city);
-            mDetail = v.findViewById(R.id.item_gym_relative);
+            mState = v.findViewById(R.id.item_gym_state);
             draweeView = (SimpleDraweeView) v.findViewById(R.id.item_gym_profile_picture);
         }
     }

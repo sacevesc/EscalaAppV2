@@ -1,4 +1,4 @@
-package mx.iteso.escalaapp.Activities;
+package mx.iteso.escalaapp.activities;
 
 import android.net.Uri;
 import android.os.Bundle;

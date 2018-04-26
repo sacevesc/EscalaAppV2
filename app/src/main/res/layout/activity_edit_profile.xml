@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context="mx.iteso.escalaapp.Activities.ActivityEditProfile">
+    tools:context="mx.iteso.escalaapp.activities.ActivityEditProfile">
 
     <TextView
         android:id="@+id/activity_login_title"

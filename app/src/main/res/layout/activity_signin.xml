@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context="mx.iteso.escalaapp.Activities.ActivitySignIn">
+    tools:context="mx.iteso.escalaapp.activities.ActivitySignIn">
 
     <TextView
         android:id="@+id/activity_login_title"

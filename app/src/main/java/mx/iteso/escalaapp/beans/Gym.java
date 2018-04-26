@@ -13,6 +13,18 @@ public class Gym {
     private String image;
     private String owner;
     private String eslogan;
+    private String key;
+
+    public Gym() {
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public Gym(String name, String description, String city, String state, String address, String image, String owner, String eslogan) {
         this.name = name;

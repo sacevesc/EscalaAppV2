@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ActivityCreateCompetition">
+
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/newcomp_done_button"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/five">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/ten"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/fifeteen"
+                android:scaleType="centerCrop"
+                fresco:placeholderImage="@drawable/climber"
+                fresco:roundAsCircle="true"></com.facebook.drawee.view.SimpleDraweeView>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_marginBottom="@dimen/fifeteen"
+                android:background="@drawable/button_2"
+                android:gravity="center"
+                android:text="@string/change_image"
+                android:textSize="@dimen/ten_sp" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/fifeteen"
+                android:scaleType="centerCrop"
+                fresco:placeholderImage="@drawable/climber"
+                fresco:roundAsCircle="true"></com.facebook.drawee.view.SimpleDraweeView>
+
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/newcomp_image"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/thirty_five"
+                android:scaleType="centerCrop"
+                fresco:placeholderImage="@drawable/climber"
+                fresco:roundAsCircle="true"></com.facebook.drawee.view.SimpleDraweeView>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:background="@drawable/button_2"
+                android:text="@string/change_image"
+                android:textSize="@dimen/ten_sp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/newcomp_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/twenty"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:hint="@string/new_competition_name"
+                    android:inputType="textPersonName"
+                    android:maxLines="2"
+                    android:textColor="@color/colorPrimaryDark" />
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="@dimen/five"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/create_comp_no_rounds" />
+
+                <Spinner
+                    android:id="@+id/newcomp_no_rounds_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:entries="@array/comp_rounds"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_qualifications"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/competitions_results_qualifications" />
+
+                <Spinner
+                    android:id="@+id/newcomp_boulder_per_round_qualifications"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:entries="@array/array_boulders_round" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linear_semifinals"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="@dimen/five"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/competitions_results_semifinals" />
+
+                <Spinner
+                    android:id="@+id/newcomp_boulder_per_round_semifinal"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:entries="@array/array_boulders_round" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_finals"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="@dimen/five"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/competitions_results_finals" />
+
+                <Spinner
+                    android:id="@+id/newcomp_boulder_per_round_finals"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:entries="@array/array_boulders_round" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_superfinals"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="@dimen/five"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/competitions_results_superfinals" />
+
+                <Spinner
+                    android:id="@+id/newcomp_boulder_per_round_superfinals"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:entries="@array/array_boulders_round" />
+
+            </LinearLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/newcomp_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:hint="@string/description"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/colorPrimaryDark" />
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="@dimen/five"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/newcomp_categorys" />
+
+                <Spinner
+                    android:id="@+id/newcomp_no_categorys"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:entries="@array/array_categorys"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_category_one"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/category_1" />
+
+                <EditText
+                    android:id="@+id/newcomp_category_one"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:inputType="text" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_category_two"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="@dimen/five"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/category_2" />
+
+                <EditText
+                    android:id="@+id/newcomp_category_two"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:inputType="text" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_category_three"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="@dimen/five"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/category_3" />
+
+                <EditText
+                    android:id="@+id/newcomp_category_three"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_category_four"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="@dimen/five"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/category_4" />
+
+                <EditText
+                    android:id="@+id/newcomp_category_four"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_category_five"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="@dimen/five"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/category_5" />
+
+                <EditText
+                    android:id="@+id/newcomp_category_five"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/newcomp_done_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/ten"
+        android:background="@drawable/button_1"
+        android:text="@string/new_comp_done"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/twenty_five_sp" />
+
+</RelativeLayout>
+

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="mx.iteso.escalaapp.FragmentClimbers.FragmentClimbers">
+    tools:context="mx.iteso.escalaapp.fragmentclimber.FragmentClimbers">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_weight="1"
-            android:background="?attr/colorPrimary"
+            android:background="@color/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 

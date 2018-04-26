@@ -32,6 +32,7 @@
                 android:layout_marginBottom="@dimen/five"
                 android:layout_marginStart="@dimen/fifeteen"
                 android:layout_marginTop="@dimen/five"
+                card_view:placeholderImage="@drawable/pavilions"
                 android:scaleType="centerCrop"
                 fresco:roundAsCircle="true" />
 
@@ -49,14 +50,42 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/fifeteen"
                     android:textColor="@color/colorBlack"
+                    android:text="Rodocdromo Ameyalli"
+                    android:textSize="14sp"
                     />
 
-                <TextView
-                    android:id="@+id/item_gym_city"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/fifeteen"
-                    android:textColor="@color/colorPrimary"/>
+                    android:layout_marginTop="@dimen/five"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/item_gym_city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/fifeteen"
+                        android:text="Guadalajara"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=","
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/item_gym_state"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/four"
+                        android:text="Jalisco"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
 
             </LinearLayout>
         </LinearLayout>

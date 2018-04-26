@@ -9,8 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import mx.iteso.escalaapp.Activities.ActivitySignGym;
+import mx.iteso.escalaapp.ActivityCreateCompetition;
 import mx.iteso.escalaapp.R;
+import mx.iteso.escalaapp.activities.ActivitySignGym;
 
 /**
  * Created by aceve on 23/04/2018.
@@ -45,6 +46,8 @@ public class FragmentGymSettings extends Fragment {
             @Override
             public void onClick(View v) {
                 //Intent createCompIntent = new Intent(getActivity())
+                Intent createGymIntent = new Intent(getActivity(), ActivityCreateCompetition.class);
+                startActivity(createGymIntent);
                 Toast.makeText(getActivity(), "Create compettition", Toast.LENGTH_SHORT).show();
             }
         });

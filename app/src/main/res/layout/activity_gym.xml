@@ -6,7 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mx.iteso.escalaapp.Activities.ActivityClimber">
+    android:paddingTop="@dimen/twenty"
+    tools:context="mx.iteso.escalaapp.activities.ActivityClimber">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/gym_profile_picture"
@@ -14,6 +15,7 @@
         android:layout_height="124dp"
         android:layout_margin="@dimen/twenty"
         android:scaleType="centerCrop"
+        fresco:placeholderImage="@drawable/pavilions"
         fresco:roundAsCircle="true" />
 
     <LinearLayout
@@ -30,7 +32,8 @@
             android:id="@+id/gym_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:text="Rocodromo Ameyalli"
             android:textSize="@dimen/twenty_five_sp" />
 
@@ -73,9 +76,9 @@
         android:id="@+id/gym_numbers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/linear_gym_info"
+        android:layout_below="@id/gym_profile_picture"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/thirty_five"
+        android:layout_marginTop="@dimen/twenty"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -202,13 +205,12 @@
 
 
     <TextView
-        android:id="@+id/climber_description"
+        android:id="@+id/gym_description"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_below="@id/gym_numbers"
         android:layout_margin="@dimen/five"
         android:layout_marginBottom="@dimen/ten"
-        android:gravity="center"
         android:paddingLeft="@dimen/twenty"
         android:paddingRight="@dimen/twenty"
         android:text="@string/descripcion_prueba"
@@ -219,7 +221,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/climber_description"
+        android:layout_below="@+id/gym_description"
         android:layout_marginTop="67dp" />
 
 

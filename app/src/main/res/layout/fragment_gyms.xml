@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:theme="@style/AppTheme.AppBarOverlay"
-    tools:context="mx.iteso.escalaapp.FragmentGyms.FragmentGyms">
+    tools:context="mx.iteso.escalaapp.fragmentgym.FragmentGyms">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -23,7 +23,7 @@
             android:layout_height="45dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="?attr/colorPrimary"
+            android:background="@color/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 

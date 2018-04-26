@@ -1,4 +1,4 @@
-package mx.iteso.escalaapp.FragmentClimbers;
+package mx.iteso.escalaapp.fragmentclimber;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,8 +13,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 
-import mx.iteso.escalaapp.Activities.ActivityClimber;
 import mx.iteso.escalaapp.R;
+import mx.iteso.escalaapp.activities.ActivityClimber;
 import mx.iteso.escalaapp.beans.Climber;
 
 /**
@@ -36,16 +36,7 @@ public class AdapterClimber extends RecyclerView.Adapter<AdapterClimber.ViewHold
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_climber, parent, false);
         ViewHolder vh = new ViewHolder(v);
-        //climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers");
 
-        /*FirebaseRecyclerAdapter<Climber, FragmentClimbers.ClimberViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Climber, FragmentClimbers.ClimberViewHolder>(
-                Climber.class, R.layout.item_climber, FragmentClimbers.ClimberViewHolder.class, climbersDatabase) {
-            @Override
-            protected void populateViewHolder(FragmentClimbers.ClimberViewHolder viewHolder, Climber model, int position) {
-                viewHolder.setClimberData(model.getFirstname(), model.getLastname(), model.getGym(), model.getImage());
-            }
-        };
-        */
         return vh;
     }
 
@@ -54,16 +45,21 @@ public class AdapterClimber extends RecyclerView.Adapter<AdapterClimber.ViewHold
         holder.mFirstName.setText(climbers.get(position).getFirstname());
         holder.mLastName.setText(climbers.get(position).getLastname());
         holder.mGym.setText(climbers.get(position).getGym());
-        Uri image_uri = Uri.parse(climbers.get(position).getImage());
+        final Uri image_uri = Uri.parse(climbers.get(position).getImage());
         holder.draweeView.setImageURI(image_uri);
 
-        holder.mDetail.setOnClickListener(new View.OnClickListener() {
+        //final String climber_id = FirebaseDatabase.getInstance().getReference().child("Climbers").getKey();
+
+        holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ActivityClimber.class);
+                intent.putExtra("climber_id", climbers.get(position).getKey());
                 v.getContext().startActivity(intent);
             }
         });
+
+
     }
 
 
@@ -72,19 +68,18 @@ public class AdapterClimber extends RecyclerView.Adapter<AdapterClimber.ViewHold
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView mFirstName;
-        public TextView mLastName;
-        public TextView mGym;
+        public TextView mFirstName, mLastName, mGym;
         public SimpleDraweeView draweeView;
         public RelativeLayout mDetail;
+        View view;
 
         public ViewHolder(View v) {
             super(v);
+            view = v;
             mFirstName = v.findViewById(R.id.item_climber_firstname);
             mLastName = v.findViewById(R.id.item_climber_lastname);
             draweeView = (SimpleDraweeView) v.findViewById(R.id.item_climber_profile_picture);
             mGym = v.findViewById(R.id.item_climber_gym);
-            mDetail = v.findViewById(R.id.item_climber_relative);
         }
 
 

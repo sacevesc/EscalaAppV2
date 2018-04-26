@@ -1,4 +1,4 @@
-package mx.iteso.escalaapp.Activities;
+package mx.iteso.escalaapp.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -40,7 +40,6 @@ public class ActivityProfile extends AppCompatActivity {
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             setTitle(getResources().getString(R.string.app_name));
 
             edit_profile = findViewById(R.id.climber_profile_edit);

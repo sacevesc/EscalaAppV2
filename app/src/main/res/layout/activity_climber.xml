@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mx.iteso.escalaapp.Activities.ActivityClimber">
+    tools:context="mx.iteso.escalaapp.activities.ActivityClimber">
 
 
     <android.support.design.widget.AppBarLayout
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_weight="1"
-            android:background="?attr/colorPrimary"
+            android:background="@color/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
         </android.support.v7.widget.Toolbar>
@@ -39,15 +39,30 @@
         fresco:roundAsCircle="true" />
 
 
-    <TextView
+    <LinearLayout
         android:id="@+id/climber_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/climber_profile_picture"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/ten"
-        android:text="Sebastián Aceves"
-        android:textSize="@dimen/twenty_five_sp" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/climber_firstname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/five"
+            android:text="Sebastián"
+            android:textSize="@dimen/twenty_five_sp" />
+
+        <TextView
+            android:id="@+id/climber_lastname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aceves"
+            android:textSize="@dimen/twenty_five_sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/climber_social_networks"
@@ -85,7 +100,7 @@
     <TextView
         android:id="@+id/climber_description"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/climber_social_networks"
         android:layout_marginBottom="@dimen/ten"
         android:layout_marginEnd="@dimen/five"
@@ -141,8 +156,18 @@
             android:id="@+id/climber_city_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/four"
+            android:layout_marginStart="@dimen/four"
+            android:layout_marginTop="@dimen/four"
+            android:text="Guadalajara"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/climber_state_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/four"
-            android:text="Guadalajara, Jalisco."
+            android:text="Jalisco."
             android:textSize="14sp" />
     </LinearLayout>
 
@@ -150,8 +175,8 @@
         android:id="@+id/climber_results_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/climber_city_info"
-        android:layout_alignStart="@+id/climber_gym_info"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
         android:layout_below="@+id/climber_city_info"
         android:layout_marginTop="@dimen/twenty_five"
         android:background="@drawable/button_2"

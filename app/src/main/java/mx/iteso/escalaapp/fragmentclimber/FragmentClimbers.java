@@ -1,4 +1,5 @@
-package mx.iteso.escalaapp.FragmentGyms;
+package mx.iteso.escalaapp.fragmentclimber;
+
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,40 +18,50 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import mx.iteso.escalaapp.Activities.ActivityJudging;
-import mx.iteso.escalaapp.Activities.ActivityProfile;
-import mx.iteso.escalaapp.Activities.ActivityResults;
-import mx.iteso.escalaapp.Activities.ActivitySettings;
-import mx.iteso.escalaapp.Activities.ActivitySplashScreen;
 import mx.iteso.escalaapp.R;
-import mx.iteso.escalaapp.beans.Gym;
+import mx.iteso.escalaapp.activities.ActivityJudging;
+import mx.iteso.escalaapp.activities.ActivityProfile;
+import mx.iteso.escalaapp.activities.ActivityResults;
+import mx.iteso.escalaapp.activities.ActivitySettings;
+import mx.iteso.escalaapp.activities.ActivitySplashScreen;
+import mx.iteso.escalaapp.beans.Climber;
 
 
-public class FragmentGyms extends Fragment {
-
-    //Context context = FragmentGyms.this;
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class FragmentClimbers extends Fragment {
 
     private RecyclerView.LayoutManager mLayoutManager;
+    private DatabaseReference climbersDatabase;
+    private RecyclerView climbersList;
 
-    public FragmentGyms() {
+    public FragmentClimbers() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_gyms, container, false);
-        RecyclerView recyclerView = view.findViewById(R.id.fragment_recycler_view);
+        View view = inflater.inflate(R.layout.fragment_climbers, container, false);
+        climbersList = view.findViewById(R.id.fragment_climbers_recycler_view);
         setHasOptionsMenu(true);
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
-        recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(mLayoutManager);
+
+        climbersList.setHasFixedSize(true);
+        climbersList.setLayoutManager(mLayoutManager);
 
         ImageView imageView = view.findViewById(R.id.activity_main_profile);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -59,17 +71,43 @@ public class FragmentGyms extends Fragment {
                 startActivity(intent);
             }
         });
-        ArrayList<Gym> gyms = new ArrayList<>();
-       /* gyms.add(new Gym("Ameyalli", "Muro de escalada en Zapopan Jalisco.", "Guadalajara", 0));
-        gyms.add(new Gym("Motion", "motiva motion un lugar para boulderear", "Zapopan", 1));
-        gyms.add(new Gym("Bloc-e", "Para ser el mejor, escala con los mejores", "CDMX", 2));
 
-        AdapterGym adapterProduct = new AdapterGym(gyms);
-        recyclerView.setAdapter(adapterProduct);
-        */
+
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Query climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").orderByChild("firstname");
+
+        // All climbers list
+        climbersDatabase.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<Climber> climbers = new ArrayList<>();
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Climber climber = postSnapshot.getValue(Climber.class);
+                    climber.setKey(postSnapshot.getKey());
+                    climbers.add(climber);
+                }
+
+                AdapterClimber adapterClimber = new AdapterClimber(climbers);
+                climbersList.setAdapter(adapterClimber);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("Climberlist", "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+
+
+        });
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -108,4 +146,5 @@ public class FragmentGyms extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

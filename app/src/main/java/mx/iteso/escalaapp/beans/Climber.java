@@ -14,6 +14,7 @@ public class Climber {
     private String city;
     private String state;
     private String owner = "false";
+    private String key;
 
 
     public Climber() {
@@ -25,6 +26,14 @@ public class Climber {
         this.state = "";
         this.image = "";
         this.thumb = "";
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public Climber(String firstname, String lastname, String gym, String image) {

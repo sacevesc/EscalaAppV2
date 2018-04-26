@@ -8,11 +8,12 @@
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
+        android:icon="@drawable/sebas_nacional_2_recortada"
         android:roundIcon="@drawable/sebas_nacional_2_recortada"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activities.ActivitySplashScreen"
+            android:name=".activities.ActivitySplashScreen"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,34 +22,35 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.ActivityLogin"
+            android:name=".activities.ActivityLogin"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".Activities.ActivitySignIn"
+            android:name=".activities.ActivitySignIn"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".Activities.ActivityProfile"
-            android:parentActivityName=".Activities.ActivityMain" />
-        <activity android:name=".Activities.ActivityEditProfile" />
-        <activity android:name=".Activities.ActivityGym" />
+            android:name=".activities.ActivityProfile"
+            android:parentActivityName=".activities.ActivityMain" />
         <activity
-            android:name=".Activities.ActivityClimber"
-            android:parentActivityName=".Activities.ActivityMain" />
-        <activity android:name=".Activities.ActivityCompetition" />
-        <activity android:name=".Activities.ActivityJudging" />
-        <activity android:name=".Activities.ActivityResults" />
+            android:name=".activities.ActivityEditProfile"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".activities.ActivityGym" />
+        <activity android:name=".activities.ActivityClimber" />
+        <activity android:name=".activities.ActivityCompetition" />
+        <activity android:name=".activities.ActivityJudging" />
+        <activity android:name=".activities.ActivityResults" />
         <activity
-            android:name=".Activities.ActivityMain"
+            android:name=".activities.ActivityMain"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.ActivityCompRegister" />
-        <activity android:name=".Activities.ActivitySettings"></activity>
+        <activity android:name=".activities.ActivityCompRegister" />
+        <activity android:name=".activities.ActivitySettings" />
         <activity
-            android:name=".Activities.ActivitySignGym"
-            android:parentActivityName=".Activities.ActivitySettings"
+            android:name=".activities.ActivitySignGym"
+            android:parentActivityName=".activities.ActivitySettings"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".ActivityCreateCompetition"></activity>
     </application>
 
 </manifest>

@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context=".Activities.ActivityCompRegister">
+    tools:context=".activities.ActivityCompRegister">
 
     <TextView
-        android:id="@+id/activity_login_title"
+        android:id="@+id/register_comp_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/no_dp"
         android:layout_marginBottom="@dimen/ten"
@@ -42,13 +42,13 @@
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/signin_email"
+                        android:id="@+id/register_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:hint="@string/prompt_email"
-                        android:inputType="textEmailAddress"
+                        android:hint="@string/climber_name"
+                        android:inputType="textPersonName"
                         android:maxLines="1"
                         android:textColor="@color/colorPrimaryDark" />
                 </android.support.design.widget.TextInputLayout>
@@ -59,12 +59,12 @@
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/sigin_firstname"
+                        android:id="@+id/register_category"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:hint="Name"
+                        android:hint="Category"
                         android:inputType="textPersonName"
                         android:maxLines="1"
                         android:textColor="@color/colorPrimaryDark" />
@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content">
 
                     <AutoCompleteTextView
-                        android:id="@+id/sigin_city_autocomplete"
+                        android:id="@+id/register_city_autocomplete"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -100,12 +100,13 @@
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/sigin_password"
+                        android:id="@+id/register_lastname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:hint="@string/password"
+                        android:hint="@string/lastname"
+                        android:inputType="textPersonName"
                         android:maxLines="1"
                         android:textColor="@color/colorPrimaryDark" />
                 </android.support.design.widget.TextInputLayout>
@@ -116,12 +117,12 @@
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/sigin_lastname"
+                        android:id="@+id/register_birthdate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:hint="Lastname"
+                        android:hint="Year of Birth"
                         android:inputType="textPersonName"
                         android:textColor="@color/colorPrimaryDark" />
                 </android.support.design.widget.TextInputLayout>
@@ -131,7 +132,7 @@
                     android:layout_height="wrap_content">
 
                     <AutoCompleteTextView
-                        android:id="@+id/sigin_state_autocomplete"
+                        android:id="@+id/register_state_autocomplete"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -148,7 +149,7 @@
             android:layout_height="wrap_content">
 
             <AutoCompleteTextView
-                android:id="@+id/sigin_gym"
+                android:id="@+id/register_gym"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -164,14 +165,13 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/signin_description"
+                android:id="@+id/register_payment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:gravity="center"
-                android:hint="Description"
-                android:inputType="textMultiLine"
-                android:maxLines="5"
+                android:hint="Voucher"
+                android:maxLines="1"
                 android:textColor="@color/colorPrimaryDark" />
         </android.support.design.widget.TextInputLayout>
 
@@ -180,7 +180,7 @@
 
 
     <Button
-        android:id="@+id/signin_done_button"
+        android:id="@+id/register_done_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

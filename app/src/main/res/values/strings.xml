@@ -90,6 +90,13 @@
         <item>Semifinal</item>
     </string-array>
 
+    <string-array name="comp_rounds">
+        <item>Only 1 round</item>
+        <item>Qualifications - Final</item>
+        <item>Qualifications - Semifinal - Final</item>
+        <item>Qualifications - Semifinal - Final - SuperFinal</item>
+    </string-array>
+
     <string-array name="ciudades">
         <item> Ciudad de México</item>
         <item> Aguascalientes </item>
@@ -213,6 +220,27 @@
         <item>3</item>
     </string-array>
 
+    <string-array name="array_categorys">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="array_boulders_round">
+        <item>1 boulder</item>
+        <item>2 boulders</item>
+        <item>3 boulders</item>
+        <item>4 boulders</item>
+        <item>5 boulders</item>
+        <item>6 boulders</item>
+        <item>7 boulders</item>
+        <item>8 boulders</item>
+        <item>9 boulders</item>
+        <item>10 boulders</item>
+    </string-array>
+
     <string-array name="muros">
         <item>Rocódromo Ameyalli</item>
         <item>Motion Boulder</item>
@@ -330,7 +358,18 @@
     <string name="adding_a_gym">ADDING A GYM</string>
     <string name="gym_name">Gym name</string>
     <string name="sign_gym_eslogan">Eslogan</string>
-    <string name="sign_gym_address">Addres</string>
+    <string name="sign_gym_address">Address</string>
+    <string name="default_image_gym"><![CDATA[https://firebasestorage.googleapis.com/v0/b/escalaapp-17103.appspot.com/o/gym_images%2Fpavilions.png?alt=media&token=6be40c2b-aaa4-4a2f-b025-55544ea5c60e]]></string>
+    <string name="create_comp_no_rounds">Number of Rounds:</string>
+    <string name="create_comp_no_boulders_round">Boulders per round:</string>
+    <string name="competitions_results_superfinals">Superfinals</string>
+    <string name="new_competition_name">Competition Name</string>
+    <string name="newcomp_categorys">CATEGORYS</string>
+    <string name="category_5">Category #5:</string>
+    <string name="category_4">Category #4:</string>
+    <string name="category_3">Category #3:</string>
+    <string name="category_2">Category #2:</string>
+    <string name="category_1">Category #1:</string>
 
     <!-- Strings related to Settings -->
 

@@ -1,5 +1,4 @@
-package mx.iteso.escalaapp.FragmentClimbers;
-
+package mx.iteso.escalaapp.fragmentgym;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,48 +19,44 @@ import android.widget.ImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import mx.iteso.escalaapp.Activities.ActivityJudging;
-import mx.iteso.escalaapp.Activities.ActivityProfile;
-import mx.iteso.escalaapp.Activities.ActivityResults;
-import mx.iteso.escalaapp.Activities.ActivitySettings;
-import mx.iteso.escalaapp.Activities.ActivitySplashScreen;
 import mx.iteso.escalaapp.R;
-import mx.iteso.escalaapp.beans.Climber;
+import mx.iteso.escalaapp.activities.ActivityJudging;
+import mx.iteso.escalaapp.activities.ActivityProfile;
+import mx.iteso.escalaapp.activities.ActivityResults;
+import mx.iteso.escalaapp.activities.ActivitySettings;
+import mx.iteso.escalaapp.activities.ActivitySplashScreen;
+import mx.iteso.escalaapp.beans.Gym;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class FragmentClimbers extends Fragment {
+public class FragmentGyms extends Fragment {
+
+    //Context context = FragmentGyms.this;
 
     private RecyclerView.LayoutManager mLayoutManager;
-    private DatabaseReference climbersDatabase;
-    private RecyclerView climbersList;
+    private RecyclerView gymsList;
 
-    public FragmentClimbers() {
+    public FragmentGyms() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_climbers, container, false);
-        climbersList = view.findViewById(R.id.fragment_climbers_recycler_view);
+        View view = inflater.inflate(R.layout.fragment_gyms, container, false);
+        gymsList = view.findViewById(R.id.fragment_recycler_view);
         setHasOptionsMenu(true);
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
+        gymsList.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
-
-        climbersList.setHasFixedSize(true);
-        climbersList.setLayoutManager(mLayoutManager);
+        gymsList.setLayoutManager(mLayoutManager);
 
         ImageView imageView = view.findViewById(R.id.activity_main_profile);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -72,44 +67,42 @@ public class FragmentClimbers extends Fragment {
             }
         });
 
-        Query climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").orderByChild("firstname");
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Query gymsDatabase = FirebaseDatabase.getInstance().getReference().child("Gyms").orderByChild("name");
 
         // All climbers list
-        climbersDatabase.addValueEventListener(new ValueEventListener() {
+        gymsDatabase.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<Climber> climbers = new ArrayList<>();
+                ArrayList<Gym> gyms = new ArrayList<>();
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Climber climber = postSnapshot.getValue(Climber.class);
-                    climbers.add(climber);
-                    // TODO: handle the post
+                    Gym gym = postSnapshot.getValue(Gym.class);
+                    gym.setKey(postSnapshot.getKey());
+                    gyms.add(gym);
+
                 }
 
-                AdapterClimber adapterClimber = new AdapterClimber(climbers);
-                climbersList.setAdapter(adapterClimber);
+                AdapterGym adapterGyms = new AdapterGym(gyms);
+                gymsList.setAdapter(adapterGyms);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Getting Post failed, log a message
-                Log.w("Climberlist", "loadPost:onCancelled", databaseError.toException());
+                Log.w("GymsList", "load:onCancelled", databaseError.toException());
                 // ...
             }
+
+
         });
 
-        //ArrayList<Climber> climbers = new ArrayList<>();
-        /*climbers.add(new Climber("Arturo", "Garcia", "Mantis", "0"));
-        climbers.add(new Climber("German", "Sanchez", "", "1"));
-        climbers.add(new Climber("Edric", "Freyria", "Motion Boulder", "2"));
-        climbers.add(new Climber("Luis", "Vazquez", "", "3"));
-        climbers.add(new Climber("Sebastián", "Aceves", "Rocodromo Ameyalli", "4"));
-
-        AdapterClimber adapterClimber = new AdapterClimber(climbers);
-        climbersList.setAdapter(adapterClimber);
-        */
-        return view;
     }
 
     @Override
@@ -149,43 +142,4 @@ public class FragmentClimbers extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
-
-/*
-    public static class ClimberViewHolder extends RecyclerView.ViewHolder {
-        public TextView mFirstName;
-        public TextView mLastName;
-        public TextView mGym;
-        public SimpleDraweeView draweeView;
-        public RelativeLayout mDetail;
-        View v;
-
-        public ClimberViewHolder(View itemView) {
-            super(itemView);
-            v = itemView;
-            mFirstName = v.findViewById(R.id.item_climber_firstname);
-            mLastName = v.findViewById(R.id.item_climber_lastname);
-            draweeView = (SimpleDraweeView) v.findViewById(R.id.item_climber_profile_picture);
-            mGym = v.findViewById(R.id.item_climber_gym);
-            mDetail = v.findViewById(R.id.item_climber_relative);
-            mDetail.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), ActivityProfile.class);
-                    v.getContext().startActivity(intent);
-                }
-            });
-
-        }
-
-        public void setClimberData(String firstName, String lastname, String gym, String image) {
-            mFirstName.setText(firstName);
-            mLastName.setText(lastname);
-            mGym.setText(gym);
-            Uri imageUri = Uri.parse(image);
-            draweeView.setImageURI(imageUri);
-
-        }
-
-    }
-    */
 }

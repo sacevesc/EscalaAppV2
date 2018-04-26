@@ -1,4 +1,4 @@
-package mx.iteso.escalaapp.Activities;
+package mx.iteso.escalaapp.activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,10 +8,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import mx.iteso.escalaapp.FragmentClimbers.FragmentClimbers;
-import mx.iteso.escalaapp.FragmentCompetitions.FragmentCompetitions;
-import mx.iteso.escalaapp.FragmentGyms.FragmentGyms;
 import mx.iteso.escalaapp.R;
+import mx.iteso.escalaapp.fragmentclimber.FragmentClimbers;
+import mx.iteso.escalaapp.fragmentcompetition.FragmentCompetitions;
+import mx.iteso.escalaapp.fragmentgym.FragmentGyms;
 
 public class ActivityMain extends AppCompatActivity {
 
