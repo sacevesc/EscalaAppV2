@@ -67,12 +67,12 @@ public class ActivitySignGym extends AppCompatActivity {
 
         city = findViewById(R.id.sign_gym_city_autocomplete);
         String[] cities = getResources().getStringArray(R.array.ciudades);
-        ArrayAdapter<String> adapterCities = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, cities);
+        ArrayAdapter<String> adapterCities = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, cities);
         city.setAdapter(adapterCities);
 
         state = findViewById(R.id.sign_gym_state_autocomplete);
         String[] states = getResources().getStringArray(R.array.estados);
-        ArrayAdapter<String> adapterStates = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, states);
+        ArrayAdapter<String> adapterStates = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, states);
         state.setAdapter(adapterStates);
 
         address = findViewById(R.id.sign_gym_address);
@@ -205,8 +205,6 @@ public class ActivitySignGym extends AppCompatActivity {
                     //updateUI(null);
                 }
             }
-
-            ;
         });
 
         firebaseDatabase.child("Climbers").child(uid).child("owner").setValue("true").addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -226,7 +224,6 @@ public class ActivitySignGym extends AppCompatActivity {
                 }
             }
 
-            ;
         });
 
 

@@ -1,4 +1,4 @@
-package mx.iteso.escalaapp;
+package mx.iteso.escalaapp.settings;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -28,6 +28,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.HashMap;
 import java.util.Map;
 
+import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.activities.ActivityMain;
 
 public class ActivityCreateCompetition extends AppCompatActivity {

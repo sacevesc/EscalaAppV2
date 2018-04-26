@@ -9,7 +9,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import mx.iteso.escalaapp.ActivityCreateCompetition;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.activities.ActivitySignGym;
 
@@ -19,6 +23,8 @@ import mx.iteso.escalaapp.activities.ActivitySignGym;
 
 public class FragmentGymSettings extends Fragment {
     TextView gymProfile, createCompetition, payment, help, addGym;
+    private DatabaseReference firebaseDatabase;
+    private FirebaseUser currentUser;
 
     public FragmentGymSettings() {
     }
@@ -46,9 +52,18 @@ public class FragmentGymSettings extends Fragment {
             @Override
             public void onClick(View v) {
                 //Intent createCompIntent = new Intent(getActivity())
-                Intent createGymIntent = new Intent(getActivity(), ActivityCreateCompetition.class);
-                startActivity(createGymIntent);
-                Toast.makeText(getActivity(), "Create compettition", Toast.LENGTH_SHORT).show();
+                firebaseDatabase = FirebaseDatabase.getInstance().getReference();
+                currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                String currentUid = currentUser.getUid();
+
+                String isowner = firebaseDatabase.child("Climbers").child(currentUid).child("owner").toString();
+                if (isowner.equals("true")) {
+                    Intent createGymIntent = new Intent(getActivity(), ActivityCreateCompetition.class);
+                    startActivity(createGymIntent);
+                    //Toast.makeText(getActivity(), "Create compettition", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Only gym owners can create a competition", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
