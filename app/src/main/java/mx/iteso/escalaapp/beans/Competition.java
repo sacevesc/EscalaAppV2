@@ -4,41 +4,29 @@ package mx.iteso.escalaapp.beans;
  * Created by aceve on 04/03/2018.
  */
 
+
 public class Competition {
-    private String comp_name;
+    private String name;
     private String gym;
-    private String Description;
-    private int image;
+    private String description;
+    private String image;
+    private String no_rounds, no_categorys;
+    private String day, month, year;
+    private String owner;
+    private String[] climbers, judges;
+    private String compKey;
     private String participants;
-    private String date;
 
-    public Competition(String comp_name, String gym, String description, int photo, String participants, String date) {
-        this.comp_name = comp_name;
-        this.gym = gym;
-        Description = description;
-        this.image = photo;
-        this.participants = participants;
-        this.date = date;
+
+    public Competition() {
     }
 
-    @Override
-    public String toString() {
-        return "Competition{" +
-                "comp_name='" + comp_name + '\'' +
-                ", gym='" + gym + '\'' +
-                ", Description='" + Description + '\'' +
-                ", image=" + image +
-                ", participants=" + participants +
-                ", date='" + date + '\'' +
-                '}';
+    public String getName() {
+        return name;
     }
 
-    public String getComp_name() {
-        return comp_name;
-    }
-
-    public void setComp_name(String comp_name) {
-        this.comp_name = comp_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getGym() {
@@ -50,18 +38,18 @@ public class Competition {
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
@@ -73,12 +61,76 @@ public class Competition {
         this.participants = participants;
     }
 
-    public String getDate() {
-        return date;
+    public String getNo_rounds() {
+        return no_rounds;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setNo_rounds(String no_rounds) {
+        this.no_rounds = no_rounds;
+    }
+
+    public String getNo_categorys() {
+        return no_categorys;
+    }
+
+    public void setNo_categorys(String no_categorys) {
+        this.no_categorys = no_categorys;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public String[] getClimbers() {
+        return climbers;
+    }
+
+    public void setClimbers(String[] climbers) {
+        this.climbers = climbers;
+    }
+
+    public String[] getJudges() {
+        return judges;
+    }
+
+    public void setJudges(String[] judges) {
+        this.judges = judges;
+    }
+
+    public String getCompKey() {
+        return compKey;
+    }
+
+    public void setCompKey(String compKey) {
+        this.compKey = compKey;
     }
 }
 

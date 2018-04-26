@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/five"
             android:layout_marginTop="@dimen/ten"
             android:orientation="vertical">
 
@@ -30,7 +31,7 @@
                 android:layout_marginTop="@dimen/fifeteen"
                 android:scaleType="centerCrop"
                 fresco:placeholderImage="@drawable/climber"
-                fresco:roundAsCircle="true"></com.facebook.drawee.view.SimpleDraweeView>
+                fresco:roundAsCircle="true" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -62,6 +63,7 @@
                 fresco:roundAsCircle="true"></com.facebook.drawee.view.SimpleDraweeView>
 
             <Button
+                android:id="@+id/newcomp_image_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
@@ -85,6 +87,51 @@
                     android:maxLines="2"
                     android:textColor="@color/colorPrimaryDark" />
             </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/ten"
+                android:text="@string/newcomp_pick_date"
+                android:textSize="@dimen/twelve_sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/ten"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/newcomp_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:entries="@array/array_days"
+                    android:gravity="center" />
+
+                <Spinner
+                    android:id="@+id/newcomp_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:entries="@array/array_months"
+                    android:gravity="center" />
+
+                <Spinner
+                    android:id="@+id/newcomp_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:entries="@array/array_years"
+                    android:gravity="center" />
+
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

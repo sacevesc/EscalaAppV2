@@ -79,11 +79,27 @@
             android:background="@drawable/calendar_blue" />
 
         <TextView
-            android:id="@+id/comp_date"
+            android:id="@+id/comp_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/four"
-            android:text="28 - Marzo - 2018."
+            android:text="28"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/comp_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/four"
+            android:text="April"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/comp_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/four"
+            android:text="2020"
             android:textSize="12sp" />
 
     </LinearLayout>

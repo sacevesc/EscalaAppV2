@@ -86,9 +86,7 @@ public class FragmentGyms extends Fragment {
                     Gym gym = postSnapshot.getValue(Gym.class);
                     gym.setKey(postSnapshot.getKey());
                     gyms.add(gym);
-
                 }
-
                 AdapterGym adapterGyms = new AdapterGym(gyms);
                 gymsList.setAdapter(adapterGyms);
             }
@@ -99,10 +97,7 @@ public class FragmentGyms extends Fragment {
                 Log.w("GymsList", "load:onCancelled", databaseError.toException());
                 // ...
             }
-
-
         });
-
     }
 
     @Override

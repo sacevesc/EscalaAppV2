@@ -36,7 +36,7 @@ public class FragmentCompetitionLive extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 
-        compsLive = new ArrayList<>();
+     /*   compsLive = new ArrayList<>();
         //String comp_name, String gym, String description, int photo, int participants, String date
         compsLive.add(new Competition("2do Aniversario ", "Motion Boulder", "7mo aniversario de motion", 1, "120", "02-08-2019"));
         compsLive.add(new Competition("3do Aniversario ", "Motion", "8vo aniversario de motion", 1, "12", "02-02-2019"));
@@ -47,6 +47,7 @@ public class FragmentCompetitionLive extends Fragment {
 
         adapterCompetitionLive = new AdapterCompetition(compsLive);
         recyclerView.setAdapter(adapterCompetitionLive);
+       */
         return view;
     }
 

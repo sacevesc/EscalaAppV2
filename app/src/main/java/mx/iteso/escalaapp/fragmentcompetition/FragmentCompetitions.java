@@ -15,14 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.activities.ActivityJudging;
 import mx.iteso.escalaapp.activities.ActivityProfile;
 import mx.iteso.escalaapp.activities.ActivityResults;
 import mx.iteso.escalaapp.activities.ActivitySettings;
-import mx.iteso.escalaapp.activities.ActivitySplashScreen;
 import mx.iteso.escalaapp.utils.AdapterSectionPager;
 
 public class FragmentCompetitions extends Fragment {
@@ -141,12 +138,7 @@ public class FragmentCompetitions extends Fragment {
             startActivity(intent);
             return true;
         }
-        if (id == R.id.action_logout) {
-            FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(getActivity(), ActivitySplashScreen.class);
-            startActivity(intent);
-            return true;
-        }
+
         return super.onOptionsItemSelected(item);
     }
 

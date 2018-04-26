@@ -18,7 +18,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -26,7 +25,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@color/colorPrimaryDark"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -76,6 +74,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimaryDark"
         android:orientation="horizontal">
 
         <com.facebook.drawee.view.SimpleDraweeView
@@ -109,9 +108,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="SEBASTIAN"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/colorWhite"
                     android:textSize="14sp"
-                    android:textStyle="italic" />
+                    android:textStyle="italic|bold" />
 
                 <TextView
                     android:id="@+id/settings_climber_lastname"
@@ -119,9 +118,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/five"
                     android:text="ACEVES"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/colorWhite"
                     android:textSize="14sp"
-                    android:textStyle="italic" />
+                    android:textStyle="italic|bold" />
 
             </LinearLayout>
 
@@ -131,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/five"
                 android:text="Rocodromo Ameyalli"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorWhite"
                 android:textSize="@dimen/twelve_sp" />
         </LinearLayout>
 
@@ -154,6 +153,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
                 android:text="Log Out"
                 android:textSize="12sp" />
         </LinearLayout>

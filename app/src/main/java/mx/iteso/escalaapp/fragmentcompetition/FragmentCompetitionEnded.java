@@ -8,10 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-
 import mx.iteso.escalaapp.R;
-import mx.iteso.escalaapp.beans.Competition;
 
 /**
  * Created by aceve on 12/03/2018.
@@ -36,7 +33,7 @@ public class FragmentCompetitionEnded extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 
-        ArrayList<Competition> compsEnded = new ArrayList<>();
+      /*  ArrayList<Competition> compsEnded = new ArrayList<>();
         //String comp_name, String gym, String description, int photo, int participants, String date
         compsEnded.add(new Competition("Estatal Ruta", "Ameyalli", "proxima compe de jalisco en ruta", 0, "24", "25-04-2017"));
         compsEnded.add(new Competition("Summer Jam", "Bloce", "JAMMMM", 0, "67", "10-07-2017"));
@@ -46,6 +43,7 @@ public class FragmentCompetitionEnded extends Fragment {
 
         adapterCompetitionEnded = new AdapterCompetition(compsEnded);
         recyclerView.setAdapter(adapterCompetitionEnded);
+       */
         return view;
     }
 

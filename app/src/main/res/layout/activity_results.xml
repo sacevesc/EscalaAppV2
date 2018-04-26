@@ -28,7 +28,7 @@
 
 
         <TextView
-            android:id="@+id/comp_name"
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_below="@id/comp_name"
+            android:layout_below="@id/name"
             android:layout_centerHorizontal="true"
             android:layout_marginEnd="@dimen/fifeteen"
             android:layout_marginTop="@dimen/ten"
