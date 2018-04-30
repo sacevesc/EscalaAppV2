@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import mx.iteso.escalaapp.R;
 
@@ -132,8 +134,15 @@ public class ActivitySignIn extends AppCompatActivity {
                                         Log.d("Auth", "createUserWithEmail:success");
                                         FirebaseUser user = mAuth.getCurrentUser();
                                         //updateUI(user);
-                                        Intent intent = new Intent(ActivitySignIn.this, ActivityMain.class);
+                                        if(user != null && user.sendEmailVerification().isSuccessful()) {
+                                            Toast.makeText(ActivitySignIn.this,
+                                                    "Verification email sent to " + user.getEmail(),
+                                                    Toast.LENGTH_LONG).show();
+                                        }
+
+                                        Intent intent = new Intent(ActivitySignIn.this, ActivityLogin.class);
                                         startActivity(intent);
+
                                         finish();
                                     }
                                 }
@@ -153,37 +162,33 @@ public class ActivitySignIn extends AppCompatActivity {
     }
 
     public boolean checkDataUser() {
-        if (firstname.getText().toString().isEmpty())
-            Toast.makeText(ActivitySignIn.this, "Falta el nombre", Toast.LENGTH_SHORT).show();
+        if (email.getText().toString().isEmpty() || !validate(email.getText().toString()))
+            Toast.makeText(ActivitySignIn.this, "Wrong email", Toast.LENGTH_SHORT).show();
+        else if (password.getText().toString().isEmpty())
+            Toast.makeText(ActivitySignIn.this, "Missing password", Toast.LENGTH_SHORT).show();
+        else if (password.getText().equals(firstname.getText().toString()) || password.getText().length() < 5)
+            Toast.makeText(ActivitySignIn.this, "Wrong password", Toast.LENGTH_SHORT).show();
+        else if (firstname.getText().toString().isEmpty())
+            Toast.makeText(ActivitySignIn.this, "Wrong name", Toast.LENGTH_SHORT).show();
         else if (lastname.getText().toString().isEmpty())
-            Toast.makeText(ActivitySignIn.this, "Falta el apellido", Toast.LENGTH_SHORT).show();
-        else if (email.getText().toString().isEmpty())
-            Toast.makeText(ActivitySignIn.this, "Falta el mail", Toast.LENGTH_SHORT).show();
-        else if (password.getText().toString().isEmpty()) {
-            if (password.getText().equals(firstname.getText().toString()) || password.getText().length() < 5) {
-                Toast.makeText(ActivitySignIn.this, "La contraseña no es valida", Toast.LENGTH_SHORT).show();
-            }
-            Toast.makeText(ActivitySignIn.this, "Falta la contraseña", Toast.LENGTH_SHORT).show();
-        } else if (city.getText().toString().isEmpty())
-            Toast.makeText(ActivitySignIn.this, "Falta la ciudad", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivitySignIn.this, "Wrong lastname", Toast.LENGTH_SHORT).show();
+        else if (city.getText().toString().isEmpty())
+            Toast.makeText(ActivitySignIn.this, "Wrong city", Toast.LENGTH_SHORT).show();
         else if (state.getText().toString().isEmpty())
-            Toast.makeText(ActivitySignIn.this, "Falta el estado", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivitySignIn.this, "Wrong state", Toast.LENGTH_SHORT).show();
         else if (descrption.getText().toString().length() > 100)
-            Toast.makeText(ActivitySignIn.this, "Descripción max(100)", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivitySignIn.this, "Description is too long", Toast.LENGTH_SHORT).show();
         else if (gym.getText().toString().length() < 2)
-            Toast.makeText(ActivitySignIn.this, "Muro no valido", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivitySignIn.this, "Wrong gym", Toast.LENGTH_SHORT).show();
         else return true;
         return false;
     }
 
-    public void saveUser() {
-        SharedPreferences sharedPreferences = getSharedPreferences("mx.iteso.USER_PREFRENCES", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("NAME", email.getText().toString());
-        editor.putString("PWD", password.getText().toString());
-        editor.putBoolean("LOGGED", true);
-        editor.apply();
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+    public static boolean validate(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailStr);
+        return matcher.find();
     }
-
-
 }

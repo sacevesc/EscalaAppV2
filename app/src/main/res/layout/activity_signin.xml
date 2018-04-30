@@ -73,18 +73,19 @@
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
                     <AutoCompleteTextView
-                        android:id="@+id/sigin_city_autocomplete"
+                        android:id="@+id/sigin_state_autocomplete"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:hint="@string/city"
+                        android:hint="@string/state"
                         android:inputType="textPersonName"
-                        android:maxLines="1"
                         android:textColor="@color/colorPrimaryDark" />
                 </android.support.design.widget.TextInputLayout>
+
+
+
 
             </LinearLayout>
 
@@ -131,17 +132,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+
                     <AutoCompleteTextView
-                        android:id="@+id/sigin_state_autocomplete"
+                        android:id="@+id/sigin_city_autocomplete"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:hint="@string/state"
+                        android:hint="@string/city"
                         android:inputType="textPersonName"
+                        android:maxLines="1"
                         android:textColor="@color/colorPrimaryDark" />
                 </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
+                </LinearLayout>
         </LinearLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -203,7 +206,7 @@
             android:background="@drawable/button_1"
             android:text="@string/new_comp_done"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/twenty_five_sp" />
+            android:textSize="@dimen/fifeteen_sp" />
 
     </LinearLayout>
 

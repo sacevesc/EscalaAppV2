@@ -41,7 +41,7 @@ public class ActivitySplashScreen extends AppCompatActivity {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (currentUser == null) {
+                if (currentUser == null || !currentUser.isEmailVerified()) {
                     Intent intent = new Intent(ActivitySplashScreen.this, ActivityLogin.class);
                     startActivity(intent);
                     finish();

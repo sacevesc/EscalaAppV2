@@ -1,6 +1,8 @@
 package mx.iteso.escalaapp.activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,6 +19,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Timer;
 
 import mx.iteso.escalaapp.R;
 
@@ -48,7 +52,6 @@ public class ActivityLogin extends AppCompatActivity {
                     progressDialog.show();
                     loginUser(name.getText().toString(), password.getText().toString());
 
-
                 }
             }
         });
@@ -72,12 +75,18 @@ public class ActivityLogin extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             progressDialog.dismiss();
                             Log.d("Auth", "loginWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            final FirebaseUser user = mAuth.getCurrentUser();
                             //updateUI(user);
-                            Intent intent = new Intent(ActivityLogin.this, ActivityMain.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            finish();
+                            user.reload();
+                            if(user.isEmailVerified()) {
+                                Intent intent = new Intent(ActivityLogin.this, ActivityMain.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                finish();
+                            } else{
+                               showDialog(user);
+                            }
+
                         } else {
                             // If sign in fails, display a message to the user.
 
@@ -94,12 +103,23 @@ public class ActivityLogin extends AppCompatActivity {
 
     }
 
-    public void saveUser() {
-        SharedPreferences sharedPreferences = getSharedPreferences("mx.iteso.USER_PREFRENCES", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("NAME", name.getText().toString());
-        editor.putString("PWD", password.getText().toString());
-        editor.putBoolean("LOGGED", true);
-        editor.apply();
+    public void showDialog(final FirebaseUser user){
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(ActivityLogin.this);
+        alertDialog.setMessage((CharSequence) "Verify your email");
+        alertDialog.setNegativeButton("CLOSE", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alertDialog.setPositiveButton("SEND EMAIL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                user.sendEmailVerification();
+            }
+        });
+        alertDialog.create();
+        alertDialog.show();
     }
+
 }
