@@ -153,7 +153,9 @@
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            fresco:counterEnabled="true"
+            fresco:counterMaxLength="10">
 
             <EditText
                 android:id="@+id/signin_description"
@@ -162,8 +164,10 @@
                 android:layout_weight="3"
                 android:gravity="center"
                 android:hint="@string/description"
-                android:inputType="textMultiLine"
+                android:imeOptions="actionGo"
+                android:inputType="textImeMultiLine"
                 android:maxLength="100"
+                android:maxLines="4"
                 android:textColor="@color/colorPrimaryDark" />
         </android.support.design.widget.TextInputLayout>
 

@@ -3,9 +3,12 @@ package mx.iteso.escalaapp.activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -53,6 +56,10 @@ public class ActivityLogin extends AppCompatActivity {
             }
         });
         signin = findViewById(R.id.activity_login_signin_button);
+        signin.setPaintFlags(signin.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        SpannableString content = new SpannableString("Sign In");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        signin.setText(content);
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

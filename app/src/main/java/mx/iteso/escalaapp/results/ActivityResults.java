@@ -1,4 +1,4 @@
-package mx.iteso.escalaapp.activities;
+package mx.iteso.escalaapp.results;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +19,6 @@ public class ActivityResults extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 
-        climbersList = findViewById(R.id.results_recycler_view);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.beans.Climber;
+import mx.iteso.escalaapp.results.ActivityResults;
 
 
 public class ActivityClimber extends AppCompatActivity {
@@ -69,6 +70,7 @@ public class ActivityClimber extends AppCompatActivity {
                 climber.setCity(dataSnapshot.child("city").getValue().toString());
                 climber.setDescription(dataSnapshot.child("description").getValue().toString());
                 climber.setImage(dataSnapshot.child("image").getValue().toString());
+                climber.setThumb(dataSnapshot.child("thumb").getValue().toString());
 
                 firstname.setText(climber.getFirstname());
                 lastname.setText(climber.getLastname());
@@ -77,7 +79,9 @@ public class ActivityClimber extends AppCompatActivity {
                 city.setText(climber.getCity());
                 descrption.setText(climber.getDescription());
 
-                Uri imageUri = Uri.parse(climber.getImage());
+                Uri imageUri = Uri.parse(climber.getThumb());
+                draweeView.setImageURI(imageUri);
+                imageUri = Uri.parse(climber.getImage());
                 draweeView.setImageURI(imageUri);
             }
 

@@ -27,9 +27,9 @@ import java.util.HashMap;
 import mx.iteso.escalaapp.R;
 
 public class ActivitySignIn extends AppCompatActivity {
-    EditText firstname, lastname, email, password, descrption;
+    EditText firstname, lastname, email, password, password2;
     AutoCompleteTextView city, state, gym;
-    Button done, facebook_signin, image_btn;
+    Button done, facebook_signin;
 
 
     private FirebaseAuth mAuth;//firebase auth
@@ -52,8 +52,8 @@ public class ActivitySignIn extends AppCompatActivity {
         firstname = findViewById(R.id.sigin_firstname);
         lastname = findViewById(R.id.sigin_lastname);
         password = findViewById(R.id.sigin_password);
+        password2 = findViewById(R.id.sigin_password2);
         email = findViewById(R.id.signin_email);
-        image_btn = findViewById(R.id.signin_image_button);
 
 
         city = findViewById(R.id.sigin_city_autocomplete);
@@ -66,7 +66,6 @@ public class ActivitySignIn extends AppCompatActivity {
         ArrayAdapter<String> adapterStates = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, states);
         state.setAdapter(adapterStates);
 
-        descrption = findViewById(R.id.signin_description);
         gym = findViewById(R.id.sigin_gym);
         String[] gyms = getResources().getStringArray(R.array.muros);
         ArrayAdapter<String> adapterGyms = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, gyms);
@@ -99,8 +98,8 @@ public class ActivitySignIn extends AppCompatActivity {
             }
         });
 
-    }
 
+    }
 
     private void createAccount(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -117,7 +116,7 @@ public class ActivitySignIn extends AppCompatActivity {
                             climbersMap.put("city", city.getText().toString().toUpperCase());
                             climbersMap.put("state", state.getText().toString().toUpperCase());
                             climbersMap.put("gym", gym.getText().toString());
-                            climbersMap.put("description", descrption.getText().toString());
+                            climbersMap.put("description", "Motivated climber");
                             climbersMap.put("image", getString(R.string.default_image_icon));
                             climbersMap.put("thumb", "default");
                             climbersMap.put("owner", "false");
@@ -131,6 +130,7 @@ public class ActivitySignIn extends AppCompatActivity {
                                         progressDialog.dismiss();
                                         Log.d("Auth", "createUserWithEmail:success");
                                         FirebaseUser user = mAuth.getCurrentUser();
+
                                         //updateUI(user);
                                         Intent intent = new Intent(ActivitySignIn.this, ActivityMain.class);
                                         startActivity(intent);
@@ -152,6 +152,7 @@ public class ActivitySignIn extends AppCompatActivity {
                 });
     }
 
+
     public boolean checkDataUser() {
         if (firstname.getText().toString().isEmpty())
             Toast.makeText(ActivitySignIn.this, "Falta el nombre", Toast.LENGTH_SHORT).show();
@@ -160,19 +161,17 @@ public class ActivitySignIn extends AppCompatActivity {
         else if (email.getText().toString().isEmpty())
             Toast.makeText(ActivitySignIn.this, "Falta el mail", Toast.LENGTH_SHORT).show();
         else if (password.getText().toString().isEmpty()) {
-            if (password.getText().equals(firstname.getText().toString()) || password.getText().length() < 5) {
-                Toast.makeText(ActivitySignIn.this, "La contraseña no es valida", Toast.LENGTH_SHORT).show();
+            if (!password.getText().equals(password2.getText())) {
+                Toast.makeText(ActivitySignIn.this, "La contraseñas no coinciden", Toast.LENGTH_SHORT).show();
             }
             Toast.makeText(ActivitySignIn.this, "Falta la contraseña", Toast.LENGTH_SHORT).show();
-        } else if (city.getText().toString().isEmpty())
+        } /*else if (city.getText().toString().isEmpty())
             Toast.makeText(ActivitySignIn.this, "Falta la ciudad", Toast.LENGTH_SHORT).show();
         else if (state.getText().toString().isEmpty())
             Toast.makeText(ActivitySignIn.this, "Falta el estado", Toast.LENGTH_SHORT).show();
-        else if (descrption.getText().toString().length() > 100)
-            Toast.makeText(ActivitySignIn.this, "Descripción max(100)", Toast.LENGTH_SHORT).show();
         else if (gym.getText().toString().length() < 2)
             Toast.makeText(ActivitySignIn.this, "Muro no valido", Toast.LENGTH_SHORT).show();
-        else return true;
+       */ else return true;
         return false;
     }
 

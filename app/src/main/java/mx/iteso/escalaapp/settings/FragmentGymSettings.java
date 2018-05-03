@@ -11,8 +11,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.activities.ActivitySignGym;
@@ -25,6 +28,7 @@ public class FragmentGymSettings extends Fragment {
     TextView gymProfile, createCompetition, payment, help, addGym;
     private DatabaseReference firebaseDatabase;
     private FirebaseUser currentUser;
+    String isowner = "false";
 
     public FragmentGymSettings() {
     }
@@ -56,13 +60,24 @@ public class FragmentGymSettings extends Fragment {
                 currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 String currentUid = currentUser.getUid();
 
-                String isowner = firebaseDatabase.child("Climbers").child(currentUid).child("owner").toString();
-                if (isowner.equals("true")) {
+                firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").child(currentUid);
+                firebaseDatabase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        isowner = dataSnapshot.child("owner").getValue().toString();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                if (isowner.contentEquals("true")) {
                     Intent createGymIntent = new Intent(getActivity(), ActivityCreateCompetition.class);
                     startActivity(createGymIntent);
                     //Toast.makeText(getActivity(), "Create compettition", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity(), "Only gym owners can create a competition", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Only gym owners can create a competition " + isowner, Toast.LENGTH_LONG).show();
                 }
             }
         });

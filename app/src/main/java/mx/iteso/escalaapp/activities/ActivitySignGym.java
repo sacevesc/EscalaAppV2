@@ -2,8 +2,10 @@ package mx.iteso.escalaapp.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,6 +27,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,6 +48,8 @@ public class ActivitySignGym extends AppCompatActivity {
     private FirebaseUser currentUser;
     private StorageReference mStorageRef;
     private Uri image_gym_id;
+    private byte[] datas;
+
 
 
     @Override
@@ -117,18 +123,9 @@ public class ActivitySignGym extends AppCompatActivity {
             final Uri image_uri = data.getData();
             image_gym_id = image_uri;
             String userUid = currentUser.getUid();
+            draweeView.setImageURI(image_uri);
 
-            //final File thumb_file = new File(image_uri.getPath());
-            // Bitmap thumb_bitmap = new Compressor(ActivityEditProfile.this).setMaxWidth(200).setMaxHeight(200).setQuality(75).compressToBitmap(thumb_file);
-            //Bitmap thumb_bitmap = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(thumb_file.getPath()), 200, 200);
-
-            //ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            //assert thumb_bitmap != null;
-            //thumb_bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
-            //final byte[] thumb_byte = byteArrayOutputStream.toByteArray();
-
-            StorageReference filepath = mStorageRef.child("gym_images").child(userUid + ".jpg");
-            //final StorageReference thumb_filePath = mStorageRef.child("gym_images").child("thumbs").child(userUid + ".jpg");
+            /*StorageReference filepath = mStorageRef.child("gym_images").child("originalonresult" + ".jpg");
 
             progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Loading Image");
@@ -143,16 +140,34 @@ public class ActivitySignGym extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 final String downloadUrl = task.getResult().getDownloadUrl().toString();
                                 draweeView.setImageURI(image_uri);
+                                progressDialog.dismiss();
+                                Log.d("Image", "uploadImage:success");
+                            } else {
+                                Log.d("Image", "uploadThumbnail:FAILURE");
+                                progressDialog.dismiss();
+                            }
+                        }
+                    });
+*/
+            Bitmap bitmap = null;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), image_uri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 40, baos);
+            datas = baos.toByteArray();
 
-                                //UploadTask uploadTask = thumb_filePath.putBytes(thumb_byte);
-                                //uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                                //  @Override
-                                //public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
 
-                                //  String thumb_downloadUrl = thumb_task.getResult().getDownloadUrl().toString();
+           /* final StorageReference thumb_filePath = mStorageRef.child("gym_images").child("thumbs").child("onresultthumb "+ ".jpg");
+                                UploadTask uploadTask = thumb_filePath.putBytes(datas);
+                                uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                  @Override
+                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
 
-                                //if (thumb_task.isSuccessful()) {
-
+                                  String thumb_downloadUrl = thumb_task.getResult().getDownloadUrl().toString();
+                                if (thumb_task.isSuccessful()) {
                                 progressDialog.dismiss();
                                 Log.d("Image", "uploadImage:success");
 
@@ -163,6 +178,7 @@ public class ActivitySignGym extends AppCompatActivity {
                             }
                         }
                     });
+*/
         }
     }
 
@@ -180,6 +196,9 @@ public class ActivitySignGym extends AppCompatActivity {
         gymMap.put("description", descrption.getText().toString());
         gymMap.put("image", getString(R.string.default_image_gym));
         gymMap.put("thumb", "default");
+        gymMap.put("podiums", "0");
+        gymMap.put("members", "0");
+        gymMap.put("host", "0");
         gymMap.put("owner", uid);
 
 
@@ -231,8 +250,9 @@ public class ActivitySignGym extends AppCompatActivity {
 
 
     public void updateImageGym(final String gymId) {
-        StorageReference filepath = mStorageRef.child("gym_images").child(gymId + ".jpg");
         firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Gyms").child(gymId);
+        StorageReference filepath = mStorageRef.child("gym_images").child(gymId + ".jpg");
+
 
         filepath.putFile(image_gym_id).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -259,12 +279,44 @@ public class ActivitySignGym extends AppCompatActivity {
                 }
             }
         });
+
+        firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Gyms").child(gymId);
+        final StorageReference thumb_filePath = mStorageRef.child("gym_images").child("thumbs").child(gymId + ".jpg");
+
+        UploadTask uploadTask = thumb_filePath.putBytes(datas);
+        uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
+                String thumb_downloadUrl = thumb_task.getResult().getDownloadUrl().toString();
+
+                if (thumb_task.isSuccessful()) {
+                    Map updateHashmap = new HashMap();
+                    updateHashmap.put("thumb", thumb_downloadUrl);
+
+                    firebaseDatabase.updateChildren(updateHashmap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                progressDialog.dismiss();
+                                Log.d("Image", "uploadImage:success");
+                            }
+                        }
+                    });
+                    progressDialog.dismiss();
+                    Log.d("Image", "uploadImage:success");
+
+                } else {
+                    Log.d("Image", "uploadImage:FAILURE");
+                    progressDialog.dismiss();
+                }
+            }
+        });
     }
 
     public boolean checkDataUser() {
         if (name.getText().toString().isEmpty())
             Toast.makeText(ActivitySignGym.this, "Falta el nombre", Toast.LENGTH_SHORT).show();
-        else if (city.getText().toString().isEmpty())
+      /*  else if (city.getText().toString().isEmpty())
             Toast.makeText(ActivitySignGym.this, "Falta la ciudad", Toast.LENGTH_SHORT).show();
         else if (state.getText().toString().isEmpty())
             Toast.makeText(ActivitySignGym.this, "Falta el estado", Toast.LENGTH_SHORT).show();
@@ -272,6 +324,7 @@ public class ActivitySignGym extends AppCompatActivity {
             Toast.makeText(ActivitySignGym.this, "Descripción max(100)", Toast.LENGTH_SHORT).show();
         else if (address.getText().toString().length() < 2)
             Toast.makeText(ActivitySignGym.this, "Direccion no valido", Toast.LENGTH_SHORT).show();
+       */
         else return true;
         return false;
     }

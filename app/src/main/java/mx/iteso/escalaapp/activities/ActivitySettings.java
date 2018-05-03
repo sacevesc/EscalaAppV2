@@ -68,12 +68,15 @@ public class ActivitySettings extends AppCompatActivity {
                 climber.setCity(dataSnapshot.child("city").getValue().toString());
                 climber.setDescription(dataSnapshot.child("description").getValue().toString());
                 climber.setImage(dataSnapshot.child("image").getValue().toString());
+                climber.setThumb(dataSnapshot.child("thumb").getValue().toString());
 
                 firstname.setText(climber.getFirstname());
                 lastname.setText(climber.getLastname());
                 gym.setText(climber.getGym());
 
-                Uri imageUri = Uri.parse(climber.getImage());
+                Uri imageUri = Uri.parse(climber.getThumb());
+                draweeView.setImageURI(imageUri);
+                imageUri = Uri.parse(climber.getImage());
                 draweeView.setImageURI(imageUri);
             }
             @Override

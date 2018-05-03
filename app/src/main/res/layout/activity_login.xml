@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
+    android:background="@color/colorWhite"
     tools:context="mx.iteso.escalaapp.activities.ActivityLogin">
 
     <TextView
@@ -72,7 +73,8 @@
         android:id="@+id/activity_login_button"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/ten"
+        android:layout_marginBottom="@dimen/fifeteen"
+        android:layout_marginTop="@dimen/twenty"
         android:layout_marginLeft="@dimen/twenty"
         android:layout_marginRight="@dimen/twenty"
         android:layout_weight="0.8"
@@ -82,15 +84,14 @@
         android:textSize="@dimen/twelve_sp" />
     <Button
         android:id="@+id/activity_login_signin_button"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/twenty"
-        android:layout_marginLeft="@dimen/twenty"
-        android:layout_marginRight="@dimen/twenty"
-        android:layout_weight="0.8"
-        android:background="@drawable/button_login"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/thirty_five"
+        android:background="@color/colorWhite"
+        android:elevation="0dp"
         android:text="@string/sign_in"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/colorPrimary"
         android:textSize="@dimen/twelve_sp" />
 
 

@@ -10,6 +10,7 @@ public class Competition {
     private String gym;
     private String description;
     private String image;
+    private String thumb;
     private String no_rounds, no_categorys;
     private String day, month, year;
     private String owner;
@@ -19,6 +20,14 @@ public class Competition {
 
 
     public Competition() {
+    }
+
+    public String getThumb() {
+        return thumb;
+    }
+
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
     }
 
     public String getName() {

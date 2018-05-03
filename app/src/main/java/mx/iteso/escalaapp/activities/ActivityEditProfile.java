@@ -3,10 +3,9 @@ package mx.iteso.escalaapp.activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -33,7 +32,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,6 +45,8 @@ public class ActivityEditProfile extends AppCompatActivity {
     AutoCompleteTextView city, state, gym;
     Button done, image_btn;
     SimpleDraweeView draweeView;
+    private byte[] datas;
+
     DatabaseReference userDatabase;
     private FirebaseAuth mAuth;//firebase auth
     private ProgressDialog progressDialog;
@@ -161,17 +162,7 @@ public class ActivityEditProfile extends AppCompatActivity {
             final Uri image_uri = data.getData();
             String userUid = curretnUser.getUid();
 
-            final File thumb_file = new File(image_uri.getPath());
-            // Bitmap thumb_bitmap = new Compressor(ActivityEditProfile.this).setMaxWidth(200).setMaxHeight(200).setQuality(75).compressToBitmap(thumb_file);
-            Bitmap thumb_bitmap = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(thumb_file.getPath()), 200, 200);
-
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            assert thumb_bitmap != null;
-            //thumb_bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
-            final byte[] thumb_byte = byteArrayOutputStream.toByteArray();
-
             StorageReference filepath = mStorageRef.child("profile_images").child(userUid + ".jpg");
-            final StorageReference thumb_filePath = mStorageRef.child("profile_images").child("thumbs").child(userUid + ".jpg");
 
             progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Loading Image");
@@ -186,47 +177,63 @@ public class ActivityEditProfile extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 final String downloadUrl = task.getResult().getDownloadUrl().toString();
                                 draweeView.setImageURI(image_uri);
-
-                                UploadTask uploadTask = thumb_filePath.putBytes(thumb_byte);
-                                uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                Map updateHashmap = new HashMap();
+                                updateHashmap.put("image", downloadUrl);
+                                userDatabase.updateChildren(updateHashmap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
-                                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
-
-                                        String thumb_downloadUrl = thumb_task.getResult().getDownloadUrl().toString();
-
-                                        if (thumb_task.isSuccessful()) {
-
-                                            Map updateHashmap = new HashMap();
-                                            updateHashmap.put("image", downloadUrl);
-                                            updateHashmap.put("thumb", thumb_downloadUrl);
-
-
-                                            userDatabase.updateChildren(updateHashmap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isSuccessful()) {
-                                                        progressDialog.dismiss();
-                                                        Log.d("Image", "uploadImage:success");
-
-                                                    }
-                                                }
-                                            });
-                                        } else {
-                                            Log.d("Image", "uploadThumbnail:FAILURE");
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
                                             progressDialog.dismiss();
-
+                                            Log.d("Image", "uploadImage:success");
                                         }
-
                                     }
                                 });
-
                             } else {
                                 Log.d("Image", "uploadImage:FAILURE");
                                 progressDialog.dismiss();
-
                             }
                         }
                     });
+
+            Bitmap bitmap = null;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), image_uri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 40, baos);
+            datas = baos.toByteArray();
+            final StorageReference thumb_filePath = mStorageRef.child("profile_images").child("thumbs").child(userUid + ".jpg");
+
+            UploadTask uploadTask = thumb_filePath.putBytes(datas);
+            uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
+                    String thumb_downloadUrl = thumb_task.getResult().getDownloadUrl().toString();
+
+                    if (thumb_task.isSuccessful()) {
+                        Map updateHashmap = new HashMap();
+                        updateHashmap.put("thumb", thumb_downloadUrl);
+
+                        userDatabase.updateChildren(updateHashmap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    progressDialog.dismiss();
+                                    Log.d("Image", "uploadImage:success");
+                                }
+                            }
+                        });
+                        progressDialog.dismiss();
+                        Log.d("Image", "uploadImage:success");
+
+                    } else {
+                        Log.d("Image", "uploadImage:FAILURE");
+                        progressDialog.dismiss();
+                    }
+                }
+            });
         }
     }
 

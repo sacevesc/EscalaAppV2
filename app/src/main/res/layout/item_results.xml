@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/five"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
@@ -30,11 +31,20 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/item_results_name"
+                android:id="@+id/item_results_firstname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/five"
-                android:text="Vincent Santorini"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/ten"
+                android:text="Chris"
+                android:textColor="@color/colorBlack" />
+
+            <TextView
+                android:id="@+id/item_results_lastname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/four"
+                android:text="Sharma"
                 android:textColor="@color/colorBlack" />
 
             <LinearLayout
@@ -44,20 +54,90 @@
                 android:layout_marginStart="@dimen/five"
                 android:orientation="horizontal">
 
-                <include layout="@layout/boulder_result"></include>
+                <include
+                    android:id="@+id/boulder_1"
+                    layout="@layout/boulder_result"></include>
 
-                <include layout="@layout/boulder_result"></include>
+                <include
+                    android:id="@+id/boulder_2"
+                    layout="@layout/boulder_result"></include>
 
-                <include layout="@layout/boulder_result"></include>
+                <include
+                    android:id="@+id/boulder_3"
+                    layout="@layout/boulder_result"></include>
 
-                <include layout="@layout/boulder_result"></include>
+                <include
+                    android:id="@+id/boulder_4"
+                    layout="@layout/boulder_result"></include>
 
-                <include layout="@layout/boulder_result"></include>
+                <include
+                    android:id="@+id/boulder_5"
+                    layout="@layout/boulder_result"></include>
 
+                <include
+                    android:id="@+id/boulder_6"
+                    layout="@layout/boulder_result"></include>
+
+                <include
+                    android:id="@+id/boulder_7"
+                    layout="@layout/boulder_result"></include>
+
+                <include
+                    android:id="@+id/boulder_8"
+                    layout="@layout/boulder_result"></include>
+
+                <include
+                    android:id="@+id/boulder_9"
+                    layout="@layout/boulder_result"></include>
+
+                <include
+                    android:id="@+id/boulder_10"
+                    layout="@layout/boulder_result"></include>
+
+                <include
+                    android:id="@+id/boulder_11"
+                    layout="@layout/boulder_result"></include>
+
+                <include
+                    android:id="@+id/boulder_12"
+                    layout="@layout/boulder_result"></include>
+
+                <include
+                    android:id="@+id/boulder_13"
+                    layout="@layout/boulder_result"></include>
+
+                <include
+                    android:id="@+id/boulder_14"
+                    layout="@layout/boulder_result"></include>
+
+                <include
+                    android:id="@+id/boulder_15"
+                    layout="@layout/boulder_result"></include>
+
+                <include
+                    android:id="@+id/boulder_16"
+                    layout="@layout/boulder_result"></include>
+
+                <include
+                    android:id="@+id/boulder_17"
+                    layout="@layout/boulder_result"></include>
+
+                <include
+                    android:id="@+id/boulder_18"
+                    layout="@layout/boulder_result"></include>
+
+                <include
+                    android:id="@+id/boulder_19"
+                    layout="@layout/boulder_result"></include>
+
+                <include
+                    android:id="@+id/boulder_20"
+                    layout="@layout/boulder_result"></include>
 
             </LinearLayout>
 
             <TextView
+                android:id="@+id/item_results_sum"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="1dp"
@@ -67,8 +147,6 @@
                 android:text="5t 4b"
                 android:textColor="@color/colorBlack"
                 android:textStyle="bold" />
-
-
         </LinearLayout>
 
     </HorizontalScrollView>

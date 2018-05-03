@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EscalaApp</string>
+    <string name="app_name">inBloc</string>
     <string name="login_user">User</string>
     <string name="log_in">Log In</string>
     <string name="sign_in">Sign In</string>
@@ -86,8 +86,9 @@
 
     <string-array name="round">
         <item>Qualifications</item>
-        <item>Final</item>
         <item>Semifinal</item>
+        <item>Final</item>
+        <item>Superfinal</item>
     </string-array>
 
     <string-array name="comp_rounds">
@@ -226,6 +227,13 @@
         <item>3</item>
         <item>4</item>
         <item>5</item>
+    </string-array>
+
+    <string-array name="categorias_ejemplo">
+        <item>principiante</item>
+        <item>intermedio</item>
+        <item>avanzado</item>
+        <item>mutante</item>
     </string-array>
 
     <string-array name="array_years">
@@ -429,6 +437,7 @@
     <string name="category_1">Category #1:</string>
     <string name="newcomp_pick_date">Date</string>
     <string name="log_out">Log Out</string>
+    <string name="category">Category</string>
 
     <!-- Strings related to Settings -->
 

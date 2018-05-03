@@ -24,6 +24,7 @@ import java.util.Objects;
 
 import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.beans.Competition;
+import mx.iteso.escalaapp.results.ActivityResults;
 
 public class ActivityCompetition extends AppCompatActivity {
 
@@ -66,17 +67,22 @@ public class ActivityCompetition extends AppCompatActivity {
                 comp.setOwner(Objects.requireNonNull(dataSnapshot.child("owner").getValue()).toString());
                 comp.setDescription(Objects.requireNonNull(dataSnapshot.child("description").getValue()).toString());
                 comp.setImage(Objects.requireNonNull(dataSnapshot.child("image").getValue()).toString());
+                comp.setThumb(Objects.requireNonNull(dataSnapshot.child("thumb").getValue()).toString());
                 comp.setParticipants(Objects.requireNonNull(dataSnapshot.child("participants").getValue()).toString());
                 comp.setGym(Objects.requireNonNull(dataSnapshot.child("gym").getValue()).toString());
+
                 name.setText(comp.getName());
                 descrption.setText(comp.getDescription());
                 day.setText(comp.getDay());
                 month.setText(comp.getMonth());
                 year.setText(comp.getYear());
                 gym.setText(comp.getGym());
-                Uri imageUri = Uri.parse(comp.getImage());
-                draweeView.setImageURI(imageUri);
                 entrants = comp.getParticipants();
+
+                Uri imageUri = Uri.parse(comp.getThumb());
+                draweeView.setImageURI(imageUri);
+                imageUri = Uri.parse(comp.getImage());
+                draweeView.setImageURI(imageUri);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -104,7 +110,6 @@ public class ActivityCompetition extends AppCompatActivity {
             public void onClick(View v) {
                 int participants = Integer.parseInt(entrants);
                 participants++;
-
                 userDatabase.child("participants").setValue(((String.valueOf(participants)))).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
