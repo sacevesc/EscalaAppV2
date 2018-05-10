@@ -12,13 +12,21 @@ public class Competition {
     private String image;
     private String thumb;
     private String no_rounds, no_categorys;
+    // public String [] categories;
     private String day, month, year;
     private String owner;
-    private String[] climbers, judges;
+    // private ArrayList<String> climbers,judges;
     private String compKey;
     private String participants;
 
+    /*  public String[] getCategories() {
+          return categories;
+      }
 
+      public void setCategories(String[] categories) {
+          this.categories = categories;
+      }
+  */
     public Competition() {
     }
 
@@ -118,22 +126,22 @@ public class Competition {
         this.owner = owner;
     }
 
-    public String[] getClimbers() {
-        return climbers;
-    }
+    /*  public String[] getClimbers() {
+          return climbers;
+      }
 
-    public void setClimbers(String[] climbers) {
-        this.climbers = climbers;
-    }
+      public void setClimbers(String[] climbers) {
+          this.climbers = climbers;
+      }
 
-    public String[] getJudges() {
-        return judges;
-    }
+      public String[] getJudges() {
+          return judges;
+      }
 
-    public void setJudges(String[] judges) {
-        this.judges = judges;
-    }
-
+      public void setJudges(String[] judges) {
+          this.judges = judges;
+      }
+  */
     public String getCompKey() {
         return compKey;
     }

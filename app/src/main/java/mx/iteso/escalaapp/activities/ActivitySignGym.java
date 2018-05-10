@@ -212,7 +212,8 @@ public class ActivitySignGym extends AppCompatActivity {
                     if (image_gym_id != null)
                         updateImageGym(gymId);
 
-                    Intent intent = new Intent(ActivitySignGym.this, ActivityMain.class);
+                    Intent intent = new Intent(ActivitySignGym.this, ActivityGym.class);
+                    intent.putExtra("gym_id", gymId);
                     startActivity(intent);
                     finish();
                 } else {
@@ -226,13 +227,16 @@ public class ActivitySignGym extends AppCompatActivity {
             }
         });
 
-        firebaseDatabase.child("Climbers").child(uid).child("owner").setValue("true").addOnCompleteListener(new OnCompleteListener<Void>() {
+        Map addGymClimber = new HashMap();
+        addGymClimber.put("owner", "true");
+        addGymClimber.put("gymOwner", gymId);
+        firebaseDatabase.child("Climbers").child(uid).updateChildren(addGymClimber).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     // Sign in success, update UI with the signed-in user's information
                     progressDialog.dismiss();
-                    Log.d("Climber", "owner:success");
+                    Log.d("ClimberCreationGym", "owner:success");
                 } else {
                     // If sign in fails, display a message to the user.
                     progressDialog.hide();

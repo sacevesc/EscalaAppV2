@@ -230,8 +230,8 @@
     </string-array>
 
     <string-array name="categorias_ejemplo">
-        <item>principiante</item>
-        <item>intermedio</item>
+        <item>Principiantes</item>
+        <item>Intermedio</item>
         <item>avanzado</item>
         <item>mutante</item>
     </string-array>
@@ -343,7 +343,7 @@
 
         "Motion respects and reinforces the user as the prime mover. Primary user actions are "
         "inflection points that initiate motion, transforming the whole design.\n"
-        "All action takes place in a single environment. Objects are presented to the user without "
+        "All action takes ranking in a single environment. Objects are presented to the user without "
         "breaking the continuity of experience even as they transform and reorganize.\n"
         "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
         "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -13,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
         <LinearLayout
             android:id="@+id/item_results_relative"
             android:layout_width="wrap_content"
@@ -22,131 +24,52 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/item_results_place"
+                android:id="@+id/item_results_ranking"
                 android:layout_width="wrap_content"
+                android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/five"
                 android:text="1"
                 android:textColor="@color/colorPrimary"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
             <TextView
-                android:id="@+id/item_results_firstname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/ten"
-                android:text="Chris"
-                android:textColor="@color/colorBlack" />
-
-            <TextView
-                android:id="@+id/item_results_lastname"
+                android:id="@+id/item_results_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/four"
-                android:text="Sharma"
-                android:textColor="@color/colorBlack" />
+                android:gravity="center"
+                android:text="Chris Sharma"
+                android:textColor="@color/colorBlack"
+                tools:ignore="HardcodedText" />
 
             <LinearLayout
+                android:id="@+id/item_results_linear_boulders"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_weight="8"
                 android:layout_marginBottom="1dp"
                 android:layout_marginStart="@dimen/five"
                 android:orientation="horizontal">
 
-                <include
-                    android:id="@+id/boulder_1"
-                    layout="@layout/boulder_result"></include>
-
-                <include
-                    android:id="@+id/boulder_2"
-                    layout="@layout/boulder_result"></include>
-
-                <include
-                    android:id="@+id/boulder_3"
-                    layout="@layout/boulder_result"></include>
-
-                <include
-                    android:id="@+id/boulder_4"
-                    layout="@layout/boulder_result"></include>
-
-                <include
-                    android:id="@+id/boulder_5"
-                    layout="@layout/boulder_result"></include>
-
-                <include
-                    android:id="@+id/boulder_6"
-                    layout="@layout/boulder_result"></include>
-
-                <include
-                    android:id="@+id/boulder_7"
-                    layout="@layout/boulder_result"></include>
-
-                <include
-                    android:id="@+id/boulder_8"
-                    layout="@layout/boulder_result"></include>
-
-                <include
-                    android:id="@+id/boulder_9"
-                    layout="@layout/boulder_result"></include>
-
-                <include
-                    android:id="@+id/boulder_10"
-                    layout="@layout/boulder_result"></include>
-
-                <include
-                    android:id="@+id/boulder_11"
-                    layout="@layout/boulder_result"></include>
-
-                <include
-                    android:id="@+id/boulder_12"
-                    layout="@layout/boulder_result"></include>
-
-                <include
-                    android:id="@+id/boulder_13"
-                    layout="@layout/boulder_result"></include>
-
-                <include
-                    android:id="@+id/boulder_14"
-                    layout="@layout/boulder_result"></include>
-
-                <include
-                    android:id="@+id/boulder_15"
-                    layout="@layout/boulder_result"></include>
-
-                <include
-                    android:id="@+id/boulder_16"
-                    layout="@layout/boulder_result"></include>
-
-                <include
-                    android:id="@+id/boulder_17"
-                    layout="@layout/boulder_result"></include>
-
-                <include
-                    android:id="@+id/boulder_18"
-                    layout="@layout/boulder_result"></include>
-
-                <include
-                    android:id="@+id/boulder_19"
-                    layout="@layout/boulder_result"></include>
-
-                <include
-                    android:id="@+id/boulder_20"
-                    layout="@layout/boulder_result"></include>
 
             </LinearLayout>
 
             <TextView
                 android:id="@+id/item_results_sum"
                 android:layout_width="wrap_content"
+                android:layout_marginStart="@dimen/fifeteen"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="1dp"
                 android:layout_marginEnd="@dimen/five"
-                android:layout_marginStart="@dimen/ten"
+                android:layout_weight="4"
                 android:gravity="center_vertical"
                 android:text="5t 4b"
                 android:textColor="@color/colorBlack"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
         </LinearLayout>
 
     </HorizontalScrollView>

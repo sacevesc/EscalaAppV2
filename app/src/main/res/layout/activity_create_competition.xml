@@ -12,6 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/newcomp_done_button"
+        android:layout_marginBottom="@dimen/ten"
+        android:layout_marginTop="@dimen/twenty"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_margin="@dimen/five">
@@ -380,6 +382,7 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
         android:layout_margin="@dimen/ten"
+        android:layout_marginTop="@dimen/ten"
         android:layout_marginBottom="@dimen/fifeteen"
         android:background="@drawable/button_1"
         android:text="@string/new_comp_done"

@@ -34,7 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import mx.iteso.escalaapp.R;
-import mx.iteso.escalaapp.activities.ActivityMain;
+import mx.iteso.escalaapp.activities.ActivityCompetition;
 
 public class ActivityCreateCompetition extends AppCompatActivity {
 
@@ -301,8 +301,9 @@ public class ActivityCreateCompetition extends AppCompatActivity {
         compMap.put("month", month.getSelectedItem().toString());
         compMap.put("year", year.getSelectedItem().toString());
         compMap.put("gym", "default");
-        compMap.put("no_rounds", numberRounds.getSelectedItem().toString());
-        compMap.put("no_categories", String.valueOf(numberCat.getSelectedItemPosition()));
+        compMap.put("owner", uid);
+        compMap.put("no_rounds", String.valueOf(numberRounds.getSelectedItemPosition() + 1));
+        compMap.put("no_categories", String.valueOf(numberCat.getSelectedItemPosition() + 1));
         compMap.put("description", description.getText().toString());
         compMap.put("image", getString(R.string.default_image_gym));
         compMap.put("thumb", "default");
@@ -321,7 +322,8 @@ public class ActivityCreateCompetition extends AppCompatActivity {
                         updateImageComp(competitionId);
 
 
-                    Intent intent = new Intent(ActivityCreateCompetition.this, ActivityMain.class);
+                    Intent intent = new Intent(ActivityCreateCompetition.this, ActivityCompetition.class);
+                    intent.putExtra("comp_id", competitionId);
                     startActivity(intent);
                     finish();
                 } else {
