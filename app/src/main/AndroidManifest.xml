@@ -11,9 +11,11 @@
         android:icon="@drawable/sebas_nacional_2_recortada"
         android:roundIcon="@drawable/sebas_nacional_2_recortada"
         android:supportsRtl="true"
+
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.ActivitySplashScreen"
+            android:screenOrientation="sensorPortrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,23 +25,23 @@
         </activity>
         <activity
             android:name=".activities.ActivityLogin"
+            android:screenOrientation="sensorPortrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustUnspecified" />
         <activity
             android:name=".activities.ActivitySignIn"
+            android:screenOrientation="userPortrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".activities.ActivityProfile"
-            android:parentActivityName=".activities.ActivityMain" />
+            android:windowSoftInputMode="stateVisible|adjustPan" />
+        <activity android:name=".activities.ActivityProfile" />
         <activity
             android:name=".activities.ActivityEditProfile"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustUnspecified" />
         <activity android:name=".activities.ActivityGym" />
         <activity android:name=".activities.ActivityClimber" />
         <activity android:name=".activities.ActivityCompetition" />
         <activity android:name=".activities.ActivityJudging" />
-        <activity android:name=".activities.ActivityResults" />
+        <activity android:name=".results.ActivityResults" />
         <activity
             android:name=".activities.ActivityMain"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -49,10 +51,10 @@
             android:name=".activities.ActivitySignGym"
             android:parentActivityName=".activities.ActivitySettings"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustUnspecified" />
         <activity
             android:name=".settings.ActivityCreateCompetition"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustUnspecified"></activity>
     </application>
 
 </manifest>

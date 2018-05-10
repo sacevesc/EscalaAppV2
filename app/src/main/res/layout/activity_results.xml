@@ -2,27 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.ActivityResults">
+    android:background="@color/colorWhite"
+    tools:context=".results.ActivityResults">
 
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:fresco="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/comp_picture"
-            android:layout_width="124dp"
-            android:layout_height="124dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentTop="true"
             android:layout_marginEnd="@dimen/fifeteen"
-            android:layout_marginStart="@dimen/fifeteen"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="@dimen/twenty_five"
+            android:layout_marginTop="@dimen/twenty"
             android:scaleType="centerCrop"
             fresco:placeholderImage="@drawable/pavilions"
             fresco:roundAsCircle="true" />
@@ -37,8 +37,9 @@
             android:layout_marginEnd="@dimen/fifeteen"
             android:layout_toEndOf="@id/comp_picture"
             android:padding="@dimen/two"
+            android:gravity="center"
             android:text="Estatal de Jalisco 2018"
-            android:textSize="@dimen/twenty_five_sp" />
+            android:textSize="@dimen/twenty_Sp" />
 
 
         <LinearLayout
@@ -51,152 +52,66 @@
             android:layout_marginEnd="@dimen/fifeteen"
             android:layout_marginTop="@dimen/ten"
             android:gravity="center"
-        android:orientation="horizontal">
+            android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/comp_gym_icon"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:layout_margin="@dimen/four"
             android:background="@drawable/pavilions" />
 
             <TextView
                 android:id="@+id/comp_gym_name"
                 android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/four"
                 android:text="Rocodromo Ameyalli"
                 android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/comp_city_info"
-            android:layout_width="wrap_content"
+            android:id="@+id/linear_categories"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_below="@id/comp_gym_info"
-            android:layout_centerHorizontal="true"
-            android:layout_marginEnd="@dimen/fifeteen"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/comp_city_icon"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_margin="@dimen/four"
-                android:background="@drawable/marker_red" />
-
-            <TextView
-                android:id="@+id/comp_city_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/four"
-                android:text="Guadalajara, Jalisco."
-                android:textSize="12sp" />
-        </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/comp_city_info"
         android:layout_margin="@dimen/fifeteen"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="1"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="Results" />
+            android:layout_marginEnd="@dimen/five"
+            android:gravity="end"
+            android:text="@string/category" />
 
         <Spinner
             android:id="@+id/activity_results_spinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_column="1"
-            android:layout_row="1"
             android:layout_weight="1"
-            android:entries="@array/round" />
+            android:entries="@array/categorias_ejemplo" />
     </LinearLayout>
-    </RelativeLayout>
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linear_categories"
+            android:background="@color/colorWhite"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/colorPrimary"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabTextColor="@color/colorPrimary" />
 
-        <LinearLayout
-            android:id="@+id/item_results_relative"
-            android:layout_width="wrap_content"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/container"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/five"
-            android:orientation="horizontal">
+            android:layout_below="@id/tabs"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-            <TextView
-                android:id="@+id/item_results_place"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/five"
-                android:text="1"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/item_results_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/five"
-                android:text="Vincent Santorini"
-                android:textColor="@color/colorBlack" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="1dp"
-                android:layout_marginStart="@dimen/five"
-                android:orientation="horizontal">
-
-                <include layout="@layout/boulder_result"></include>
-
-                <include layout="@layout/boulder_result"></include>
-
-                <include layout="@layout/boulder_result"></include>
-
-                <include layout="@layout/boulder_result"></include>
-
-                <include layout="@layout/boulder_result"></include>
-
-                <include layout="@layout/boulder_result"></include>
-
-                <include layout="@layout/boulder_result"></include>
-
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="1dp"
-                android:layout_marginEnd="@dimen/five"
-                android:layout_marginStart="@dimen/ten"
-                android:gravity="center_vertical"
-                android:text="5t 4b"
-                android:textColor="@color/colorBlack"
-                android:textStyle="bold" />
-
-
-        </LinearLayout>
-
-    </HorizontalScrollView>
-
-    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/results_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/four"
-        android:padding="@dimen/four"
-        android:scrollbarStyle="outsideOverlay" />
+    </RelativeLayout>
 
 </LinearLayout>

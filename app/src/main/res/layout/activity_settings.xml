@@ -7,7 +7,6 @@
     tools:context="mx.iteso.escalaapp.activities.ActivitySettings">
 
     <LinearLayout
-        android:baselineAligned="false"
         android:id="@+id/fragments_settings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

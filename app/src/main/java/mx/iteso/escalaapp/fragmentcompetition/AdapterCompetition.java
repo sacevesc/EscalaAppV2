@@ -44,7 +44,7 @@ public class AdapterCompetition extends RecyclerView.Adapter<AdapterCompetition.
         holder.mParticipants.setText(compComingUp.get(position).getParticipants());
 
 
-        final Uri image_uri = Uri.parse(compComingUp.get(position).getImage());
+        final Uri image_uri = Uri.parse(compComingUp.get(position).getThumb());
         holder.draweeView.setImageURI(image_uri);
 
         holder.view.setOnClickListener(new View.OnClickListener() {

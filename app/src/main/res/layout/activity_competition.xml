@@ -29,7 +29,8 @@
         android:layout_toEndOf="@id/comp_picture"
         android:padding="@dimen/two"
         android:text="Estatal de Jalisco 2018"
-        android:textSize="@dimen/twenty_five_sp" />
+        android:textSize="@dimen/twenty_five_sp"
+        tools:ignore="HardcodedText" />
 
 
     <LinearLayout
@@ -57,7 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/four"
             android:text="Rocodromo Ameyalli"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
     <LinearLayout
@@ -84,7 +86,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/four"
             android:text="28"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/comp_month"
@@ -92,7 +95,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/four"
             android:text="April"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/comp_year"
@@ -100,7 +104,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/four"
             android:text="2020"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 
@@ -108,7 +113,7 @@
         android:id="@+id/linear_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/comp_date_info"
+        android:layout_below="@+id/comp_picture"
         android:layout_margin="@dimen/ten"
         android:orientation="horizontal">
 

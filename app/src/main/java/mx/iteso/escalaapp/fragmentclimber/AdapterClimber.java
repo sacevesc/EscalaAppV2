@@ -45,7 +45,7 @@ public class AdapterClimber extends RecyclerView.Adapter<AdapterClimber.ViewHold
         holder.mFirstName.setText(climbers.get(position).getFirstname());
         holder.mLastName.setText(climbers.get(position).getLastname());
         holder.mGym.setText(climbers.get(position).getGym());
-        final Uri image_uri = Uri.parse(climbers.get(position).getImage());
+        final Uri image_uri = Uri.parse(climbers.get(position).getThumb());
         holder.draweeView.setImageURI(image_uri);
 
         //final String climber_id = FirebaseDatabase.getInstance().getReference().child("Climbers").getKey();

@@ -41,7 +41,7 @@ public class AdapterGym extends RecyclerView.Adapter<AdapterGym.ViewHolder> {
         holder.mName.setText(gyms.get(position).getName());
         holder.mCity.setText(gyms.get(position).getCity());
         holder.mState.setText(gyms.get(position).getState());
-        final Uri image_uri = Uri.parse(gyms.get(position).getImage());
+        final Uri image_uri = Uri.parse(gyms.get(position).getThumb());
         holder.draweeView.setImageURI(image_uri);
 
         holder.view.setOnClickListener(new View.OnClickListener() {

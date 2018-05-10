@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EscalaApp</string>
+    <string name="app_name">inBloc</string>
     <string name="login_user">User</string>
     <string name="log_in">Log In</string>
     <string name="sign_in">Sign In</string>
@@ -86,8 +86,9 @@
 
     <string-array name="round">
         <item>Qualifications</item>
-        <item>Final</item>
         <item>Semifinal</item>
+        <item>Final</item>
+        <item>Superfinal</item>
     </string-array>
 
     <string-array name="comp_rounds">
@@ -228,6 +229,13 @@
         <item>5</item>
     </string-array>
 
+    <string-array name="categorias_ejemplo">
+        <item>Principiantes</item>
+        <item>Intermedio</item>
+        <item>avanzado</item>
+        <item>mutante</item>
+    </string-array>
+
     <string-array name="array_years">
         <item>2018</item>
         <item>2019</item>
@@ -335,7 +343,7 @@
 
         "Motion respects and reinforces the user as the prime mover. Primary user actions are "
         "inflection points that initiate motion, transforming the whole design.\n"
-        "All action takes place in a single environment. Objects are presented to the user without "
+        "All action takes ranking in a single environment. Objects are presented to the user without "
         "breaking the continuity of experience even as they transform and reorganize.\n"
         "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
         "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
@@ -429,6 +437,7 @@
     <string name="category_1">Category #1:</string>
     <string name="newcomp_pick_date">Date</string>
     <string name="log_out">Log Out</string>
+    <string name="category">Category</string>
 
     <!-- Strings related to Settings -->
 

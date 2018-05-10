@@ -97,5 +97,11 @@ public class ActivityProfile extends AppCompatActivity {
             });
 
         }
+
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
+}
 

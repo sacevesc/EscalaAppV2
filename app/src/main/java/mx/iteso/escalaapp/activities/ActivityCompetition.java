@@ -24,6 +24,7 @@ import java.util.Objects;
 
 import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.beans.Competition;
+import mx.iteso.escalaapp.results.ActivityResults;
 
 public class ActivityCompetition extends AppCompatActivity {
 
@@ -31,7 +32,7 @@ public class ActivityCompetition extends AppCompatActivity {
     TextView name, descrption, day, month, year, gym;
     String entrants;
     Button register, results, judge;
-
+    String mGym, moOwner;
     private DatabaseReference userDatabase;
 
     @Override
@@ -52,7 +53,6 @@ public class ActivityCompetition extends AppCompatActivity {
         results = findViewById(R.id.comp_results_button);
         judge = findViewById(R.id.comp_judge_button);
 
-
         final String comp_id = getIntent().getStringExtra("comp_id");
         userDatabase = FirebaseDatabase.getInstance().getReference().child("Competitions").child(comp_id);
         userDatabase.addValueEventListener(new ValueEventListener() {
@@ -63,20 +63,27 @@ public class ActivityCompetition extends AppCompatActivity {
                 comp.setDay(Objects.requireNonNull(dataSnapshot.child("day").getValue()).toString());
                 comp.setMonth(Objects.requireNonNull(dataSnapshot.child("month").getValue()).toString());
                 comp.setYear(Objects.requireNonNull(dataSnapshot.child("year").getValue()).toString());
-                comp.setOwner(Objects.requireNonNull(dataSnapshot.child("owner").getValue()).toString());
+                comp.setOwner((Objects.requireNonNull(dataSnapshot.child("owner").getValue())).toString());
                 comp.setDescription(Objects.requireNonNull(dataSnapshot.child("description").getValue()).toString());
+                comp.setNo_categorys(Objects.requireNonNull(dataSnapshot.child("no_categories").getValue()).toString());
+                comp.setNo_rounds(Objects.requireNonNull(dataSnapshot.child("no_rounds").getValue()).toString());
                 comp.setImage(Objects.requireNonNull(dataSnapshot.child("image").getValue()).toString());
+                comp.setThumb(Objects.requireNonNull(dataSnapshot.child("thumb").getValue()).toString());
                 comp.setParticipants(Objects.requireNonNull(dataSnapshot.child("participants").getValue()).toString());
-                comp.setGym(Objects.requireNonNull(dataSnapshot.child("gym").getValue()).toString());
+
                 name.setText(comp.getName());
                 descrption.setText(comp.getDescription());
                 day.setText(comp.getDay());
                 month.setText(comp.getMonth());
                 year.setText(comp.getYear());
-                gym.setText(comp.getGym());
-                Uri imageUri = Uri.parse(comp.getImage());
-                draweeView.setImageURI(imageUri);
+
+                moOwner = comp.getOwner();
                 entrants = comp.getParticipants();
+
+                Uri imageUri = Uri.parse(comp.getThumb());
+                draweeView.setImageURI(imageUri);
+                imageUri = Uri.parse(comp.getImage());
+                draweeView.setImageURI(imageUri);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -84,6 +91,35 @@ public class ActivityCompetition extends AppCompatActivity {
             }
         });
 
+   /*     DatabaseReference fb_compName = FirebaseDatabase.getInstance().getReference().child("Climbers").child(moOwner);
+        fb_compName.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mGym = dataSnapshot.child("gymOwner").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        String nombreGym=mGym;
+        Toast.makeText(ActivityCompetition.this,nombreGym,Toast.LENGTH_SHORT).show();
+
+        DatabaseReference databaseReference =  FirebaseDatabase.getInstance().getReference().child("Gyms").child(nombreGym);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                gym.setText(dataSnapshot.child("name").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+*/
         results.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +140,6 @@ public class ActivityCompetition extends AppCompatActivity {
             public void onClick(View v) {
                 int participants = Integer.parseInt(entrants);
                 participants++;
-
                 userDatabase.child("participants").setValue(((String.valueOf(participants)))).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

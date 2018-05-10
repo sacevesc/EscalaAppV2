@@ -12,6 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/newcomp_done_button"
+        android:layout_marginBottom="@dimen/ten"
+        android:layout_marginTop="@dimen/twenty"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_margin="@dimen/five">
@@ -23,34 +25,6 @@
             android:layout_marginEnd="@dimen/five"
             android:layout_marginTop="@dimen/ten"
             android:orientation="vertical">
-
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/fifeteen"
-                android:scaleType="centerCrop"
-                fresco:placeholderImage="@drawable/climber"
-                fresco:roundAsCircle="true" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_marginBottom="@dimen/fifeteen"
-                android:background="@drawable/button_2"
-                android:gravity="center"
-                android:text="@string/change_image"
-                android:textSize="@dimen/ten_sp" />
-
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/fifeteen"
-                android:scaleType="centerCrop"
-                fresco:placeholderImage="@drawable/climber"
-                fresco:roundAsCircle="true"></com.facebook.drawee.view.SimpleDraweeView>
-
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/newcomp_image"
@@ -85,6 +59,7 @@
                     android:hint="@string/new_competition_name"
                     android:inputType="textPersonName"
                     android:maxLines="2"
+                    android:imeOptions="actionGo"
                     android:textColor="@color/colorPrimaryDark" />
             </android.support.design.widget.TextInputLayout>
 
@@ -258,6 +233,7 @@
                     android:gravity="center"
                     android:hint="@string/description"
                     android:inputType="textMultiLine"
+                    android:imeOptions="actionGo"
                     android:textColor="@color/colorPrimaryDark" />
             </android.support.design.widget.TextInputLayout>
 
@@ -302,6 +278,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:imeOptions="actionNext"
                     android:inputType="text" />
             </LinearLayout>
 
@@ -324,6 +301,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:imeOptions="actionNext"
                     android:inputType="text" />
             </LinearLayout>
 
@@ -345,7 +323,8 @@
                     android:id="@+id/newcomp_category_three"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:imeOptions="actionNext" />
             </LinearLayout>
 
             <LinearLayout
@@ -366,7 +345,8 @@
                     android:id="@+id/newcomp_category_four"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:imeOptions="actionNext" />
             </LinearLayout>
 
             <LinearLayout
@@ -387,7 +367,8 @@
                     android:id="@+id/newcomp_category_five"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:imeOptions="actionNext" />
             </LinearLayout>
 
 
@@ -401,6 +382,8 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
         android:layout_margin="@dimen/ten"
+        android:layout_marginTop="@dimen/ten"
+        android:layout_marginBottom="@dimen/fifeteen"
         android:background="@drawable/button_1"
         android:text="@string/new_comp_done"
         android:textColor="@color/colorWhite"

@@ -18,7 +18,7 @@ import mx.iteso.escalaapp.beans.Gym;
 public class ActivityGym extends AppCompatActivity {
 
     SimpleDraweeView draweeView;
-    TextView name, descrption;
+    TextView name, descrption, host, members, podiums;
     private DatabaseReference userDatabase;
 
     @Override
@@ -29,6 +29,9 @@ public class ActivityGym extends AppCompatActivity {
         draweeView = findViewById(R.id.gym_profile_picture);
         name = findViewById(R.id.gym_name);
         descrption = findViewById(R.id.gym_description);
+        host = findViewById(R.id.gym_number_host);
+        members = findViewById(R.id.gym_members_number);
+        podiums = findViewById(R.id.gym_podiums_number);
 
 
         String gym_id = getIntent().getStringExtra("gym_id");
@@ -44,12 +47,23 @@ public class ActivityGym extends AppCompatActivity {
                 gym.setOwner(dataSnapshot.child("owner").getValue().toString());
                 gym.setDescription(dataSnapshot.child("description").getValue().toString());
                 gym.setImage(dataSnapshot.child("image").getValue().toString());
+                gym.setThumb(dataSnapshot.child("thumb").getValue().toString());
+                gym.setMembers(dataSnapshot.child("members").getValue().toString());
+                gym.setPodiums(dataSnapshot.child("podiums").getValue().toString());
+                gym.setHost(dataSnapshot.child("host").getValue().toString());
 
                 name.setText(gym.getName());
                 descrption.setText(gym.getDescription());
+                members.setText(gym.getMembers());
+                host.setText(gym.getHost());
+                podiums.setText(gym.getPodiums());
 
-                Uri imageUri = Uri.parse(gym.getImage());
+                Uri imageUri = Uri.parse(gym.getThumb());
                 draweeView.setImageURI(imageUri);
+                imageUri = Uri.parse(gym.getImage());
+                draweeView.setImageURI(imageUri);
+
+
             }
 
             @Override

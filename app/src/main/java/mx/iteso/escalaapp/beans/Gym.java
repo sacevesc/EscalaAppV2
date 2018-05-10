@@ -14,8 +14,44 @@ public class Gym {
     private String owner;
     private String eslogan;
     private String key;
+    private String thumb;
+    private String members;
+    private String podiums;
+    private String host;
+
+    public String getMembers() {
+        return members;
+    }
+
+    public void setMembers(String members) {
+        this.members = members;
+    }
+
+    public String getPodiums() {
+        return podiums;
+    }
+
+    public void setPodiums(String podiums) {
+        this.podiums = podiums;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
 
     public Gym() {
+    }
+
+    public String getThumb() {
+        return thumb;
+    }
+
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
     }
 
     public String getKey() {

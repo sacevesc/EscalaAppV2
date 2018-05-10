@@ -22,7 +22,7 @@ public class ActivityMain extends AppCompatActivity {
 
         setFragment(new FragmentGyms());
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -62,6 +62,6 @@ public class ActivityMain extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         this.finish();
-        super.onBackPressed();
     }
+
 }
