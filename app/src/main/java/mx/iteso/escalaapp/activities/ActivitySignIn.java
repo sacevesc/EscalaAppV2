@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import mx.iteso.escalaapp.R;
 
@@ -101,6 +103,7 @@ public class ActivitySignIn extends AppCompatActivity {
 
     }
 
+
     private void createAccount(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -130,8 +133,13 @@ public class ActivitySignIn extends AppCompatActivity {
                                         progressDialog.dismiss();
                                         Log.d("Auth", "createUserWithEmail:success");
                                         FirebaseUser user = mAuth.getCurrentUser();
-
                                         //updateUI(user);
+                                        if(user != null && user.sendEmailVerification().isSuccessful()) {
+                                            Toast.makeText(ActivitySignIn.this,
+                                                    "Verification email sent to " + user.getEmail(),
+                                                    Toast.LENGTH_LONG).show();
+                                        }
+
                                         Intent intent = new Intent(ActivitySignIn.this, ActivityProfile.class);
                                         startActivity(intent);
                                         finish();
@@ -174,14 +182,11 @@ public class ActivitySignIn extends AppCompatActivity {
         return false;
     }
 
-    public void saveUser() {
-        SharedPreferences sharedPreferences = getSharedPreferences("mx.iteso.USER_PREFRENCES", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("NAME", email.getText().toString());
-        editor.putString("PWD", password.getText().toString());
-        editor.putBoolean("LOGGED", true);
-        editor.apply();
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+    public static boolean validate(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailStr);
+        return matcher.find();
     }
-
-
 }
