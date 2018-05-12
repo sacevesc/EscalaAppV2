@@ -56,7 +56,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:background="@color/colorCardViews"></FrameLayout>
+            android:background="@color/colorCardViews">
+
+        </FrameLayout>
 
 
     </LinearLayout>
@@ -67,7 +69,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimaryDark"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/fifeteen">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/settings_profile_picture"
@@ -131,7 +134,8 @@
             android:layout_margin="@dimen/two"
             android:layout_weight="0.5"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <ImageView
                 android:layout_width="30dp"
