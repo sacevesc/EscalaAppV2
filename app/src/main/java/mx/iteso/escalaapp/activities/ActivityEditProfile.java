@@ -45,10 +45,9 @@ public class ActivityEditProfile extends AppCompatActivity {
     AutoCompleteTextView city, state, gym;
     Button done, image_btn;
     SimpleDraweeView draweeView;
-    private byte[] datas;
+    byte[] datas;
 
     DatabaseReference userDatabase;
-    private FirebaseAuth mAuth;//firebase auth
     private ProgressDialog progressDialog;
     private FirebaseUser curretnUser;
     private StorageReference mStorageRef;
@@ -89,7 +88,6 @@ public class ActivityEditProfile extends AppCompatActivity {
 
 
         //data user
-        mAuth = FirebaseAuth.getInstance();
         curretnUser = FirebaseAuth.getInstance().getCurrentUser();
         final String currentUid = curretnUser.getUid();
         userDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").child(currentUid);

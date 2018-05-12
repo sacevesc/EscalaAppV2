@@ -93,7 +93,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:entries="@array/array_months"
+                    android:entries="@array/array_months_av"
                     android:gravity="center" />
 
                 <Spinner

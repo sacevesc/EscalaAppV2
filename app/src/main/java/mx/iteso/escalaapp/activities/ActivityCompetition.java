@@ -134,6 +134,7 @@ public class ActivityCompetition extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityCompetition.this, ActivityJudging.class);
+                intent.putExtra("comp_id", comp_id);
                 startActivity(intent);
             }
         });

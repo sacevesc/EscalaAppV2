@@ -185,7 +185,7 @@
                     android:hint="@string/gym"
                     android:inputType="textPersonName"
                     android:maxLines="1"
-                    android:imeOptions="actionNext"
+                    android:imeOptions="actionGo"
                     android:textColor="@color/colorPrimaryDark" />
             </android.support.design.widget.TextInputLayout>
 

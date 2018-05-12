@@ -86,9 +86,9 @@
 
     <string-array name="round">
         <item>Qualifications</item>
-        <item>Semifinal</item>
-        <item>Final</item>
-        <item>Superfinal</item>
+        <item>Semifinals</item>
+        <item>Finals</item>
+        <item>Superfinals</item>
     </string-array>
 
     <string-array name="comp_rounds">
@@ -244,7 +244,7 @@
         <item>2022</item>
     </string-array>
 
-    <string-array name="array_months">
+    <string-array name="array_months_complete">
         <item>January</item>
         <item>February</item>
         <item>March</item>
@@ -257,6 +257,20 @@
         <item>October</item>
         <item>November</item>
         <item>December</item>
+    </string-array>
+    <string-array name="array_months_av">
+        <item>Ene</item>
+        <item>Feb</item>
+        <item>Mar</item>
+        <item>Abr</item>
+        <item>May</item>
+        <item>Jun</item>
+        <item>Jul</item>
+        <item>Ago</item>
+        <item>Sep</item>
+        <item>Oct</item>
+        <item>Nov</item>
+        <item>Dic</item>
     </string-array>
 
     <string-array name="array_days">

@@ -79,8 +79,7 @@ public class ActivitySignIn extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (checkDataUser()) {
-                    //saveUser();        progressDialog = new ProgressDialog(this);
-
+                    //saveUser();
                     progressDialog.setTitle("Regstering User");
                     progressDialog.setMessage("Please wait while your account is being created");
                     progressDialog.setCanceledOnTouchOutside(false);
@@ -123,6 +122,8 @@ public class ActivitySignIn extends AppCompatActivity {
                             climbersMap.put("image", getString(R.string.default_image_icon));
                             climbersMap.put("thumb", "default");
                             climbersMap.put("owner", "false");
+                            climbersMap.put("curentCompKey", "");
+                            climbersMap.put("currentCategory", "");
 
 
                             firebaseDatabase.setValue(climbersMap).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -140,7 +141,7 @@ public class ActivitySignIn extends AppCompatActivity {
                                                     Toast.LENGTH_LONG).show();
                                         }
 
-                                        Intent intent = new Intent(ActivitySignIn.this, ActivityProfile.class);
+                                        Intent intent = new Intent(ActivitySignIn.this, ActivityLogin.class);
                                         startActivity(intent);
                                         finish();
                                     }
