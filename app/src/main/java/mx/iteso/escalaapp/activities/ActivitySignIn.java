@@ -2,7 +2,6 @@ package mx.iteso.escalaapp.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -90,7 +89,8 @@ public class ActivitySignIn extends AppCompatActivity {
                 }
             }
         });
-        facebook_signin = findViewById(R.id.activity_login_facebook_button);
+
+       /* facebook_signin = findViewById(R.id.activity_login_facebook_button);
         facebook_signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,7 +99,7 @@ public class ActivitySignIn extends AppCompatActivity {
 
             }
         });
-
+*/
 
     }
 
