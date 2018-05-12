@@ -18,7 +18,6 @@
         android:background="@color/colorPrimary"
         android:gravity="center|top"
         android:layout_centerHorizontal="true"
-        android:text="44"
         android:textColor="@color/colorWhite"
         android:textSize="12sp"
         tools:ignore="HardcodedText" />
@@ -37,7 +36,6 @@
         android:layout_alignParentEnd="true"
         android:background="@color/colorPrimary"
         android:gravity="center|bottom"
-        android:text="3"
         android:layout_centerHorizontal="true"
         android:textColor="@color/colorWhite"
         android:textSize="12sp"

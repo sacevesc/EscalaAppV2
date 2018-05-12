@@ -7,10 +7,12 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,6 +31,8 @@ import mx.iteso.escalaapp.R;
 
 public class ActivitySignIn extends AppCompatActivity {
     EditText firstname, lastname, email, password, password2;
+    Spinner categorySpinner;
+    String categorySelected = "";
     AutoCompleteTextView city, state, gym;
     Button done, facebook_signin;
 
@@ -56,6 +60,18 @@ public class ActivitySignIn extends AppCompatActivity {
         password2 = findViewById(R.id.sigin_password2);
         email = findViewById(R.id.signin_email);
 
+        categorySpinner = findViewById(R.id.signin_category_spinner);
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                categorySelected = categorySpinner.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         city = findViewById(R.id.sigin_city_autocomplete);
         String[] cities = getResources().getStringArray(R.array.ciudades);
@@ -122,6 +138,7 @@ public class ActivitySignIn extends AppCompatActivity {
                             climbersMap.put("image", getString(R.string.default_image_icon));
                             climbersMap.put("thumb", "default");
                             climbersMap.put("owner", "false");
+                            climbersMap.put("category", categorySelected);
                             climbersMap.put("curentCompKey", "");
                             climbersMap.put("currentCategory", "");
 

@@ -253,6 +253,10 @@ public class ActivityCreateCompetition extends AppCompatActivity {
         compMap.put("year", year.getSelectedItem().toString());
         compMap.put("gym", "default");
         compMap.put("owner", uid);
+        compMap.put("qualifications", qualifications.getSelectedItem().toString());
+        compMap.put("semifinals", semifinals.getSelectedItem().toString());
+        compMap.put("finals", finals.getSelectedItem().toString());
+        compMap.put("superfinals", qualifications.getSelectedItem().toString());
         compMap.put("no_rounds", String.valueOf(numberRounds.getSelectedItemPosition() + 1));
         compMap.put("no_categories", String.valueOf(numberCat.getSelectedItemPosition() + 1));
         compMap.put("description", description.getText().toString());
@@ -320,7 +324,7 @@ public class ActivityCreateCompetition extends AppCompatActivity {
 
 
         firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Competitions").child(compId);
-        final StorageReference thumb_filePath = mStorageRef.child("competitions_images").child("thumbs").child(compId + ".jpg");
+        final StorageReference thumb_filePath = mStorageRef.child("competition_images").child("thumbs").child(compId + ".jpg");
 
         UploadTask uploadTask = thumb_filePath.putBytes(datas);
         uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {

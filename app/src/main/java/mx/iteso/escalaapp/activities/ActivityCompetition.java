@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,15 +32,23 @@ public class ActivityCompetition extends AppCompatActivity {
 
     SimpleDraweeView draweeView;
     TextView name, descrption, day, month, year, gym;
-    String entrants;
+    String entrants, currentUid;
     Button register, results, judge;
     String mGym, moOwner;
-    private DatabaseReference userDatabase;
+    private DatabaseReference userDatabase, climberCompRegister, checkRegisters;
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_competition);
+
+
+        final String comp_id = getIntent().getStringExtra("comp_id");
+        userDatabase = FirebaseDatabase.getInstance().getReference().child("Competitions").child(comp_id);
+        climberCompRegister = FirebaseDatabase.getInstance().getReference();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        currentUid = currentUser.getUid();
 
         draweeView = findViewById(R.id.comp_picture);
         name = findViewById(R.id.comp_name);
@@ -47,14 +57,28 @@ public class ActivityCompetition extends AppCompatActivity {
         month = findViewById(R.id.comp_month);
         year = findViewById(R.id.comp_year);
         gym = findViewById(R.id.comp_gym_name);
-
         register = findViewById(R.id.comp_register_button);
-
         results = findViewById(R.id.comp_results_button);
         judge = findViewById(R.id.comp_judge_button);
 
-        final String comp_id = getIntent().getStringExtra("comp_id");
-        userDatabase = FirebaseDatabase.getInstance().getReference().child("Competitions").child(comp_id);
+        checkRegisters = FirebaseDatabase.getInstance().getReference().child("Competitions").child(comp_id).child("climbers");
+        checkRegisters.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    if (postSnapshot.getKey().contentEquals(currentUid) && postSnapshot.getValue().toString().contentEquals("true")) {
+                        register.setText("Unregister");
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+
 
         userDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -87,6 +111,7 @@ public class ActivityCompetition extends AppCompatActivity {
                 imageUri = Uri.parse(comp.getImage());
                 draweeView.setImageURI(imageUri);
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -142,24 +167,50 @@ public class ActivityCompetition extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int participants = Integer.parseInt(entrants);
-                participants++;
-                userDatabase.child("participants").setValue(((String.valueOf(participants)))).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            register.setVisibility(View.INVISIBLE);
-                            Log.d("Comp", "register:success");
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("Comp", "CREATEgym:failure", task.getException());
-                            Toast.makeText(ActivityCompetition.this, "register failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
+                if (register.getText().equals("Unregister")) {
+                    int participants = Integer.parseInt(entrants);
+
+                    participants--;
+
+                    climberCompRegister.child("Competitions").child(comp_id).child("climbers").child(currentUid).setValue("false");
+
+                    userDatabase.child("participants").setValue(((String.valueOf(participants)))).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                register.setText("Register");
+                                Log.d("Comp", "register:success");
+                            } else {
+                                Log.w("Comp", "CREATEgym:failure", task.getException());
+                                Toast.makeText(ActivityCompetition.this, "register failed.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+
+                } else {
+
+                    int participants = Integer.parseInt(entrants);
+                    participants++;
+
+                    climberCompRegister.child("Competitions").child(comp_id).child("climbers").child(currentUid).setValue("true");
+
+                    userDatabase.child("participants").setValue(((String.valueOf(participants)))).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d("Comp", "register:success");
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("Comp", "CREATEgym:failure", task.getException());
+                                Toast.makeText(ActivityCompetition.this, "register failed.",
+                                        Toast.LENGTH_SHORT).show();
+                                //updateUI(null);
+                            }
+                        }
+                    });
+                }
             }
         });
     }

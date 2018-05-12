@@ -35,8 +35,9 @@ public class FragmentSuperfinal extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView resultsList;
     private ArrayList<Results> resultsAList;
+    String boulderQualifications = "";
     FirebaseUser currentUser;
-    DatabaseReference userDatabase;
+    DatabaseReference userDatabase, compDatabase;
 
     public FragmentSuperfinal() {
         // Required empty public constructor
@@ -75,6 +76,18 @@ public class FragmentSuperfinal extends Fragment {
                 setCompKey(dataSnapshot.child("currentCompKey").getValue().toString());
                 setActualCategory(dataSnapshot.child("currentCategory").getValue().toString());
 
+                compDatabase = FirebaseDatabase.getInstance().getReference().child("Competitions").child(compKey).child("superfinals");
+                compDatabase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        boulderQualifications = dataSnapshot.getValue().toString();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
                 Query compsDatabse = FirebaseDatabase.getInstance().getReference().child("Results").child("Superfinals").child(compKey).child(actualCategory).orderByChild("ranking");
                 // All comps list
@@ -88,6 +101,7 @@ public class FragmentSuperfinal extends Fragment {
                             results.setLastname(Objects.requireNonNull(postSnapshot.child("lastname").getValue()).toString());
                             results.setRanking((Objects.requireNonNull(postSnapshot.child("ranking").getValue()).toString()));
                             results.setSum(Objects.requireNonNull(postSnapshot.child("sum").getValue()).toString());
+                            results.setBoulder_round(Integer.parseInt(boulderQualifications));
                             String resultKey = postSnapshot.getKey();
                             results.setResultsKey(postSnapshot.getKey());
                             final Query bouldersDB = FirebaseDatabase.getInstance().getReference().child("Results").child("Superfinals").child(compKey).child(actualCategory).child(resultKey).child("boulders").orderByChild("number");

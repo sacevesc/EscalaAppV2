@@ -8,7 +8,7 @@ public class Results {
     private String sum;
     private String firstname;
     private String lastname;
-    private int boulder_round = 3;
+    private int boulder_round;
     private String ranking;
     private ArrayList<Boulder> boulders = new ArrayList<>();
 

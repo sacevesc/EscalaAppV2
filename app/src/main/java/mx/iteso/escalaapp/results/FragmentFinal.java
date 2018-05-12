@@ -35,8 +35,9 @@ public class FragmentFinal extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView resultsList;
     private ArrayList<Results> resultsAList;
+    String boulderFinals = "";
     FirebaseUser currentUser;
-    DatabaseReference userDatabase;
+    DatabaseReference userDatabase, compDatabase;
 
     public FragmentFinal() {
         // Required empty public constructor
@@ -66,6 +67,7 @@ public class FragmentFinal extends Fragment {
     public void onStart() {
         super.onStart();
         Log.e("logs", actualCategory + " Q " + compKey);
+        compDatabase = FirebaseDatabase.getInstance().getReference();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String currentUid = currentUser.getUid();
         userDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").child(currentUid);
@@ -74,6 +76,20 @@ public class FragmentFinal extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 setCompKey(dataSnapshot.child("currentCompKey").getValue().toString());
                 setActualCategory(dataSnapshot.child("currentCategory").getValue().toString());
+
+                compDatabase = FirebaseDatabase.getInstance().getReference().child("Competitions").child(compKey).child("finals");
+                compDatabase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        boulderFinals = dataSnapshot.getValue().toString();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
 
                 Query compsDatabse = FirebaseDatabase.getInstance().getReference().child("Results").child("Finals").child(compKey).child(actualCategory).orderByChild("ranking");
                 // All comps list
@@ -87,6 +103,7 @@ public class FragmentFinal extends Fragment {
                             results.setLastname(Objects.requireNonNull(postSnapshot.child("lastname").getValue()).toString());
                             results.setRanking((Objects.requireNonNull(postSnapshot.child("ranking").getValue()).toString()));
                             results.setSum(Objects.requireNonNull(postSnapshot.child("sum").getValue()).toString());
+                            results.setBoulder_round(Integer.parseInt(boulderFinals));
                             String resultKey = postSnapshot.getKey();
                             results.setResultsKey(postSnapshot.getKey());
                             final Query bouldersDB = FirebaseDatabase.getInstance().getReference().child("Results").child("Finals").child(compKey).child(actualCategory).child(resultKey).child("boulders").orderByChild("number");

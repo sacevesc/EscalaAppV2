@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,7 @@ public class ActivityEditProfile extends AppCompatActivity {
     AutoCompleteTextView city, state, gym;
     Button done, image_btn;
     SimpleDraweeView draweeView;
+    Spinner categorySpinner;
     byte[] datas;
 
     DatabaseReference userDatabase;
@@ -63,6 +65,7 @@ public class ActivityEditProfile extends AppCompatActivity {
         lastname = findViewById(R.id.sigin_lastname);
         image_btn = findViewById(R.id.signin_image_button);
         draweeView = findViewById(R.id.signin_image);
+        categorySpinner = findViewById(R.id.signin_category_spinner);
         //password = findViewById(R.id.sigin_password);
         //email = findViewById(R.id.signin_email);
 
@@ -102,6 +105,7 @@ public class ActivityEditProfile extends AppCompatActivity {
                 climber.setCity(dataSnapshot.child("city").getValue().toString());
                 climber.setDescription(dataSnapshot.child("description").getValue().toString());
                 climber.setImage(dataSnapshot.child("image").getValue().toString());
+                climber.setCategory(dataSnapshot.child("category").getValue().toString());
 
                 firstname.setText(climber.getFirstname());
                 lastname.setText(climber.getLastname());
@@ -109,6 +113,12 @@ public class ActivityEditProfile extends AppCompatActivity {
                 state.setText(climber.getState());
                 city.setText(climber.getCity());
                 descrption.setText(climber.getDescription());
+
+                for (int i = 0; i < categorySpinner.getCount(); i++) {
+                    if (climber.getCategory().contentEquals(categorySpinner.getItemAtPosition(i).toString())) {
+                        categorySpinner.setSelection(i);
+                    }
+                }
 
                 Uri imageUri = Uri.parse(climber.getImage());
                 draweeView.setImageURI(imageUri);
@@ -140,6 +150,7 @@ public class ActivityEditProfile extends AppCompatActivity {
                 editClimber.put("gym", gym.getText().toString());
                 editClimber.put("state", state.getText().toString());
                 editClimber.put("description", descrption.getText().toString());
+                editClimber.put("category", categorySpinner.getSelectedItem().toString());
 
                 userDatabase.updateChildren(editClimber).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

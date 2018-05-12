@@ -7,6 +7,7 @@ package mx.iteso.escalaapp.beans;
 public class Climber {
     private String firstname;
     private String lastname;
+    private String category;
     private String gym;
     private String image;
     private String thumb;
@@ -26,6 +27,15 @@ public class Climber {
         this.state = "";
         this.image = "";
         this.thumb = "";
+        this.category = "";
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getKey() {
