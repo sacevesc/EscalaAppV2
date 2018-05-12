@@ -1,6 +1,5 @@
 package mx.iteso.escalaapp.fragmentclimber;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,13 +8,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,14 +36,11 @@ import mx.iteso.escalaapp.beans.Climber;
 import mx.iteso.escalaapp.settings.ActivitySettings;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FragmentClimbers extends Fragment {
 
     private RecyclerView.LayoutManager mLayoutManager;
-    private DatabaseReference climbersDatabase;
     private RecyclerView climbersList;
+    private EditText searchText;
 
     public FragmentClimbers() {
     }
@@ -49,6 +50,9 @@ public class FragmentClimbers extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_climbers, container, false);
         climbersList = view.findViewById(R.id.fragment_climbers_recycler_view);
+        ImageButton searchButton = view.findViewById(R.id.search_button);
+        ImageButton clearButton = view.findViewById(R.id.clear_button);
+        searchText = view.findViewById(R.id.search_text);
         setHasOptionsMenu(true);
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
@@ -58,6 +62,85 @@ public class FragmentClimbers extends Fragment {
 
         climbersList.setHasFixedSize(true);
         climbersList.setLayoutManager(mLayoutManager);
+        searchText.setOnKeyListener(new View.OnKeyListener(){
+
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == EditorInfo.IME_ACTION_SEARCH ||
+                        keyCode == EditorInfo.IME_ACTION_DONE ||
+                        event.getAction() == KeyEvent.ACTION_DOWN &&
+                                event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+
+                    Query climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").orderByChild("firstname");
+                    climbersDatabase.addValueEventListener(new ValueEventListener() {
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            ArrayList<Climber> climbers = new ArrayList<>();
+                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                Climber climber = postSnapshot.getValue(Climber.class);
+                                climber.setKey(postSnapshot.getKey());
+                                if ((climber.getFirstname() + " " + climber.getLastname()).toLowerCase().contains(searchText.getText().toString().toLowerCase()))
+                                    climbers.add(climber);
+                            }
+                            AdapterClimber adapterClimber = new AdapterClimber(climbers);
+                            climbersList.setAdapter(adapterClimber);
+                        }
+
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.w("Climberlist", "loadPost:onCancelled", databaseError.toException());
+                        }
+                    });
+                    return true;
+                }
+                return false;
+            }
+        });
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Query climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").orderByChild("firstname");
+                climbersDatabase.addValueEventListener(new ValueEventListener() {
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        ArrayList<Climber> climbers = new ArrayList<>();
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            Climber climber = postSnapshot.getValue(Climber.class);
+                            climber.setKey(postSnapshot.getKey());
+                            if ((climber.getFirstname() + " " + climber.getLastname()).toLowerCase().contains(searchText.getText().toString().toLowerCase()))
+                                climbers.add(climber);
+                        }
+                        AdapterClimber adapterClimber = new AdapterClimber(climbers);
+                        climbersList.setAdapter(adapterClimber);
+                    }
+
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w("Climberlist", "loadPost:onCancelled", databaseError.toException());
+                    }
+                });
+            }
+        });
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Query climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").orderByChild("firstname");
+                climbersDatabase.addValueEventListener(new ValueEventListener() {
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        ArrayList<Climber> climbers = new ArrayList<>();
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            Climber climber = postSnapshot.getValue(Climber.class);
+                            climber.setKey(postSnapshot.getKey());
+                            climbers.add(climber);
+                        }
+                        AdapterClimber adapterClimber = new AdapterClimber(climbers);
+                        climbersList.setAdapter(adapterClimber);
+                    }
+
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w("Climberlist", "loadPost:onCancelled", databaseError.toException());
+                    }
+                });
+                searchText.setText("");
+            }
+        });
+
 
         ImageView imageView = view.findViewById(R.id.activity_main_profile);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -68,16 +151,14 @@ public class FragmentClimbers extends Fragment {
             }
         });
 
-
         return view;
     }
+
 
     @Override
     public void onStart() {
         super.onStart();
         Query climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").orderByChild("firstname");
-
-        // All climbers list
         climbersDatabase.addValueEventListener(new ValueEventListener() {
 
             @Override
@@ -87,7 +168,8 @@ public class FragmentClimbers extends Fragment {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Climber climber = postSnapshot.getValue(Climber.class);
                     climber.setKey(postSnapshot.getKey());
-                    climbers.add(climber);
+                    if ((climber.getFirstname() + " " + climber.getLastname()).toLowerCase().contains(searchText.getText().toString().toLowerCase()))
+                        climbers.add(climber);
                 }
 
                 AdapterClimber adapterClimber = new AdapterClimber(climbers);
@@ -126,5 +208,6 @@ public class FragmentClimbers extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 }

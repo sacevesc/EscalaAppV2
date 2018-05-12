@@ -452,6 +452,9 @@
     <string name="newcomp_pick_date">Date</string>
     <string name="log_out">Log Out</string>
     <string name="category">Category</string>
+    <string name="search_climbers">Search Climbers</string>
+    <string name="search_competitions">Search Competitions</string>
+    <string name="search_gyms">Search Gyms</string>
 
     <!-- Strings related to Settings -->
 
