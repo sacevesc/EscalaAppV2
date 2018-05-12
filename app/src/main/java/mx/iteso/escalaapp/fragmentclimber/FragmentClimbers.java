@@ -28,8 +28,8 @@ import java.util.ArrayList;
 
 import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.activities.ActivityProfile;
-import mx.iteso.escalaapp.activities.ActivitySettings;
 import mx.iteso.escalaapp.beans.Climber;
+import mx.iteso.escalaapp.settings.ActivitySettings;
 
 
 /**

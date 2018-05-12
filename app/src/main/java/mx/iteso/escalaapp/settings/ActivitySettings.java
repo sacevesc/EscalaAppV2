@@ -1,4 +1,4 @@
-package mx.iteso.escalaapp.activities;
+package mx.iteso.escalaapp.settings;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -21,8 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import mx.iteso.escalaapp.R;
+import mx.iteso.escalaapp.activities.ActivitySplashScreen;
 import mx.iteso.escalaapp.beans.Climber;
-import mx.iteso.escalaapp.settings.FragmentGymSettings;
 
 public class ActivitySettings extends AppCompatActivity {
 
@@ -91,16 +91,18 @@ public class ActivitySettings extends AppCompatActivity {
         gymSettings.setAlpha(.5f);
         otherSettings.setAlpha(.5f);
         setFragment(new FragmentGymSettings());
-        Fragment activeFragment = null;
+        Fragment activeFragment = new FragmentGymSettings();
 
         if (target.getId() == R.id.general_settings) {
             activeFragment = new FragmentGymSettings();
             generalSettings.setAlpha(1);
         } else if (target.getId() == R.id.gym_settings) {
-            activeFragment = new FragmentGymSettings();
+            if (activeFragment == null)
+                activeFragment = new FragmentGymSettings();
             gymSettings.setAlpha(1);
         } else if (target.getId() == R.id.other_settings) {
-            activeFragment = new FragmentGymSettings();
+            if (activeFragment == null)
+                activeFragment = new FragmentGymSettings();
             otherSettings.setAlpha(1);
         }
         setFragment(activeFragment);
@@ -112,13 +114,11 @@ public class ActivitySettings extends AppCompatActivity {
 
         transaction.replace(R.id.fragments_settings, fragment);
         transaction.addToBackStack(null);
-
         transaction.commit();
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         finish();
     }
 }

@@ -55,6 +55,7 @@ public class ActivityCompetition extends AppCompatActivity {
 
         final String comp_id = getIntent().getStringExtra("comp_id");
         userDatabase = FirebaseDatabase.getInstance().getReference().child("Competitions").child(comp_id);
+
         userDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -70,6 +71,7 @@ public class ActivityCompetition extends AppCompatActivity {
                 comp.setImage(Objects.requireNonNull(dataSnapshot.child("image").getValue()).toString());
                 comp.setThumb(Objects.requireNonNull(dataSnapshot.child("thumb").getValue()).toString());
                 comp.setParticipants(Objects.requireNonNull(dataSnapshot.child("participants").getValue()).toString());
+                comp.setCompKey(comp_id);
 
                 name.setText(comp.getName());
                 descrption.setText(comp.getDescription());
@@ -124,6 +126,7 @@ public class ActivityCompetition extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityCompetition.this, ActivityResults.class);
+                intent.putExtra("comp_id", comp_id);
                 startActivity(intent);
             }
         });

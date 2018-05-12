@@ -17,7 +17,7 @@ import android.widget.ImageView;
 
 import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.activities.ActivityProfile;
-import mx.iteso.escalaapp.activities.ActivitySettings;
+import mx.iteso.escalaapp.settings.ActivitySettings;
 import mx.iteso.escalaapp.utils.AdapterSectionPager;
 
 public class FragmentCompetitions extends Fragment {

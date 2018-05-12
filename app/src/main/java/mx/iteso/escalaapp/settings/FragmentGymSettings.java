@@ -28,7 +28,7 @@ public class FragmentGymSettings extends Fragment {
     TextView gymProfile, createCompetition, payment, help, addGym;
     private DatabaseReference firebaseDatabase;
     private FirebaseUser currentUser;
-    String isowner = "false";
+    String isowner = "";
 
     public FragmentGymSettings() {
     }
@@ -41,6 +41,29 @@ public class FragmentGymSettings extends Fragment {
 
         gymProfile = view.findViewById(R.id.setting_gym_profile);
         createCompetition = view.findViewById(R.id.setting_gym_create_comp);
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String currentUid = currentUser.getUid();
+
+        firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").child(currentUid).child("owner");
+        firebaseDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                isowner = dataSnapshot.getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        if (isowner.contentEquals("true")) {
+            createCompetition.setVisibility(View.VISIBLE);
+            //Toast.makeText(getActivity(), "Create compettition", Toast.LENGTH_SHORT).show();
+        } else {
+            createCompetition.setVisibility(View.GONE);
+            Toast.makeText(getActivity(), "Only gym owners can create a competition " + isowner, Toast.LENGTH_SHORT).show();
+        }
+
+
         payment = view.findViewById(R.id.setting_gym_payment);
         help = view.findViewById(R.id.setting_gym_help);
         addGym = view.findViewById(R.id.create_gym);
@@ -55,30 +78,8 @@ public class FragmentGymSettings extends Fragment {
         createCompetition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent createCompIntent = new Intent(getActivity())
-                firebaseDatabase = FirebaseDatabase.getInstance().getReference();
-                currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                String currentUid = currentUser.getUid();
-
-                firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").child(currentUid);
-                firebaseDatabase.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        isowner = dataSnapshot.child("owner").getValue().toString();
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-                if (isowner.contentEquals("true")) {
-                    Intent createGymIntent = new Intent(getActivity(), ActivityCreateCompetition.class);
-                    startActivity(createGymIntent);
-                    //Toast.makeText(getActivity(), "Create compettition", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity(), "Only gym owners can create a competition " + isowner, Toast.LENGTH_LONG).show();
-                }
+                Intent createGymIntent = new Intent(getActivity(), ActivityCreateCompetition.class);
+                startActivity(createGymIntent);
             }
         });
 

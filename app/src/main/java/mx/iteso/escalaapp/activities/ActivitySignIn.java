@@ -132,7 +132,7 @@ public class ActivitySignIn extends AppCompatActivity {
                                         FirebaseUser user = mAuth.getCurrentUser();
 
                                         //updateUI(user);
-                                        Intent intent = new Intent(ActivitySignIn.this, ActivityMain.class);
+                                        Intent intent = new Intent(ActivitySignIn.this, ActivityProfile.class);
                                         startActivity(intent);
                                         finish();
                                     }
@@ -161,10 +161,9 @@ public class ActivitySignIn extends AppCompatActivity {
         else if (email.getText().toString().isEmpty())
             Toast.makeText(ActivitySignIn.this, "Falta el mail", Toast.LENGTH_SHORT).show();
         else if (password.getText().toString().isEmpty()) {
-            if (!password.getText().equals(password2.getText())) {
-                Toast.makeText(ActivitySignIn.this, "La contraseñas no coinciden", Toast.LENGTH_SHORT).show();
-            }
-            Toast.makeText(ActivitySignIn.this, "Falta la contraseña", Toast.LENGTH_SHORT).show();
+        } else if (password.getText().toString().compareTo(password2.getText().toString()) != 0) {
+            Toast.makeText(ActivitySignIn.this, "La contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+            return false;
         } /*else if (city.getText().toString().isEmpty())
             Toast.makeText(ActivitySignIn.this, "Falta la ciudad", Toast.LENGTH_SHORT).show();
         else if (state.getText().toString().isEmpty())

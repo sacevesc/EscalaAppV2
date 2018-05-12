@@ -130,7 +130,6 @@ public class ActivityCreateCompetition extends AppCompatActivity {
 
                 if (checkDataUser()) {
                     //saveUser();        progressDialog = new ProgressDialog(this);
-
                     progressDialog.setTitle("Creating competition");
                     progressDialog.setMessage("Please wait while the competition is being created");
                     progressDialog.setCanceledOnTouchOutside(false);
@@ -146,12 +145,9 @@ public class ActivityCreateCompetition extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-
                 startActivityForResult(Intent.createChooser(intent, "SELECT IMAGE"), GALLERY_PICK);
             }
         });
-
-
     }
 
 
@@ -234,29 +230,6 @@ public class ActivityCreateCompetition extends AppCompatActivity {
             draweeView.setImageURI(image_uri);
 
 
-          /*  StorageReference filepath = mStorageRef.child("competition_images").child(userUid + ".jpg");
-            progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Loading Image");
-            progressDialog.setMessage("Please wait while your image is being saved");
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.show();
-
-            filepath.putFile(image_uri)
-                    .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                final String downloadUrl = task.getResult().getDownloadUrl().toString();
-                                draweeView.setImageURI(image_uri);
-                                progressDialog.dismiss();
-                                Log.d("Image", "uploadImage:success");
-                            } else {
-                                Log.d("Image", "uploadThumbnail:FAILURE");
-                                progressDialog.dismiss();
-                            }
-                        }
-                    });
-       */
             Bitmap bitmap = null;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), image_uri);
@@ -266,28 +239,6 @@ public class ActivityCreateCompetition extends AppCompatActivity {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 40, baos);
             datas = baos.toByteArray();
-
-           /* final StorageReference thumb_filePath = mStorageRef.child("competition_images").child("thumbs").child(userUid + ".jpg");
-
-            UploadTask uploadTask = thumb_filePath.putBytes(datas);
-            uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
-
-                    String thumb_downloadUrl = thumb_task.getResult().getDownloadUrl().toString();
-                    if (thumb_task.isSuccessful()) {
-                        progressDialog.dismiss();
-                        Log.d("Image", "uploadImage:success");
-
-
-                    } else {
-                        Log.d("Image", "uploadThumbnail:FAILURE");
-                        progressDialog.dismiss();
-                    }
-                }
-            });
-*/
-
         }
     }
 
@@ -320,8 +271,6 @@ public class ActivityCreateCompetition extends AppCompatActivity {
                     Log.d("COMP", "createCOMP:success");
                     if (image_comp_id != null)
                         updateImageComp(competitionId);
-
-
                     Intent intent = new Intent(ActivityCreateCompetition.this, ActivityCompetition.class);
                     intent.putExtra("comp_id", competitionId);
                     startActivity(intent);

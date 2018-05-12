@@ -91,7 +91,7 @@ public class ActivityEditProfile extends AppCompatActivity {
         //data user
         mAuth = FirebaseAuth.getInstance();
         curretnUser = FirebaseAuth.getInstance().getCurrentUser();
-        String currentUid = curretnUser.getUid();
+        final String currentUid = curretnUser.getUid();
         userDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").child(currentUid);
         userDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -133,12 +133,39 @@ public class ActivityEditProfile extends AppCompatActivity {
                 progressDialog.setMessage("Please wait while we save your changes");
                 progressDialog.setCanceledOnTouchOutside(false);
                 progressDialog.show();
-                updateAccount("firstname", firstname);
-                updateAccount("lastname", lastname);
-                updateAccount("city", city);
-                updateAccount("gym", gym);
-                updateAccount("state", state);
-                updateAccount("description", descrption);
+
+
+                Map editClimber = new HashMap();
+                editClimber.put("firstname", firstname.getText().toString());
+                editClimber.put("lastname", lastname.getText().toString());
+                editClimber.put("city", city.getText().toString());
+                editClimber.put("gym", gym.getText().toString());
+                editClimber.put("state", state.getText().toString());
+                editClimber.put("description", descrption.getText().toString());
+
+                userDatabase.updateChildren(editClimber).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            progressDialog.dismiss();
+                            Log.d("ClimberEditProfile", "edit:success");
+                            Intent intent = new Intent(ActivityEditProfile.this, ActivityProfile.class);
+                            startActivity(intent);
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            progressDialog.hide();
+                            Log.w("GYM", "CREATEgym:failure", task.getException());
+                            Toast.makeText(ActivityEditProfile.this, "Edit failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                });
+
+                finish();
+
 
             }
         });
@@ -246,19 +273,12 @@ public class ActivityEditProfile extends AppCompatActivity {
                     progressDialog.dismiss();
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("Auth", "updateUser" + update + ":success");
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    //updateUI(user);
-                    Intent intent = new Intent(ActivityEditProfile.this, ActivityProfile.class);
-                    startActivity(intent);
-                    finish();
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("Auth", "updateUser" + update + ":failure", task.getException());
                     Toast.makeText(ActivityEditProfile.this, "Update failed.",
                             Toast.LENGTH_SHORT).show();
-                    //updateUI(null);
                 }
-
             }
         });
     }

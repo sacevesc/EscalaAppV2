@@ -62,7 +62,7 @@ public class AdapterResults extends RecyclerView.Adapter<AdapterResults.ViewHold
             holder.linearBoulders.addView(boulderResult);
         }
 
-        Log.w("Results", resultsList.get(position).getBoulders().get(0).getTop(), null);
+//        Log.w("Results", resultsList.get(position).getBoulders().get(0).getTop(), null);
 
         holder.mName.setOnClickListener(new View.OnClickListener() {
             @Override

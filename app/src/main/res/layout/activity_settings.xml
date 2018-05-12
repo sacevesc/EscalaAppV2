@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mx.iteso.escalaapp.activities.ActivitySettings">
+    tools:context="mx.iteso.escalaapp.settings.ActivitySettings">
 
     <LinearLayout
         android:id="@+id/fragments_settings"

@@ -46,10 +46,10 @@
             android:name=".activities.ActivityMain"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.ActivityCompRegister" />
-        <activity android:name=".activities.ActivitySettings" />
+        <activity android:name=".settings.ActivitySettings" />
         <activity
             android:name=".activities.ActivitySignGym"
-            android:parentActivityName=".activities.ActivitySettings"
+            android:parentActivityName=".settings.ActivitySettings"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustUnspecified" />
         <activity
