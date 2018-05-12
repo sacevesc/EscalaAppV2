@@ -20,20 +20,28 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import mx.iteso.escalaapp.R;
+import mx.iteso.escalaapp.beans.Gym;
+import mx.iteso.escalaapp.fragmentgym.AdapterGym;
 
 public class ActivitySignIn extends AppCompatActivity {
     EditText firstname, lastname, email, password, password2;
     Spinner categorySpinner;
     String categorySelected = "";
-    AutoCompleteTextView city, state, gym;
+    AutoCompleteTextView city, state;
+    Spinner gym;
     Button done, facebook_signin;
 
 
@@ -83,10 +91,26 @@ public class ActivitySignIn extends AppCompatActivity {
         ArrayAdapter<String> adapterStates = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, states);
         state.setAdapter(adapterStates);
 
-        gym = findViewById(R.id.sigin_gym);
-        String[] gyms = getResources().getStringArray(R.array.muros);
-        ArrayAdapter<String> adapterGyms = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, gyms);
-        gym.setAdapter(adapterGyms);
+        gym = findViewById(R.id.signin_gym_spinner);
+        Query gymsDatabase = FirebaseDatabase.getInstance().getReference().child("Gyms").orderByChild("name");
+        gymsDatabase.addValueEventListener(new ValueEventListener()  {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<Gym> gyms = new ArrayList<>();
+                gyms.add(new Gym());
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Gym gym = postSnapshot.getValue(Gym.class);
+                    gym.setKey(postSnapshot.getKey());
+                    gyms.add(gym);
+                }
+                ArrayAdapter<Gym> adapter = new ArrayAdapter<Gym>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, gyms);
+                adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                gym.setAdapter(adapter);
+            }
+
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("Gymslist", "loadPost:onCancelled", databaseError.toException());
+            }
+        });
 
 
         done = findViewById(R.id.signin_done_button);
@@ -133,7 +157,7 @@ public class ActivitySignIn extends AppCompatActivity {
                             climbersMap.put("lastname", lastname.getText().toString().toUpperCase());
                             climbersMap.put("city", city.getText().toString().toUpperCase());
                             climbersMap.put("state", state.getText().toString().toUpperCase());
-                            climbersMap.put("gym", gym.getText().toString());
+                            climbersMap.put("gym", gym.getSelectedItem().toString());
                             climbersMap.put("description", "Motivated climber");
                             climbersMap.put("image", getString(R.string.default_image_icon));
                             climbersMap.put("thumb", "default");

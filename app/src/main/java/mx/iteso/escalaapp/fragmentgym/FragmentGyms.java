@@ -132,7 +132,6 @@ public class FragmentGyms extends Fragment {
                         AdapterGym adapterGyms = new AdapterGym(gyms);
                         gymsList.setAdapter(adapterGyms);
                     }
-
                     public void onCancelled(DatabaseError databaseError) {
                         Log.w("Gymslist", "loadPost:onCancelled", databaseError.toException());
                     }

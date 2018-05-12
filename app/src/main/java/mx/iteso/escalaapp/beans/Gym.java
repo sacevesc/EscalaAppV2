@@ -44,7 +44,16 @@ public class Gym {
     }
 
     public Gym() {
+        this.name = "None";
+        this.description = null;
+        this.city = null;
+        this.state = null;
+        this.address = null;
+        this.image = null;
+        this.owner = null;
+        this.eslogan = null;
     }
+
 
     public String getThumb() {
         return thumb;
@@ -145,5 +154,8 @@ public class Gym {
         this.image = photo;
     }
 
-
+    @Override
+    public String toString() {
+        return name;
+    }
 }
