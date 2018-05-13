@@ -45,6 +45,7 @@ public class ActivityJudging extends AppCompatActivity {
     private ArrayDeque<Climber> competitors;
     private ArrayList<String> climberIDs;
     private ArrayList<Climber> registeredClimbers;
+    boolean started = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,51 +60,55 @@ public class ActivityJudging extends AppCompatActivity {
         boulderSpinner = findViewById(R.id.activity_judging_boulderSpinner);
         addClimber = findViewById(R.id.add_climber);
         competitors = new ArrayDeque<Climber>();
-        climberIDs = new ArrayList<>();
-        registeredClimbers = new ArrayList<>();
+        climberIDs = new ArrayList<String>();
+        registeredClimbers = new ArrayList<Climber>();
+        compKey = getIntent().getStringExtra("comp_id");
+
+
+        Query climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Competitions").child(compKey).child("climbers");
+        climbersDatabase.addValueEventListener(new ValueEventListener() {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    climberIDs.add(postSnapshot.getKey());
+                }
+            }
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("Climberlist", "loadPost:onCancelled", databaseError.toException());
+            }
+        });
+
+        Log.d("CLIMBERS", ""+ climberIDs.size());
+        Log.d("COMPETITION", ""+ compKey);
+
+        for(String id : climberIDs){
+            climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").child(id);
+            climbersDatabase.addValueEventListener(new ValueEventListener() {
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    registeredClimbers.add(dataSnapshot.getValue(Climber.class));
+                }
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.w("Climberlist", "loadPost:onCancelled", databaseError.toException());
+                }
+            });
+        }
+
+        final CharSequence climberArray[] = new CharSequence[registeredClimbers.size()];
+        int i = 0;
+        for(Climber c : registeredClimbers){
+            climberArray[i] = c.getFirstname() + " " + c.getLastname();
+            i++;
+        }
         addClimber.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Query climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Competition").child("climbers");
-                climbersDatabase.addValueEventListener(new ValueEventListener() {
-                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            String climberID = postSnapshot.getKey();
-                        }
-
-                    }
-
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.w("Climberlist", "loadPost:onCancelled", databaseError.toException());
-                    }
-                });
-
-                for(String id : climberIDs){
-                    climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").child(id);
-                    climbersDatabase.addValueEventListener(new ValueEventListener() {
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            registeredClimbers.add(dataSnapshot.getValue(Climber.class));
-                        }
-
-                        public void onCancelled(DatabaseError databaseError) {
-                            Log.w("Climberlist", "loadPost:onCancelled", databaseError.toException());
-                        }
-                    });
-                }
-
-                final CharSequence climberArray[] = new CharSequence[registeredClimbers.size()];
-                int i = 0;
-                for(Climber c : registeredClimbers){
-                    climberArray[i] = c.getFirstname() + " " + c.getLastname();
-                    i++;
-                }
-                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityJudging.this);
                 builder.setTitle("Add a competitor");
                 builder.setItems(climberArray, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String climberName = climberArray[which].toString();
                     }
                 });
+                builder.create();
                 builder.show();
             }
         });
@@ -130,23 +135,22 @@ public class ActivityJudging extends AppCompatActivity {
 
             }
         });
-        compKey = getIntent().getStringExtra("comp_id");
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String currentUid = currentUser.getUid();
         judgeDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").child(currentUid);
-        judgeDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                setCurrentRound(dataSnapshot.child("currentRound").getValue().toString());
-                setCurrentBoulder(dataSnapshot.child("currentBoulder").getValue().toString());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+//        judgeDatabase.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                setCurrentRound(dataSnapshot.child("currentRound").getValue().toString());
+//                setCurrentBoulder(dataSnapshot.child("currentBoulder").getValue().toString());
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
     }
 
     public String getCompKey() {
@@ -196,7 +200,6 @@ public class ActivityJudging extends AppCompatActivity {
 
     public void startTimer(){
         new CountDownTimer(300000, 1000) {
-
             public void onTick(long millisUntilFinished) {
                 if(!top) {
                     timerV.setText(formatTime(time));
@@ -212,17 +215,18 @@ public class ActivityJudging extends AppCompatActivity {
     }
 
     public String formatTime(int totalSecs){
-        int hours = totalSecs / 3600;
         int minutes = (totalSecs % 3600) / 60;
         int seconds = totalSecs % 60;
 
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        return String.format("%02d:%02d", minutes, seconds);
     }
 
     public void addTry(View v){
         if(!top) {
-            if (triesCounter == 0)
+            if (!started) {
                 startTimer();
+                started = true;
+            }
             last = 0;
             triesCounter++;
             triesV.setText(String.valueOf(triesCounter));

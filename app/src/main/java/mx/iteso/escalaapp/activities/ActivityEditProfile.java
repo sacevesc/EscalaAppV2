@@ -27,6 +27,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -34,20 +35,24 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.beans.Climber;
+import mx.iteso.escalaapp.beans.Gym;
 
 public class ActivityEditProfile extends AppCompatActivity {
     private static final int GALLERY_PICK = 1;
     EditText firstname, lastname, email, password, descrption;
-    AutoCompleteTextView city, state, gym;
+    AutoCompleteTextView city, state;
     Button done, image_btn;
+    Spinner gymSpinner;
     SimpleDraweeView draweeView;
     Spinner categorySpinner;
     byte[] datas;
+    ArrayList<Gym> gyms;
 
     DatabaseReference userDatabase;
     private ProgressDialog progressDialog;
@@ -80,10 +85,26 @@ public class ActivityEditProfile extends AppCompatActivity {
         state.setAdapter(adapterStates);
 
         descrption = findViewById(R.id.signin_description);
-        gym = findViewById(R.id.sigin_gym);
-        String[] gyms = getResources().getStringArray(R.array.muros);
-        ArrayAdapter<String> adapterGyms = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, gyms);
-        gym.setAdapter(adapterGyms);
+        gymSpinner = findViewById(R.id.signin_gym_spinner);
+        Query gymsDatabase = FirebaseDatabase.getInstance().getReference().child("Gyms").orderByChild("name");
+        gymsDatabase.addValueEventListener(new ValueEventListener() {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                gyms = new ArrayList<>();
+                gyms.add(new Gym());
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Gym gym = postSnapshot.getValue(Gym.class);
+                    gym.setKey(postSnapshot.getKey());
+                    gyms.add(gym);
+                }
+                ArrayAdapter<Gym> adapter = new ArrayAdapter<Gym>(getApplicationContext(), android.R.layout.simple_spinner_item, gyms);
+                adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                gymSpinner.setAdapter(adapter);
+            }
+
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("Gymslist", "loadPost:onCancelled", databaseError.toException());
+            }
+        });
 
         //firebase
         //image
@@ -109,10 +130,10 @@ public class ActivityEditProfile extends AppCompatActivity {
 
                 firstname.setText(climber.getFirstname());
                 lastname.setText(climber.getLastname());
-                gym.setText(climber.getGym());
                 state.setText(climber.getState());
                 city.setText(climber.getCity());
                 descrption.setText(climber.getDescription());
+                gymSpinner.setSelection(1);
 
                 for (int i = 0; i < categorySpinner.getCount(); i++) {
                     if (climber.getCategory().contentEquals(categorySpinner.getItemAtPosition(i).toString())) {
@@ -147,7 +168,7 @@ public class ActivityEditProfile extends AppCompatActivity {
                 editClimber.put("firstname", firstname.getText().toString());
                 editClimber.put("lastname", lastname.getText().toString());
                 editClimber.put("city", city.getText().toString());
-                editClimber.put("gym", gym.getText().toString());
+                editClimber.put("gym", gymSpinner.getSelectedItem().toString());
                 editClimber.put("state", state.getText().toString());
                 editClimber.put("description", descrption.getText().toString());
                 editClimber.put("category", categorySpinner.getSelectedItem().toString());

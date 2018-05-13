@@ -103,7 +103,7 @@ public class ActivitySignIn extends AppCompatActivity {
                     gym.setKey(postSnapshot.getKey());
                     gyms.add(gym);
                 }
-                ArrayAdapter<Gym> adapter = new ArrayAdapter<Gym>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, gyms);
+                ArrayAdapter<Gym> adapter = new ArrayAdapter<Gym>(getApplicationContext(), android.R.layout.simple_spinner_item, gyms);
                 adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                 gymSpinner.setAdapter(adapter);
             }
@@ -160,16 +160,7 @@ public class ActivitySignIn extends AppCompatActivity {
                             climbersMap.put("lastname", lastname.getText().toString().toUpperCase());
                             climbersMap.put("city", city.getText().toString().toUpperCase());
                             climbersMap.put("state", state.getText().toString().toUpperCase());
-                            String gymKey = "";
-                            for (Gym g : gyms) {
-                                if (g.getName().equals(gymSpinner.getSelectedItem().toString())) {
-                                    gymKey = g.getKey();
-                                    if (gymKey == null)
-                                        gymKey = "";
-                                }
-
-                            }
-                            climbersMap.put("gym", gymKey);
+                            climbersMap.put("gym", gymSpinner.getSelectedItem().toString());
                             climbersMap.put("description", "Motivated climber");
                             climbersMap.put("image", getString(R.string.default_image_icon));
                             climbersMap.put("thumb", "default");

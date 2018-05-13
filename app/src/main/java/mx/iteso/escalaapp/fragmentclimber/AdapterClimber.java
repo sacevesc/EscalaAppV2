@@ -3,6 +3,7 @@ package mx.iteso.escalaapp.fragmentclimber;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +11,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.activities.ActivityClimber;
 import mx.iteso.escalaapp.beans.Climber;
+import mx.iteso.escalaapp.beans.Gym;
 
 /**
  * Created by aceve on 03/03/2018.
@@ -44,6 +51,26 @@ public class AdapterClimber extends RecyclerView.Adapter<AdapterClimber.ViewHold
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.mFirstName.setText(climbers.get(position).getFirstname());
         holder.mLastName.setText(climbers.get(position).getLastname());
+
+
+//        final Gym[] mGym = new Gym[1];
+//        mGym[0] = new Gym();
+//        if(!climbers.get(position).getGym().equals("none")) {
+//            Query gymsDatabase = FirebaseDatabase.getInstance().getReference().child("Gyms").child(climbers.get(position).getGym());
+//            gymsDatabase.addValueEventListener(new ValueEventListener() {
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    mGym[0] = dataSnapshot.getValue(Gym.class);
+//                    mGym[0].setKey(dataSnapshot.getKey());
+//                }
+//
+//                public void onCancelled(DatabaseError databaseError) {
+//                    Log.w("Gym", "loadPost:onCancelled", databaseError.toException());
+//                }
+//            });
+//        }
+
+
+
         holder.mGym.setText(climbers.get(position).getGym());
         final Uri image_uri = Uri.parse(climbers.get(position).getThumb());
         holder.draweeView.setImageURI(image_uri);

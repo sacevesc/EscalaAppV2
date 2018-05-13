@@ -99,15 +99,14 @@
                         android:layout_height="wrap_content">
 
                         <AutoCompleteTextView
-                            android:id="@+id/sigin_city_autocomplete"
+                            android:id="@+id/sigin_state_autocomplete"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:hint="@string/city"
+                            android:hint="@string/state"
                             android:inputType="textPersonName"
                             android:imeOptions="actionNext"
-                            android:maxLines="1"
                             android:textColor="@color/colorPrimaryDark" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -129,7 +128,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:hint="@string/password"
+                            android:hint="Verify password"
                             android:inputType="textPassword"
                             android:maxLines="1"
                             android:imeOptions="actionNext"
@@ -158,16 +157,18 @@
                         android:layout_height="wrap_content">
 
                         <AutoCompleteTextView
-                            android:id="@+id/sigin_state_autocomplete"
+                            android:id="@+id/sigin_city_autocomplete"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:hint="@string/state"
+                            android:hint="@string/city"
                             android:inputType="textPersonName"
                             android:imeOptions="actionNext"
+                            android:maxLines="1"
                             android:textColor="@color/colorPrimaryDark" />
                     </android.support.design.widget.TextInputLayout>
+
                 </LinearLayout>
             </LinearLayout>
 
@@ -216,14 +217,13 @@
                     android:textSize="@dimen/fifeteen" />
 
                 <Spinner
-                    android:layout_marginStart="@dimen/fifeteen"
-                    android:layout_marginTop="@dimen/five"
                     android:id="@+id/signin_gym_spinner"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:gravity="bottom"
-                    android:textColor="@color/colorPrimaryDark"/>
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textAlignment="center"/>
 
             </LinearLayout>
         </LinearLayout>

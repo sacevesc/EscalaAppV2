@@ -232,8 +232,8 @@
     <string-array name="categorias_ejemplo">
         <item>Principiantes</item>
         <item>Intermedio</item>
-        <item>avanzado</item>
-        <item>mutante</item>
+        <item>Avanzado</item>
+        <item>Mutante</item>
     </string-array>
 
     <string-array name="array_years">
