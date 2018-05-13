@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -43,20 +44,20 @@ public class ActivityCompetition extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_competition);
 
-
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         final String comp_id = getIntent().getStringExtra("comp_id");
-        userDatabase = FirebaseDatabase.getInstance().getReference().child("Competitions").child(comp_id);
         climberCompRegister = FirebaseDatabase.getInstance().getReference();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         currentUid = currentUser.getUid();
 
-        draweeView = findViewById(R.id.comp_picture);
+        draweeView = findViewById(R.id.activity_comp_image);
         name = findViewById(R.id.comp_name);
         descrption = findViewById(R.id.comp_description);
         day = findViewById(R.id.comp_day);
         month = findViewById(R.id.comp_month);
         year = findViewById(R.id.comp_year);
-        gym = findViewById(R.id.comp_gym_name);
+        gym = findViewById(R.id.activity_comp_gym_name);
         register = findViewById(R.id.comp_register_button);
         results = findViewById(R.id.comp_results_button);
         judge = findViewById(R.id.comp_judge_button);
@@ -69,7 +70,6 @@ public class ActivityCompetition extends AppCompatActivity {
                     if (postSnapshot.getKey().contentEquals(currentUid) && postSnapshot.getValue().toString().contentEquals("true")) {
                         register.setText("Unregister");
                     }
-
                 }
             }
 
@@ -79,6 +79,7 @@ public class ActivityCompetition extends AppCompatActivity {
         });
 
 
+        userDatabase = FirebaseDatabase.getInstance().getReference().child("Competitions").child(comp_id);
 
         userDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -106,47 +107,29 @@ public class ActivityCompetition extends AppCompatActivity {
                 moOwner = comp.getOwner();
                 entrants = comp.getParticipants();
 
-                Uri imageUri = Uri.parse(comp.getThumb());
+
+                Uri imageUri = Uri.parse(comp.getImage());
                 draweeView.setImageURI(imageUri);
-                imageUri = Uri.parse(comp.getImage());
-                draweeView.setImageURI(imageUri);
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-   /*     DatabaseReference fb_compName = FirebaseDatabase.getInstance().getReference().child("Climbers").child(moOwner);
-        fb_compName.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                mGym = dataSnapshot.child("gymOwner").getValue().toString();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        String nombreGym=mGym;
-        Toast.makeText(ActivityCompetition.this,nombreGym,Toast.LENGTH_SHORT).show();
-
-        DatabaseReference databaseReference =  FirebaseDatabase.getInstance().getReference().child("Gyms").child(nombreGym);
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                gym.setText(dataSnapshot.child("name").getValue().toString());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+              /*  DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("Gyms").child(comp.getGym());
+                db.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        gym.setText(dataSnapshot.child("name").getValue().toString());
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
 */
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         results.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

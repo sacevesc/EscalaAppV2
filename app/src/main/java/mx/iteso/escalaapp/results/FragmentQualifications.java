@@ -66,6 +66,22 @@ public class FragmentQualifications extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         resultsList.setLayoutManager(mLayoutManager);
 
+        final RecyclerView.OnScrollListener[] scrollListeners = new RecyclerView.OnScrollListener[2];
+        for (int i = 0; i < resultsList.getChildCount(); i++) {
+            final int j = i;
+            scrollListeners[i] = new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    resultsList.removeOnScrollListener(scrollListeners[j]);
+                    resultsList.scrollBy(dx, dy);
+                    resultsList.addOnScrollListener(scrollListeners[j]);
+                }
+            };
+            resultsList.addOnScrollListener(scrollListeners[i]);
+        }
+
+
         return view;
     }
 

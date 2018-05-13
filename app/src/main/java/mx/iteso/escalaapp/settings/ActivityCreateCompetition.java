@@ -260,7 +260,7 @@ public class ActivityCreateCompetition extends AppCompatActivity {
         compMap.put("no_rounds", String.valueOf(numberRounds.getSelectedItemPosition() + 1));
         compMap.put("no_categories", String.valueOf(numberCat.getSelectedItemPosition() + 1));
         compMap.put("description", description.getText().toString());
-        compMap.put("image", getString(R.string.default_image_gym));
+        compMap.put("image", getString(R.string.default_image_comp));
         compMap.put("thumb", "default");
         compMap.put("participants", "0");
         compMap.put("date", year.getSelectedItem().toString() + (((month.getSelectedItemPosition() + 1) < 10)? "0" + (month.getSelectedItemPosition() + 1) : (month.getSelectedItemPosition() + 1))  + day.getSelectedItem().toString());

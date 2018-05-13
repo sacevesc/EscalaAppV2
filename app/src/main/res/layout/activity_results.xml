@@ -9,14 +9,32 @@
     android:background="@color/colorWhite"
     tools:context=".results.ActivityResults">
 
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/appbar_padding_top"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
+        android:layout_marginTop="@dimen/fifeteen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/comp_picture"
+            android:id="@+id/activity_results_image"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentTop="true"
@@ -29,13 +47,13 @@
 
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/activity_results_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/comp_picture"
+            android:layout_alignTop="@+id/activity_results_image"
             android:layout_marginEnd="@dimen/fifeteen"
-            android:layout_toEndOf="@id/comp_picture"
+            android:layout_toEndOf="@id/activity_results_image"
             android:padding="@dimen/two"
             android:gravity="center"
             android:text="Estatal de Jalisco 2018"
@@ -47,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_below="@id/name"
+            android:layout_below="@id/activity_results_name"
             android:layout_centerHorizontal="true"
             android:layout_marginEnd="@dimen/fifeteen"
             android:layout_marginTop="@dimen/ten"
@@ -61,7 +79,7 @@
             android:background="@drawable/pavilions" />
 
             <TextView
-                android:id="@+id/comp_gym_name"
+                android:id="@+id/activity_results_gym_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/four"
@@ -105,13 +123,13 @@
             app:tabSelectedTextColor="@color/colorPrimary"
             app:tabTextColor="@color/colorPrimary" />
 
+
         <android.support.v4.view.ViewPager
             android:id="@+id/container"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_below="@id/tabs"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
     </RelativeLayout>
 
 </LinearLayout>
