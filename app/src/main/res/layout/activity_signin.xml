@@ -179,23 +179,23 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="180dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:maxLines="1"
                     android:text="@string/category"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/fifeteen" />
 
                 <Spinner
                     android:id="@+id/signin_category_spinner"
-                    android:layout_width="match_parent"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:entries="@array/categorias_ejemplo"
                     android:gravity="center"
-                    android:imeOptions="actionNext"
-                    android:maxLines="1"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textAlignment="center"/>
 
             </LinearLayout>
 
@@ -207,22 +207,23 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="180dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:maxLines="1"
                     android:text="@string/gym"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/fifeteen" />
 
                 <Spinner
+                    android:layout_marginStart="@dimen/fifeteen"
+                    android:layout_marginTop="@dimen/five"
                     android:id="@+id/signin_gym_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:imeOptions="actionNext"
-                    android:maxLines="1"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="2"
+                    android:gravity="bottom"
+                    android:textColor="@color/colorPrimaryDark"/>
 
             </LinearLayout>
         </LinearLayout>

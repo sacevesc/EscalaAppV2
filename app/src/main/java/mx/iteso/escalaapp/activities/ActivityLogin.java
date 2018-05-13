@@ -82,7 +82,7 @@ public class ActivityLogin extends AppCompatActivity {
                             final FirebaseUser user = mAuth.getCurrentUser();
                             //updateUI(user);
                             user.reload();
-                            if(user.isEmailVerified()) {
+                            if(/*user.isEmailVerified()*/true) {                                                    //HABILITAR CONDICION PARA VERIFICAR EMAIL!!!!!
                                 Intent intent = new Intent(ActivityLogin.this, ActivityMain.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);

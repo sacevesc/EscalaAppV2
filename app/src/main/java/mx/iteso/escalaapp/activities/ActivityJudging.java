@@ -1,12 +1,15 @@
 package mx.iteso.escalaapp.activities;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -18,47 +21,30 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import mx.iteso.escalaapp.R;
+import mx.iteso.escalaapp.beans.Climber;
+import mx.iteso.escalaapp.fragmentclimber.AdapterClimber;
 
 public class ActivityJudging extends AppCompatActivity {
     int triesCounter = 0, bonusCounter = 0, time = 300, last;
     boolean top = false;
-    TextView topV, triesV, bonusV, timerV, resultsV;
+    public TextView topV, triesV, bonusV, timerV, resultsV;
     public String compKey = "", currentRound = "", currentBoulder = "";
-    Spinner boulderSpinner, roundSpinner;
+    private Spinner boulderSpinner, roundSpinner;
     private FirebaseUser currentUser;
     private DatabaseReference judgeDatabase, resultsDatabase;
-
-    public String getCompKey() {
-        return compKey;
-    }
-
-    public void setCompKey(String compKey) {
-        this.compKey = compKey;
-        Log.w("logs", "cat-jg " + compKey, null);
-    }
-
-    public String getCurrentRound() {
-        return currentRound;
-    }
-
-    public void setCurrentRound(String currentRound) {
-        this.currentRound = currentRound;
-        Log.w("logs", "round-jg " + currentRound, null);
-    }
-
-    public String getCurrentBoulder() {
-        return currentBoulder;
-    }
-
-    public void setCurrentBoulder(String currentBoulder) {
-        this.currentBoulder = currentBoulder;
-    }
+    private Button addClimber;
+    private ArrayDeque<Climber> competitors;
+    private ArrayList<String> climberIDs;
+    private ArrayList<Climber> registeredClimbers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +57,56 @@ public class ActivityJudging extends AppCompatActivity {
         resultsV = findViewById(R.id.activity_judging_results);
         resultsV.setText("t0-b0");
         boulderSpinner = findViewById(R.id.activity_judging_boulderSpinner);
+        addClimber = findViewById(R.id.add_climber);
+        competitors = new ArrayDeque<Climber>();
+        climberIDs = new ArrayList<>();
+        registeredClimbers = new ArrayList<>();
+        addClimber.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Query climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Competition").child("climbers");
+                climbersDatabase.addValueEventListener(new ValueEventListener() {
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            String climberID = postSnapshot.getKey();
+                        }
+
+                    }
+
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w("Climberlist", "loadPost:onCancelled", databaseError.toException());
+                    }
+                });
+
+                for(String id : climberIDs){
+                    climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").child(id);
+                    climbersDatabase.addValueEventListener(new ValueEventListener() {
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            registeredClimbers.add(dataSnapshot.getValue(Climber.class));
+                        }
+
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.w("Climberlist", "loadPost:onCancelled", databaseError.toException());
+                        }
+                    });
+                }
+
+                final CharSequence climberArray[] = new CharSequence[registeredClimbers.size()];
+                int i = 0;
+                for(Climber c : registeredClimbers){
+                    climberArray[i] = c.getFirstname() + " " + c.getLastname();
+                    i++;
+                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                builder.setTitle("Add a competitor");
+                builder.setItems(climberArray, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String climberName = climberArray[which].toString();
+                    }
+                });
+                builder.show();
+            }
+        });
         boulderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -111,9 +147,34 @@ public class ActivityJudging extends AppCompatActivity {
 
             }
         });
-
-
     }
+
+    public String getCompKey() {
+        return compKey;
+    }
+
+    public void setCompKey(String compKey) {
+        this.compKey = compKey;
+        Log.w("logs", "cat-jg " + compKey, null);
+    }
+
+    public String getCurrentRound() {
+        return currentRound;
+    }
+
+    public void setCurrentRound(String currentRound) {
+        this.currentRound = currentRound;
+        Log.w("logs", "round-jg " + currentRound, null);
+    }
+
+    public String getCurrentBoulder() {
+        return currentBoulder;
+    }
+
+    public void setCurrentBoulder(String currentBoulder) {
+        this.currentBoulder = currentBoulder;
+    }
+
 
     public void updateKeys(final String toUpdate, final String value) {
         Map currentKeys = new HashMap();
@@ -193,8 +254,10 @@ public class ActivityJudging extends AppCompatActivity {
     public void undo(View v){
         switch(last){
             case 0:
-                triesCounter --;
-                triesV.setText(String.valueOf(triesCounter));
+                if(triesCounter > 0) {
+                    triesCounter--;
+                    triesV.setText(String.valueOf(triesCounter));
+                }
                 break;
             case 1:
                 top = false;

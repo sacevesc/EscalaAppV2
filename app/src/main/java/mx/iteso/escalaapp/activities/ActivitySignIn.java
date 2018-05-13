@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -41,15 +42,15 @@ public class ActivitySignIn extends AppCompatActivity {
     Spinner categorySpinner;
     String categorySelected = "";
     AutoCompleteTextView city, state;
-    Spinner gym;
+    Spinner gymSpinner;
     Button done, facebook_signin;
+    ArrayList<Gym> gyms;
 
 
     private FirebaseAuth mAuth;//firebase auth
     private ProgressDialog progressDialog;
     private DatabaseReference firebaseDatabase;
     private FirebaseUser currentUser;
-
 
 
     @Override
@@ -91,11 +92,11 @@ public class ActivitySignIn extends AppCompatActivity {
         ArrayAdapter<String> adapterStates = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, states);
         state.setAdapter(adapterStates);
 
-        gym = findViewById(R.id.signin_gym_spinner);
+        gymSpinner = findViewById(R.id.signin_gym_spinner);
         Query gymsDatabase = FirebaseDatabase.getInstance().getReference().child("Gyms").orderByChild("name");
-        gymsDatabase.addValueEventListener(new ValueEventListener()  {
+        gymsDatabase.addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<Gym> gyms = new ArrayList<>();
+                gyms = new ArrayList<>();
                 gyms.add(new Gym());
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Gym gym = postSnapshot.getValue(Gym.class);
@@ -104,14 +105,16 @@ public class ActivitySignIn extends AppCompatActivity {
                 }
                 ArrayAdapter<Gym> adapter = new ArrayAdapter<Gym>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, gyms);
                 adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-                gym.setAdapter(adapter);
+                gymSpinner.setAdapter(adapter);
             }
 
             public void onCancelled(DatabaseError databaseError) {
                 Log.w("Gymslist", "loadPost:onCancelled", databaseError.toException());
             }
         });
-
+//        gymSpinner.setSelection(0);
+//        gymSpinner.setGravity(Gravity.CENTER);
+//        gymSpinner.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
         done = findViewById(R.id.signin_done_button);
         done.setOnClickListener(new View.OnClickListener() {
@@ -157,7 +160,16 @@ public class ActivitySignIn extends AppCompatActivity {
                             climbersMap.put("lastname", lastname.getText().toString().toUpperCase());
                             climbersMap.put("city", city.getText().toString().toUpperCase());
                             climbersMap.put("state", state.getText().toString().toUpperCase());
-                            climbersMap.put("gym", gym.getSelectedItem().toString());
+                            String gymKey = "";
+                            for (Gym g : gyms) {
+                                if (g.getName().equals(gymSpinner.getSelectedItem().toString())) {
+                                    gymKey = g.getKey();
+                                    if (gymKey == null)
+                                        gymKey = "";
+                                }
+
+                            }
+                            climbersMap.put("gym", gymKey);
                             climbersMap.put("description", "Motivated climber");
                             climbersMap.put("image", getString(R.string.default_image_icon));
                             climbersMap.put("thumb", "default");
@@ -176,7 +188,7 @@ public class ActivitySignIn extends AppCompatActivity {
                                         Log.d("Auth", "createUserWithEmail:success");
                                         FirebaseUser user = mAuth.getCurrentUser();
                                         //updateUI(user);
-                                        if(user != null && user.sendEmailVerification().isSuccessful()) {
+                                        if (user != null && user.sendEmailVerification().isSuccessful()) {
                                             Toast.makeText(ActivitySignIn.this,
                                                     "Verification email sent to " + user.getEmail(),
                                                     Toast.LENGTH_LONG).show();
@@ -228,7 +240,7 @@ public class ActivitySignIn extends AppCompatActivity {
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     public static boolean validate(String emailStr) {
-        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailStr);
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.find();
     }
 }

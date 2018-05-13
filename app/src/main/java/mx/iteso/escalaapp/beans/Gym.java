@@ -44,7 +44,7 @@ public class Gym {
     }
 
     public Gym() {
-        this.name = "None";
+        this.name = "NONE";
         this.description = null;
         this.city = null;
         this.state = null;

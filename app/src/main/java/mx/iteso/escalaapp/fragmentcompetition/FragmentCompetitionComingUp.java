@@ -48,7 +48,7 @@ public class FragmentCompetitionComingUp extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Query compsDatabse = FirebaseDatabase.getInstance().getReference().child("Competitions").orderByChild("year");
+        Query compsDatabse = FirebaseDatabase.getInstance().getReference().child("Competitions").orderByChild("date");
 
         // All comps list
         compsDatabse.addValueEventListener(new ValueEventListener() {
