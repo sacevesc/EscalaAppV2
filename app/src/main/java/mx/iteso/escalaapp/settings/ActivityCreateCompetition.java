@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -22,34 +23,41 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.activities.ActivityCompetition;
+import mx.iteso.escalaapp.beans.Climber;
 
 public class ActivityCreateCompetition extends AppCompatActivity {
 
     private static final int GALLERY_PICK = 1;
     EditText compName, description, cat1, cat2, cat3, cat4, cat5;
-    Spinner numberRounds, numberCat, qualifications, semifinals, finals, superfinals, day, month, year;
+    Spinner numberRounds, numberCat, qualifications, semifinals, finals, superfinals, day, month, year, judgeSpinner;
     LinearLayout qual, semi, fina, superf, ca1, ca2, ca3, ca4, ca5;
     SimpleDraweeView draweeView;
-    Button done, image_btn;
+    Button done, image_btn, addJudge;
     Uri image_comp_id;
     private ProgressDialog progressDialog;
     private DatabaseReference firebaseDatabase;
     private FirebaseUser currentUser;
     private StorageReference mStorageRef;
     private byte[] datas;
+    ArrayList<Climber> judges;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +71,10 @@ public class ActivityCreateCompetition extends AppCompatActivity {
         //storage donde estan las imagenes
         mStorageRef = FirebaseStorage.getInstance().getReference();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        judgeSpinner = findViewById(R.id.activity_judgeSpinner);
+        addJudge = findViewById(R.id.add_judge);
+        judges = new ArrayList<>();
 
         //edittext
         compName = findViewById(R.id.newcomp_name);
@@ -148,6 +160,36 @@ public class ActivityCreateCompetition extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "SELECT IMAGE"), GALLERY_PICK);
             }
         });
+
+        Query climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers");
+        climbersDatabase.addValueEventListener(new ValueEventListener() {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int selection = judgeSpinner.getSelectedItemPosition();
+                ArrayList<Climber> climberJudge = new ArrayList<>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Climber climber = postSnapshot.getValue(Climber.class);
+                    climber.setKey(postSnapshot.getKey());
+                    climberJudge.add(climber);
+                }
+                ArrayAdapter<Climber> adapter = new ArrayAdapter<Climber>(getApplicationContext(), android.R.layout.simple_spinner_item, climberJudge);
+                adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                judgeSpinner.setAdapter(adapter);
+                judgeSpinner.setSelection(selection);
+            }
+
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("Gymslist", "loadPost:onCancelled", databaseError.toException());
+            }
+        });
+
+        addJudge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                judges.add((Climber) judgeSpinner.getSelectedItem());
+            }
+        });
+
+
     }
 
 
@@ -265,6 +307,8 @@ public class ActivityCreateCompetition extends AppCompatActivity {
         compMap.put("participants", "0");
         compMap.put("date", year.getSelectedItem().toString() + (((month.getSelectedItemPosition() + 1) < 10)? "0" + (month.getSelectedItemPosition() + 1) : (month.getSelectedItemPosition() + 1))  + day.getSelectedItem().toString());
 
+        DatabaseReference climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").child(((Climber)judgeSpinner.getSelectedItem()).getKey()).child("judge").child(competitionId);
+        climbersDatabase.setValue("true");
 
 
         firebaseDatabase.child("Competitions").child(competitionId).setValue(compMap).addOnCompleteListener(new OnCompleteListener<Void>() {

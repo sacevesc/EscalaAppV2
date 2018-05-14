@@ -55,7 +55,7 @@ public class FragmentGymSettings extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        if (isowner.contentEquals("true")) {
+        if (isowner.equals("true")) {
             createCompetition.setVisibility(View.VISIBLE);
             //Toast.makeText(getActivity(), "Create compettition", Toast.LENGTH_SHORT).show();
         } else {

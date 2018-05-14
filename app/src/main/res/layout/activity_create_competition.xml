@@ -236,6 +236,23 @@
                     android:imeOptions="actionGo"
                     android:textColor="@color/colorPrimaryDark" />
             </android.support.design.widget.TextInputLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Spinner
+                android:id="@+id/activity_judgeSpinner"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textAlignment="center" />
+            <Button
+                android:id="@+id/add_judge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_judge"/>
+
+        </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
