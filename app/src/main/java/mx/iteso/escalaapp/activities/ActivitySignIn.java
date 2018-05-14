@@ -164,8 +164,10 @@ public class ActivitySignIn extends AppCompatActivity {
                             climbersMap.put("thumb", "default");
                             climbersMap.put("owner", "false");
                             climbersMap.put("category", categorySelected);
-                            climbersMap.put("curentCompKey", "");
+                            climbersMap.put("currentCompKey", "");
                             climbersMap.put("currentCategory", "");
+                            climbersMap.put("currentBoulder", "");
+                            climbersMap.put("currentRound", "");
 
 
                             firebaseDatabase.setValue(climbersMap).addOnCompleteListener(new OnCompleteListener<Void>() {

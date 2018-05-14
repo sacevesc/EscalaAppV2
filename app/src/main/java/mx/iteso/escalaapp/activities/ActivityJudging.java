@@ -161,7 +161,7 @@ public class ActivityJudging extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 updateKeys("currentBoulder", boulderSpinner.getSelectedItem().toString());
                 setCurrentBoulder(boulderSpinner.getSelectedItem().toString());
-                cboulder = boulderSpinner.getTransitionName().toString();
+                cboulder = boulderSpinner.getSelectedItem().toString();
                 initData();
             }
 
