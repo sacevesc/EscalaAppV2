@@ -31,30 +31,35 @@
             android:name=".activities.ActivitySignIn"
             android:screenOrientation="userPortrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateVisible|adjustPan" />
-        <activity android:name=".activities.ActivityProfile" />
+            android:windowSoftInputMode="stateVisible|adjustPan"
+            />
+        <activity android:name=".activities.ActivityProfile" android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.ActivityEditProfile"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustUnspecified" />
-        <activity android:name=".activities.ActivityGym" />
-        <activity android:name=".activities.ActivityClimber" />
-        <activity android:name=".activities.ActivityCompetition" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustUnspecified"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.ActivityGym" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.ActivityClimber" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.ActivityCompetition" android:screenOrientation="portrait"/>
         <activity android:name=".activities.ActivityJudging" android:screenOrientation="portrait"/>
-        <activity android:name=".results.ActivityResults" />
+        <activity android:name=".results.ActivityResults" android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.ActivityMain"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".activities.ActivityCompRegister" />
-        <activity android:name=".settings.ActivitySettings" />
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.ActivityCompRegister" android:screenOrientation="portrait"/>
+        <activity android:name=".settings.ActivitySettings" android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.ActivitySignGym"
             android:parentActivityName=".settings.ActivitySettings"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustUnspecified" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustUnspecified"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".settings.ActivityCreateCompetition"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustUnspecified"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustUnspecified"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

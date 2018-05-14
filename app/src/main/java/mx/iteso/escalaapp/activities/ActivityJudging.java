@@ -194,10 +194,36 @@ public class ActivityJudging extends AppCompatActivity {
                 resultsDatabase.setValue(judged.getLastname());
                 resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("ranking");
                 resultsDatabase.setValue("");
-                resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("sum");
-                resultsDatabase.setValue("0t0 0b0");
                 resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("boulders").child(currentBoulder).child("number");
-                resultsDatabase.setValue(getCurrentBoulder().charAt(getCurrentBoulder().length()-1)+"");
+                resultsDatabase.setValue(getCurrentBoulder().charAt(getCurrentBoulder().length()-1) + "");
+                resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("boulders").child(currentBoulder).child("top");
+                resultsDatabase.setValue("0");
+                resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("boulders").child(currentBoulder).child("bonus");
+                resultsDatabase.setValue("0");
+
+                Query scoreDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("boulders");
+                scoreDatabase.addValueEventListener(new ValueEventListener() {
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int top, bonus, triesTop, triesBonus;
+                        top = bonus = triesTop = triesBonus = 0;
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            if(postSnapshot.child("top").getValue() != null && postSnapshot.child("bonus").getValue() != null){
+                                triesTop += Integer.parseInt(postSnapshot.child("top").getValue().toString());
+                                triesBonus += Integer.parseInt(postSnapshot.child("bonus").getValue().toString());
+                                if (Integer.parseInt(postSnapshot.child("top").getValue().toString()) > 0)
+                                    top++;
+                                if (Integer.parseInt(postSnapshot.child("bonus").getValue().toString()) > 0)
+                                    bonus++;
+                            }
+                        }
+                        resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("sum");
+                        resultsDatabase.setValue(top + "t" + triesTop + " " + bonus + "b" + triesBonus);
+                    }
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
             }
 
             @Override
