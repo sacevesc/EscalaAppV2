@@ -74,7 +74,7 @@ public class AdapterSectionPagerResults extends FragmentPagerAdapter {
                         fragmentFinal = new FragmentFinal();
                     return fragmentFinal;
                 default:
-                    return new FragmentQualifications();
+                    return new FragmentFinal();
             }
 
         } else if (getCount() == 2) {

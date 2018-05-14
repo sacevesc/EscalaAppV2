@@ -311,10 +311,10 @@ public class ActivityCreateCompetition extends AppCompatActivity {
         compMap.put("year", year.getSelectedItem().toString());
         compMap.put("gym", "-LBY51lk9iZRHXWhSGN9");
         compMap.put("owner", uid);
-        compMap.put("qualifications", qualifications.getSelectedItem().toString());
-        compMap.put("semifinals", semifinals.getSelectedItem().toString());
-        compMap.put("finals", finals.getSelectedItem().toString());
-        compMap.put("superfinals", qualifications.getSelectedItem().toString());
+        compMap.put("qualifications", String.valueOf(qualifications.getSelectedItemPosition()+1));
+        compMap.put("semifinals", String.valueOf(semifinals.getSelectedItemPosition()+1));
+        compMap.put("finals", String.valueOf(finals.getSelectedItemPosition()+1));
+        compMap.put("superfinals", String.valueOf(superfinals.getSelectedItemPosition()+1));
         compMap.put("no_rounds", String.valueOf(numberRounds.getSelectedItemPosition() + 1));
         compMap.put("no_categories", String.valueOf(numberCat.getSelectedItemPosition() + 1));
         compMap.put("description", description.getText().toString());
@@ -423,8 +423,8 @@ public class ActivityCreateCompetition extends AppCompatActivity {
     public boolean checkDataUser() {
         if (compName.getText().toString().isEmpty())
             Toast.makeText(ActivityCreateCompetition.this, "Falta el nombre", Toast.LENGTH_SHORT).show();
-        else if (description.getText().toString().length() > 100)
-            Toast.makeText(ActivityCreateCompetition.this, "Descripción max(100)", Toast.LENGTH_SHORT).show();
+       // else if (description.getText().toString().length() > 100)
+        //    Toast.makeText(ActivityCreateCompetition.this, "Descripción max(100)", Toast.LENGTH_SHORT).show();
         else return true;
         return false;
     }

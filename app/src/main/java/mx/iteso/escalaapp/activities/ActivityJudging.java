@@ -89,7 +89,6 @@ public class ActivityJudging extends AppCompatActivity {
         compKey = getIntent().getStringExtra("comp_id");
         competitorSpinner = findViewById(R.id.activity_judging_competitorSpinner);
 
-
 //        climber = findViewById(R.id.activity_judging_climber);
 
         Query gymsDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers");
@@ -189,67 +188,69 @@ public class ActivityJudging extends AppCompatActivity {
 //                climber.setText(currentClimber);
                 judged = (Climber) competitorSpinner.getSelectedItem();
                 currentClimber = judged.toString();
-                initData();
-                resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("firstname");
-                resultsDatabase.setValue(judged.getFirstname());
-                resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("lastname");
-                resultsDatabase.setValue(judged.getLastname());
-                resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("ranking");
-                resultsDatabase.setValue("");
-                resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("boulders").child(currentBoulder).child("number");
-                resultsDatabase.setValue(getCurrentBoulder().charAt(getCurrentBoulder().length() - 1) + "");
-                resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("boulders").child(currentBoulder).child("top");
-//                resultsDatabase.setValue("0");
-                resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("boulders").child(currentBoulder).child("bonus");
-//                resultsDatabase.setValue("0");
+                if(Integer.parseInt(bonusV.getText().toString())==0 || bonusV.getText() == null) {
+                    initData();
+                    resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("firstname");
+                    resultsDatabase.setValue(judged.getFirstname());
+                    resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("lastname");
+                    resultsDatabase.setValue(judged.getLastname());
+                    resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("ranking");
+                    resultsDatabase.setValue("");
+                    resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("boulders").child(currentBoulder).child("number");
+                    resultsDatabase.setValue(currentBoulder.charAt(currentBoulder.length() - 1) + "");
+                    resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("boulders").child(currentBoulder).child("top");
+                    resultsDatabase.setValue("0");
+                    resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("boulders").child(currentBoulder).child("bonus");
+                    resultsDatabase.setValue("0");
 
-                Query scoreDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("boulders");
-                scoreDatabase.addValueEventListener(new ValueEventListener() {
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        int topN, bonusN, triesTop, triesBonus;
-                        topN = bonusN = triesTop = triesBonus = 0;
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                    Query scoreDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("boulders");
+                    scoreDatabase.addValueEventListener(new ValueEventListener() {
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            int top, bonus, triesTop, triesBonus;
+                            top = bonus = triesTop = triesBonus = 0;
+                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                                 if (postSnapshot.child("top").getValue() != null && postSnapshot.child("bonus").getValue() != null) {
                                     triesTop += Integer.parseInt(postSnapshot.child("top").getValue().toString());
                                     triesBonus += Integer.parseInt(postSnapshot.child("bonus").getValue().toString());
                                     if (Integer.parseInt(postSnapshot.child("top").getValue().toString()) > 0)
-                                        topN++;
+                                        top++;
                                     if (Integer.parseInt(postSnapshot.child("bonus").getValue().toString()) > 0)
-                                        bonusN++;
-
+                                        bonus++;
+                                }
                             }
+
+                            resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("sum");
+                            resultsDatabase.setValue(top + "t" + triesTop + " " + bonus + "b" + triesBonus);
+                            calculateRanking = String.valueOf(top) + String.valueOf(bonus) + String.valueOf(triesTop) + String.valueOf(triesBonus);
+                            Log.d("rank", "calculate" + calculateRanking);
+
+                            Log.d("rank", "onDataChange: " + judged.getCategory().toLowerCase());
+                            DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("Competitions").child(compKey).child(currentRound.toLowerCase());
+                            db.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    long bestResult = Long.parseLong(dataSnapshot.getValue().toString().substring(0, 1)) * 1111;
+                                    long calculong = Math.abs(Long.parseLong(calculateRanking) - bestResult);
+                                    DatabaseReference rank = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("ranking");
+                                    rank.setValue(String.valueOf(calculong));
+                                    Log.d("rank", "rank change" + calculong);
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
+
                         }
 
-                        resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("sum");
-                        resultsDatabase.setValue(topN + "t" + triesTop + " " + bonusN + "b" + triesBonus);
-                        calculateRanking = String.valueOf(topN) + String.valueOf(bonusN) + String.valueOf(triesTop) + String.valueOf(triesBonus);
-                        Log.d("rank", "calculate" + calculateRanking);
+                        public void onCancelled(DatabaseError databaseError) {
 
-                        Log.d("rank", "onDataChange: " + judged.getCategory().toLowerCase());
-                        DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("Competitions").child(compKey).child(currentRound.toLowerCase());
-                        db.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                long bestResult = Long.parseLong(dataSnapshot.getValue().toString().substring(0, 1)) * 1111;
-                                long calculong = Math.abs(Long.parseLong(calculateRanking) - bestResult);
-                                DatabaseReference rank = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("ranking");
-                                rank.setValue(String.valueOf(calculong));
-                                Log.d("rank", "rank change" + calculong);
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-
-
-
-                    }
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                        }
+                    });
+                }
 
             }
 

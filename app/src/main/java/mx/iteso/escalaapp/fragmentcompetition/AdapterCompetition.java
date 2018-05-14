@@ -48,7 +48,7 @@ public class AdapterCompetition extends RecyclerView.Adapter<AdapterCompetition.
         holder.mMonth.setText(compComingUp.get(position).getMonth());
         holder.mYear.setText(compComingUp.get(position).getYear());
         holder.mParticipants.setText(compComingUp.get(position).getParticipants());
-        final Uri image_uri = Uri.parse(compComingUp.get(position).getThumb());
+        Uri image_uri = Uri.parse(compComingUp.get(position).getThumb());
         holder.draweeView.setImageURI(image_uri);
 
         DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("Gyms").child(compComingUp.get(position).getGym());
