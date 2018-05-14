@@ -1,8 +1,11 @@
 package mx.iteso.escalaapp.activities;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -16,9 +19,10 @@ import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.beans.Gym;
 
 public class ActivityGym extends AppCompatActivity {
-
+    LinearLayout linearPhone;
     SimpleDraweeView draweeView;
-    TextView name, descrption, host, members, podiums;
+    TextView name, descrption, host, members, podiums, phone;
+    String strPhone = "";
     private DatabaseReference userDatabase;
 
     @Override
@@ -32,6 +36,18 @@ public class ActivityGym extends AppCompatActivity {
         host = findViewById(R.id.gym_number_host);
         members = findViewById(R.id.gym_members_number);
         podiums = findViewById(R.id.gym_podiums_number);
+        linearPhone = findViewById(R.id.gym_linear_phone);
+        linearPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL,
+                        Uri.parse("tel:" + strPhone));
+                startActivity(intent);
+            }
+        });
+
+        phone = findViewById(R.id.gym_phone);
+
 
 
         String gym_id = getIntent().getStringExtra("gym_id");
@@ -51,12 +67,15 @@ public class ActivityGym extends AppCompatActivity {
                 gym.setMembers(dataSnapshot.child("members").getValue().toString());
                 gym.setPodiums(dataSnapshot.child("podiums").getValue().toString());
                 gym.setHost(dataSnapshot.child("host").getValue().toString());
+                gym.setPhone(dataSnapshot.child("phone").getValue().toString());
 
                 name.setText(gym.getName());
                 descrption.setText(gym.getDescription());
                 members.setText(gym.getMembers());
                 host.setText(gym.getHost());
                 podiums.setText(gym.getPodiums());
+                phone.setText(gym.getPhone());
+                strPhone = gym.getPhone();
 
                 Uri imageUri = Uri.parse(gym.getThumb());
                 draweeView.setImageURI(imageUri);

@@ -22,7 +22,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayDeque;
@@ -32,13 +31,12 @@ import java.util.Map;
 
 import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.beans.Climber;
-import mx.iteso.escalaapp.fragmentclimber.AdapterClimber;
 
 public class ActivityJudging extends AppCompatActivity {
     int triesCounter = 0, bonusCounter = 0, time = 300, last;
     boolean top = false;
     public TextView topV, triesV, bonusV, timerV, resultsV, climber;
-    public String compKey = "", currentRound = "", currentBoulder = "", currentClimber = "Result1";
+    public String compKey = "", currentRound = "", currentBoulder = "", currentClimber = "Result1", cboulder = "";
     private Spinner boulderSpinner, roundSpinner;
     private FirebaseUser currentUser;
     private DatabaseReference judgeDatabase, resultsDatabase;
@@ -163,6 +161,7 @@ public class ActivityJudging extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 updateKeys("currentBoulder", boulderSpinner.getSelectedItem().toString());
                 setCurrentBoulder(boulderSpinner.getSelectedItem().toString());
+                cboulder = boulderSpinner.getTransitionName().toString();
                 initData();
             }
 
@@ -294,6 +293,11 @@ public class ActivityJudging extends AppCompatActivity {
             last = 0;
             triesCounter++;
             triesV.setText(String.valueOf(triesCounter));
+            resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child("Principiantes").child(currentClimber).child("boulders").child(currentBoulder).child("number");
+            resultsDatabase.setValue(cboulder);
+
+            resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child("Principiantes").child(currentClimber).child("boulders").child(currentBoulder).child("tries");
+            resultsDatabase.setValue(triesV.getText().toString());
         }
     }
 

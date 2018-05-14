@@ -436,7 +436,7 @@
     <string name="settings_help">HELP</string>
     <string name="adding_a_gym">ADDING A GYM</string>
     <string name="gym_name">Gym name</string>
-    <string name="sign_gym_eslogan">Eslogan</string>
+    <string name="sign_gym_phone">Phone</string>
     <string name="sign_gym_address">Address</string>
     <string name="default_image_gym"><![CDATA[https://firebasestorage.googleapis.com/v0/b/escalaapp-17103.appspot.com/o/gym_images%2Fpavilions.png?alt=media&token=6be40c2b-aaa4-4a2f-b025-55544ea5c60e]]></string>
     <string name="default_image_comp"><![CDATA[https://firebasestorage.googleapis.com/v0/b/escalaapp-17103.appspot.com/o/competition_images%2Ficons8-pavilion-filled-50.png?alt=media&token=615c45ee-e4f0-48f5-9bb9-c83db4e52426]]></string>

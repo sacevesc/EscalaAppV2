@@ -164,7 +164,7 @@
                             android:gravity="center"
                             android:hint="@string/city"
                             android:inputType="textPersonName"
-                            android:imeOptions="actionNext"
+                            android:imeOptions="actionGo"
                             android:maxLines="1"
                             android:textColor="@color/colorPrimaryDark" />
                     </android.support.design.widget.TextInputLayout>

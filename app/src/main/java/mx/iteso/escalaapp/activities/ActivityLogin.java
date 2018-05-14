@@ -68,6 +68,11 @@ public class ActivityLogin extends AppCompatActivity {
             }
         });
 
+        String emailExtra = getIntent().getStringExtra("mail");
+        if (emailExtra != null) name.setText(emailExtra);
+        String passwordExtra = getIntent().getStringExtra("password");
+        if (passwordExtra != null) password.setText(passwordExtra);
+
     }
 
     private void loginUser(String email, String password) {
@@ -82,7 +87,7 @@ public class ActivityLogin extends AppCompatActivity {
                             final FirebaseUser user = mAuth.getCurrentUser();
                             //updateUI(user);
                             user.reload();
-                            if(/*user.isEmailVerified()*/true) {                                                    //HABILITAR CONDICION PARA VERIFICAR EMAIL!!!!!
+                            if (user.isEmailVerified()) {                                                    //HABILITAR CONDICION PARA VERIFICAR EMAIL!!!!!
                                 Intent intent = new Intent(ActivityLogin.this, ActivityMain.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
