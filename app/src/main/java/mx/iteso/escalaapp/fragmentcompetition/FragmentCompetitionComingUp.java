@@ -15,7 +15,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.beans.Competition;
@@ -27,6 +29,8 @@ import mx.iteso.escalaapp.beans.Competition;
 public class FragmentCompetitionComingUp extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView compsList;
+    String currentDateandTime = "";
+
 
     public FragmentCompetitionComingUp() {
         // Required empty public constructor
@@ -42,13 +46,17 @@ public class FragmentCompetitionComingUp extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         compsList.setLayoutManager(mLayoutManager);
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        long a = Long.parseLong(sdf.format(new Date()));
+        a++;
+        currentDateandTime = String.valueOf(a);
         return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Query compsDatabse = FirebaseDatabase.getInstance().getReference().child("Competitions").orderByChild("date");
+        Query compsDatabse = FirebaseDatabase.getInstance().getReference().child("Competitions").orderByChild("date").startAt(currentDateandTime);
 
         // All comps list
         compsDatabse.addValueEventListener(new ValueEventListener() {

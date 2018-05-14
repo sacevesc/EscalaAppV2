@@ -4,11 +4,23 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
 import mx.iteso.escalaapp.R;
+import mx.iteso.escalaapp.beans.Competition;
 
 /**
  * Created by aceve on 12/03/2018.
@@ -16,8 +28,8 @@ import mx.iteso.escalaapp.R;
 
 public class FragmentCompetitionEnded extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
-    private AdapterCompetition adapterCompetitionEnded;
-
+    String currentDateandTime = "";
+    private RecyclerView compsList;
 
     public FragmentCompetitionEnded() {
         // Required empty public constructor
@@ -26,25 +38,50 @@ public class FragmentCompetitionEnded extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_competition_comingup, container, false);
-        RecyclerView recyclerView = view.findViewById(R.id.fragment_recycler_view);
+        View view = inflater.inflate(R.layout.fragment_competition_ended, container, false);
+        compsList = view.findViewById(R.id.fragment_recycler_view);
 
-        recyclerView.setHasFixedSize(true);
+        compsList.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(mLayoutManager);
+        compsList.setLayoutManager(mLayoutManager);
 
-      /*  ArrayList<Competition> compsEnded = new ArrayList<>();
-        //String comp_name, String gym, String description, int photo, int participants, String date
-        compsEnded.add(new Competition("Estatal Ruta", "Ameyalli", "proxima compe de jalisco en ruta", 0, "24", "25-04-2017"));
-        compsEnded.add(new Competition("Summer Jam", "Bloce", "JAMMMM", 0, "67", "10-07-2017"));
-        compsEnded.add(new Competition("2do Aniversario ", "Motion Boulder", "1er aniversario de motion", 0, "120", "02-08-2017"));
-        compsEnded.add(new Competition("3do Aniversario ", "Motion", "1er aniversario de motion", 0, "12", "02-02-2017"));
-        compsEnded.add(new Competition("2do maratón ", "Ameyali", "1er aniversario de motion", 0, "139", "02-01-2017"));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        long a = Long.parseLong(sdf.format(new Date()));
+        a--;
+        currentDateandTime = String.valueOf(a);
 
-        adapterCompetitionEnded = new AdapterCompetition(compsEnded);
-        recyclerView.setAdapter(adapterCompetitionEnded);
-       */
+
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Query compsDatabse = FirebaseDatabase.getInstance().getReference().child("Competitions").orderByChild("date").endAt(currentDateandTime);
+
+        // All comps list
+        compsDatabse.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<Competition> comps = new ArrayList<>();
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Competition competition = postSnapshot.getValue(Competition.class);
+                    competition.setCompKey(postSnapshot.getKey());
+                    comps.add(competition);
+                }
+                AdapterCompetition adapterCompetition = new AdapterCompetition(comps);
+                compsList.setAdapter(adapterCompetition);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("CompetitionList", "load:onCancelled", databaseError.toException());
+                // ...
+            }
+        });
     }
 
 

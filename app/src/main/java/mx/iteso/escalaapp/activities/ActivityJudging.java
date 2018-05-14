@@ -1,17 +1,14 @@
 package mx.iteso.escalaapp.activities;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -27,21 +24,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.beans.Climber;
-import mx.iteso.escalaapp.beans.Gym;
-import mx.iteso.escalaapp.fragmentclimber.AdapterClimber;
 
 public class ActivityJudging extends AppCompatActivity {
     int triesCounter = 0, bonusCounter = 0, time = 300, last;
     boolean top = false;
     public TextView topV, triesV, bonusV, timerV, resultsV, climber;
-    public String compKey = "", currentRound = "", currentBoulder = "", currentClimber = "Result1";
+    public String compKey = "", currentRound = "", currentBoulder = "", currentClimber = "Result1", cboulder;
     private Spinner boulderSpinner, roundSpinner, competitorSpinner;
     private FirebaseUser currentUser;
     private DatabaseReference judgeDatabase, resultsDatabase;
@@ -281,6 +275,7 @@ public class ActivityJudging extends AppCompatActivity {
 
     public void setCurrentBoulder(String currentBoulder) {
         this.currentBoulder = "boulder" + currentBoulder;
+        cboulder = currentBoulder;
     }
 
 

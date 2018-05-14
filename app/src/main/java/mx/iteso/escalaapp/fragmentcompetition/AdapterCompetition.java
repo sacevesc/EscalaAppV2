@@ -55,7 +55,7 @@ public class AdapterCompetition extends RecyclerView.Adapter<AdapterCompetition.
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                gymName = dataSnapshot.child("name").getValue().toString();
+                //     gymName = dataSnapshot.child("name").getValue().toString();
                 Log.d("logs", "onDataChange:GYMname " + gymName);
             }
 

@@ -156,7 +156,6 @@ public class FragmentQualifications extends Fragment {
                     public void onCancelled(DatabaseError databaseError) {
                         // Getting Post failed, log a message
                         Log.w("CompetitionList", "load:onCancelled", databaseError.toException());
-                        // ...
                     }
                 });
             }
