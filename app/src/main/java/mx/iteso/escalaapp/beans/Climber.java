@@ -94,15 +94,7 @@ public class Climber {
 
     @Override
     public String toString() {
-        return "Climber{" +
-                "firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", gym='" + gym + '\'' +
-                ", image=" + image +
-                ", description='" + description + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                '}';
+        return firstname + " " + lastname;
     }
 
     public String getDescription() {

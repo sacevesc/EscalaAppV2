@@ -78,8 +78,32 @@
             android:layout_weight="1"
             android:entries="@array/array_boulders"
             android:textAlignment="center"/>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/five">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="2"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Competitor:"
+            android:textSize="@dimen/twenty_Sp"/>
 
+        <Spinner
+            android:id="@+id/activity_judging_competitorSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="2"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -87,45 +111,43 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingTop="@dimen/thirty">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Climber ID"
-                android:textSize="@dimen/fifeteen_sp"
-                android:textAlignment="center"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorPrimary"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <Button
-                android:id="@+id/add_climber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/competition_judge_add_climber_id"/>
+        <!--<LinearLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:orientation="vertical">-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Climber ID"-->
+                <!--android:textSize="@dimen/fifeteen_sp"-->
+                <!--android:textAlignment="center"/>-->
+            <!--<Button-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:backgroundTint="@color/colorPrimary"/>-->
+            <!--<Button-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"/>-->
+            <!--<Button-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"/>-->
+            <!--<Button-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"/>-->
+            <!--<Button-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"/>-->
+            <!--<Button-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+            <!--<Button-->
+                <!--android:id="@+id/add_climber"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/competition_judge_add_climber_id"/>-->
 
-
-
-        </LinearLayout>
+        <!--</LinearLayout>-->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -148,7 +170,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="undo"
-                    android:text="@string/competition_judge_undo" />
+                    android:text="@string/competition_judge_undo"
+                    android:textColor="@color/red"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

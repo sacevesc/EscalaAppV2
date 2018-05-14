@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -32,6 +33,7 @@ import java.util.Map;
 
 import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.beans.Climber;
+import mx.iteso.escalaapp.beans.Gym;
 import mx.iteso.escalaapp.fragmentclimber.AdapterClimber;
 
 public class ActivityJudging extends AppCompatActivity {
@@ -39,11 +41,11 @@ public class ActivityJudging extends AppCompatActivity {
     boolean top = false;
     public TextView topV, triesV, bonusV, timerV, resultsV, climber;
     public String compKey = "", currentRound = "", currentBoulder = "", currentClimber = "Result1";
-    private Spinner boulderSpinner, roundSpinner;
+    private Spinner boulderSpinner, roundSpinner, competitorSpinner;
     private FirebaseUser currentUser;
     private DatabaseReference judgeDatabase, resultsDatabase;
-    private Button addClimber;
-    private ArrayDeque<Climber> competitors;
+//    private Button addClimber;
+//    private ArrayDeque<Climber> competitors;
     private ArrayList<String> climberIDs;
     private ArrayList<Climber> registeredClimbers;
     boolean started = false;
@@ -80,14 +82,35 @@ public class ActivityJudging extends AppCompatActivity {
         resultsV = findViewById(R.id.activity_judging_results);
         resultsV.setText("t0-b0");
         boulderSpinner = findViewById(R.id.activity_judging_boulderSpinner);
-        addClimber = findViewById(R.id.add_climber);
+//        addClimber = findViewById(R.id.add_climber);
         pause = findViewById(R.id.pause);
-        competitors = new ArrayDeque<Climber>();
+//        competitors = new ArrayDeque<Climber>();
         climberIDs = new ArrayList<String>();
         registeredClimbers = new ArrayList<Climber>();
         compKey = getIntent().getStringExtra("comp_id");
+        competitorSpinner = findViewById(R.id.activity_judging_competitorSpinner);
+
 
         climber = findViewById(R.id.activity_judging_climber);
+
+        Query gymsDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers");
+        gymsDatabase.addValueEventListener(new ValueEventListener() {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<Climber> competitors = new ArrayList<>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Climber climber = postSnapshot.getValue(Climber.class);
+                    climber.setKey(postSnapshot.getKey());
+                    competitors.add(climber);
+                }
+                ArrayAdapter<Climber> adapter = new ArrayAdapter<Climber>(getApplicationContext(), android.R.layout.simple_spinner_item, competitors);
+                adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                competitorSpinner.setAdapter(adapter);
+            }
+
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("Gymslist", "loadPost:onCancelled", databaseError.toException());
+            }
+        });
 
         climber.setText(currentClimber);
         DatabaseReference climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Competitions").child(compKey).child("climbers");
@@ -128,20 +151,20 @@ public class ActivityJudging extends AppCompatActivity {
             climberArray[i] = c.getFirstname() + " " + c.getLastname();
             i++;
         }
-        addClimber.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityJudging.this);
-                builder.setTitle("Add a competitor");
-                builder.setItems(climberArray, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        String climberName = climberArray[which].toString();
-                    }
-                });
-                builder.create();
-                builder.show();
-            }
-        });
+//        addClimber.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//
+//                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityJudging.this);
+//                builder.setTitle("Add a competitor");
+//                builder.setItems(climberArray, new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        String climberName = climberArray[which].toString();
+//                    }
+//                });
+//                builder.create();
+//                builder.show();
+//            }
+//        });
 
 
         pause.setOnClickListener(new View.OnClickListener() {
@@ -158,6 +181,20 @@ public class ActivityJudging extends AppCompatActivity {
                 }
             }
         });
+        competitorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                currentClimber = competitorSpinner.getSelectedItem().toString();
+                climber.setText(currentClimber);
+                initData();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         boulderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -291,14 +328,16 @@ public class ActivityJudging extends AppCompatActivity {
                 pause.setImageDrawable(getDrawable(R.drawable.ic_pause_black_24dp));
                 pause.setVisibility(View.VISIBLE);
             }
-            last = 0;
-            triesCounter++;
-            triesV.setText(String.valueOf(triesCounter));
+            if(!paused) {
+                last = 0;
+                triesCounter++;
+                triesV.setText(String.valueOf(triesCounter));
+            }
         }
     }
 
     public void setTop(View v){
-        if(!top) {
+        if(!top && !paused) {
             last = 1;
             top = true;
             topV.setText(String.valueOf(triesCounter));
@@ -310,7 +349,7 @@ public class ActivityJudging extends AppCompatActivity {
     }
 
     public void setBonus(View v){
-        if(!top) {
+        if(!top && !paused) {
             last = 2;
             bonusCounter = triesCounter;
             bonusV.setText(String.valueOf(bonusCounter));

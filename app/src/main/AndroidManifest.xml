@@ -39,7 +39,7 @@
         <activity android:name=".activities.ActivityGym" />
         <activity android:name=".activities.ActivityClimber" />
         <activity android:name=".activities.ActivityCompetition" />
-        <activity android:name=".activities.ActivityJudging" />
+        <activity android:name=".activities.ActivityJudging" android:screenOrientation="portrait"/>
         <activity android:name=".results.ActivityResults" />
         <activity
             android:name=".activities.ActivityMain"
