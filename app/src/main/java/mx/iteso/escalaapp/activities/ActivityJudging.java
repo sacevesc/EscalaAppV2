@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -75,6 +76,9 @@ public class ActivityJudging extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_judging);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         topV = findViewById(R.id.activity_judging_topCounter);
         bonusV = findViewById(R.id.activity_judging_bonusCounter);
         triesV = findViewById(R.id.activity_judging_triesCounter);
