@@ -25,6 +25,7 @@ import mx.iteso.escalaapp.beans.Results;
 public class AdapterResults extends RecyclerView.Adapter<AdapterResults.ViewHolder> {
 
     ArrayList<Results> resultsList;
+    int results = 1;
 
     public AdapterResults(ArrayList<Results> resultsList) {
         this.resultsList = resultsList;
@@ -40,7 +41,7 @@ public class AdapterResults extends RecyclerView.Adapter<AdapterResults.ViewHold
     }
 
     public void onBindViewHolder(AdapterResults.ViewHolder holder, final int position) {
-        holder.mRanking.setText(String.valueOf(position) + 1);
+        holder.mRanking.setText(String.valueOf(results++));
         String name = resultsList.get(position).getFirstname() + " " + resultsList.get(position).getLastname();
         holder.mName.setText(name);
         holder.mSum.setText(resultsList.get(position).getSum());
@@ -69,7 +70,7 @@ public class AdapterResults extends RecyclerView.Adapter<AdapterResults.ViewHold
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ActivityClimber.class);
                 intent.putExtra("climber_id", resultsList.get(position).getClimber().getKey());
-                v.getContext().startActivity(intent);
+                //v.getContext().startActivity(intent);
             }
         });
 
