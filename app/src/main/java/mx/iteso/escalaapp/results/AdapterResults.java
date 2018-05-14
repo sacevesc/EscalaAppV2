@@ -40,7 +40,7 @@ public class AdapterResults extends RecyclerView.Adapter<AdapterResults.ViewHold
     }
 
     public void onBindViewHolder(AdapterResults.ViewHolder holder, final int position) {
-        holder.mRanking.setText(resultsList.get(holder.getAdapterPosition()).getRanking());
+        holder.mRanking.setText(String.valueOf(position) + 1);
         String name = resultsList.get(position).getFirstname() + " " + resultsList.get(position).getLastname();
         holder.mName.setText(name);
         holder.mSum.setText(resultsList.get(position).getSum());

@@ -35,7 +35,7 @@ public class ActivityJudging extends AppCompatActivity {
     int triesCounter = 0, bonusCounter = 0, time = 300, last;
     boolean top = false;
     public TextView topV, triesV, bonusV, timerV, resultsV, climber;
-    public String compKey = "", currentRound = "", currentBoulder = "", currentClimber = "Result1", cboulder;
+    public String compKey = "", currentRound = "", currentBoulder = "", currentClimber = "Result1", cboulder, calculateRanking;
     private Spinner boulderSpinner, roundSpinner, competitorSpinner;
     private FirebaseUser currentUser;
     private DatabaseReference judgeDatabase, resultsDatabase;
@@ -218,8 +218,32 @@ public class ActivityJudging extends AppCompatActivity {
                                     bonus++;
                             }
                         }
+
                         resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("sum");
                         resultsDatabase.setValue(top + "t" + triesTop + " " + bonus + "b" + triesBonus);
+                        calculateRanking = String.valueOf(top) + String.valueOf(bonus) + String.valueOf(triesTop) + String.valueOf(triesBonus);
+                        Log.d("rank", "calculate" + calculateRanking);
+
+                        Log.d("rank", "onDataChange: " + judged.getCategory().toLowerCase());
+                        DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("Competitions").child(compKey).child(currentRound.toLowerCase());
+                        db.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                long bestResult = Long.parseLong(dataSnapshot.getValue().toString()) * 1111;
+                                long calculong = Math.abs(Long.parseLong(calculateRanking) - bestResult);
+                                DatabaseReference rank = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("ranking");
+                                rank.setValue(String.valueOf(calculong));
+                                Log.d("rank", "rank change" + calculong);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+
                     }
                     public void onCancelled(DatabaseError databaseError) {
 
@@ -277,6 +301,8 @@ public class ActivityJudging extends AppCompatActivity {
 //
 //            }
 //        });
+
+
     }
 
     public String getCompKey() {
