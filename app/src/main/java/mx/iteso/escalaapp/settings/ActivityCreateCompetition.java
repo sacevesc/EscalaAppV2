@@ -37,7 +37,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.activities.ActivityCompetition;
@@ -57,7 +59,7 @@ public class ActivityCreateCompetition extends AppCompatActivity {
     private FirebaseUser currentUser;
     private StorageReference mStorageRef;
     private byte[] datas;
-    ArrayList<Climber> judges;
+    Set<Climber> judges;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +76,7 @@ public class ActivityCreateCompetition extends AppCompatActivity {
 
         judgeSpinner = findViewById(R.id.activity_judgeSpinner);
         addJudge = findViewById(R.id.add_judge);
-        judges = new ArrayList<>();
+        judges = new HashSet<>();
 
         //edittext
         compName = findViewById(R.id.newcomp_name);
@@ -307,9 +309,10 @@ public class ActivityCreateCompetition extends AppCompatActivity {
         compMap.put("participants", "0");
         compMap.put("date", year.getSelectedItem().toString() + (((month.getSelectedItemPosition() + 1) < 10)? "0" + (month.getSelectedItemPosition() + 1) : (month.getSelectedItemPosition() + 1))  + day.getSelectedItem().toString());
 
-        DatabaseReference climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").child(((Climber)judgeSpinner.getSelectedItem()).getKey()).child("judge").child(competitionId);
-        climbersDatabase.setValue("true");
-
+        for(Climber c : judges) {
+            DatabaseReference climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").child(c.getKey()).child("judge").child(competitionId);
+            climbersDatabase.setValue("true");
+        }
 
         firebaseDatabase.child("Competitions").child(competitionId).setValue(compMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

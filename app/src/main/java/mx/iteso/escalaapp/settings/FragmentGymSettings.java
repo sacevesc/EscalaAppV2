@@ -15,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import mx.iteso.escalaapp.R;
@@ -28,7 +29,7 @@ public class FragmentGymSettings extends Fragment {
     TextView gymProfile, createCompetition, payment, help, addGym;
     private DatabaseReference firebaseDatabase;
     private FirebaseUser currentUser;
-    String isowner = "";
+    String isowner = "true";
 
     public FragmentGymSettings() {
     }
@@ -44,7 +45,7 @@ public class FragmentGymSettings extends Fragment {
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String currentUid = currentUser.getUid();
 
-        firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").child(currentUid).child("owner");
+        Query firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").child(currentUid).child("owner");
         firebaseDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
