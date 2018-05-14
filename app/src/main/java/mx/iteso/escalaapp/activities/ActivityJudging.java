@@ -95,6 +95,7 @@ public class ActivityJudging extends AppCompatActivity {
         Query gymsDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers");
         gymsDatabase.addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
+                int selection = competitorSpinner.getSelectedItemPosition();
                 ArrayList<Climber> competitors = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Climber climber = postSnapshot.getValue(Climber.class);
@@ -104,6 +105,7 @@ public class ActivityJudging extends AppCompatActivity {
                 ArrayAdapter<Climber> adapter = new ArrayAdapter<Climber>(getApplicationContext(), android.R.layout.simple_spinner_item, competitors);
                 adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                 competitorSpinner.setAdapter(adapter);
+                competitorSpinner.setSelection(selection);
             }
 
             public void onCancelled(DatabaseError databaseError) {
