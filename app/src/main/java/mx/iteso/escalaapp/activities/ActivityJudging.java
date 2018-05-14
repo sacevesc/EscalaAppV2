@@ -54,6 +54,7 @@ public class ActivityJudging extends AppCompatActivity {
     boolean paused = true;
     CountDownTimer timer;
     boolean timerStarted = false;
+    Climber judged;
 
     public void initData() {
         this.triesCounter = 0;
@@ -191,6 +192,7 @@ public class ActivityJudging extends AppCompatActivity {
                 currentClimber = competitorSpinner.getSelectedItem().toString();
 //                climber.setText(currentClimber);
                 initData();
+                judged = (Climber) competitorSpinner.getSelectedItem();
             }
 
             @Override
