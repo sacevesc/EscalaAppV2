@@ -65,6 +65,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/climber_social_networks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -172,6 +173,7 @@
     </LinearLayout>
 
     <Button
+        android:visibility="gone"
         android:id="@+id/climber_results_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
