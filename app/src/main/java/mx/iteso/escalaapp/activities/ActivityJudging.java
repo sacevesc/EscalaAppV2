@@ -197,31 +197,32 @@ public class ActivityJudging extends AppCompatActivity {
                 resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("ranking");
                 resultsDatabase.setValue("");
                 resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("boulders").child(currentBoulder).child("number");
-                resultsDatabase.setValue(getCurrentBoulder().charAt(getCurrentBoulder().length()-1) + "");
+                resultsDatabase.setValue(getCurrentBoulder().charAt(getCurrentBoulder().length() - 1) + "");
                 resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("boulders").child(currentBoulder).child("top");
-                resultsDatabase.setValue("0");
+//                resultsDatabase.setValue("0");
                 resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("boulders").child(currentBoulder).child("bonus");
-                resultsDatabase.setValue("0");
+//                resultsDatabase.setValue("0");
 
                 Query scoreDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("boulders");
                 scoreDatabase.addValueEventListener(new ValueEventListener() {
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        int top, bonus, triesTop, triesBonus;
-                        top = bonus = triesTop = triesBonus = 0;
+                        int topN, bonusN, triesTop, triesBonus;
+                        topN = bonusN = triesTop = triesBonus = 0;
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            if(postSnapshot.child("top").getValue() != null && postSnapshot.child("bonus").getValue() != null){
-                                triesTop += Integer.parseInt(postSnapshot.child("top").getValue().toString());
-                                triesBonus += Integer.parseInt(postSnapshot.child("bonus").getValue().toString());
-                                if (Integer.parseInt(postSnapshot.child("top").getValue().toString()) > 0)
-                                    top++;
-                                if (Integer.parseInt(postSnapshot.child("bonus").getValue().toString()) > 0)
-                                    bonus++;
+                                if (postSnapshot.child("top").getValue() != null && postSnapshot.child("bonus").getValue() != null) {
+                                    triesTop += Integer.parseInt(postSnapshot.child("top").getValue().toString());
+                                    triesBonus += Integer.parseInt(postSnapshot.child("bonus").getValue().toString());
+                                    if (Integer.parseInt(postSnapshot.child("top").getValue().toString()) > 0)
+                                        topN++;
+                                    if (Integer.parseInt(postSnapshot.child("bonus").getValue().toString()) > 0)
+                                        bonusN++;
+
                             }
                         }
 
                         resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("sum");
-                        resultsDatabase.setValue(top + "t" + triesTop + " " + bonus + "b" + triesBonus);
-                        calculateRanking = String.valueOf(top) + String.valueOf(bonus) + String.valueOf(triesTop) + String.valueOf(triesBonus);
+                        resultsDatabase.setValue(topN + "t" + triesTop + " " + bonusN + "b" + triesBonus);
+                        calculateRanking = String.valueOf(topN) + String.valueOf(bonusN) + String.valueOf(triesTop) + String.valueOf(triesBonus);
                         Log.d("rank", "calculate" + calculateRanking);
 
                         Log.d("rank", "onDataChange: " + judged.getCategory().toLowerCase());
