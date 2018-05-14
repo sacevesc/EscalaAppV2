@@ -95,7 +95,7 @@ public class ActivityJudging extends AppCompatActivity {
         competitorSpinner = findViewById(R.id.activity_judging_competitorSpinner);
 
 
-        climber = findViewById(R.id.activity_judging_climber);
+//        climber = findViewById(R.id.activity_judging_climber);
 
         Query gymsDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers");
         gymsDatabase.addValueEventListener(new ValueEventListener() {
@@ -116,7 +116,7 @@ public class ActivityJudging extends AppCompatActivity {
             }
         });
 
-        climber.setText(currentClimber);
+//        climber.setText(currentClimber);
         DatabaseReference climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Competitions").child(compKey).child("climbers");
         climbersDatabase.addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -189,7 +189,7 @@ public class ActivityJudging extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 currentClimber = competitorSpinner.getSelectedItem().toString();
-                climber.setText(currentClimber);
+//                climber.setText(currentClimber);
                 initData();
             }
 
