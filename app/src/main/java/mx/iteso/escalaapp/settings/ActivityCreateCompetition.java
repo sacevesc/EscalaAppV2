@@ -290,12 +290,26 @@ public class ActivityCreateCompetition extends AppCompatActivity {
 
         final String competitionId = firebaseDatabase.child("Competitions").push().getKey();
         String uid = currentUser.getUid();
+        final String[] gymOwned = new String[1];
+        Query gymComp = FirebaseDatabase.getInstance().getReference().child("Climbers").child(uid).child("gymOwner");
+        gymComp.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                gymOwned[0] = dataSnapshot.getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         HashMap<String, String> compMap = new HashMap<>();
         compMap.put("name", compName.getText().toString().toUpperCase());
         compMap.put("day", day.getSelectedItem().toString());
         compMap.put("month", month.getSelectedItem().toString());
         compMap.put("year", year.getSelectedItem().toString());
-        compMap.put("gym", "default");
+        compMap.put("gym", gymOwned[0]);
         compMap.put("owner", uid);
         compMap.put("qualifications", qualifications.getSelectedItem().toString());
         compMap.put("semifinals", semifinals.getSelectedItem().toString());

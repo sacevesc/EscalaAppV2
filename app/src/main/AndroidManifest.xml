@@ -8,8 +8,8 @@
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
-        android:icon="@drawable/sebas_nacional_2_recortada"
-        android:roundIcon="@drawable/sebas_nacional_2_recortada"
+        android:icon="@drawable/ibloc"
+        android:roundIcon="@drawable/ibloc"
         android:supportsRtl="true"
 
         android:theme="@style/AppTheme">

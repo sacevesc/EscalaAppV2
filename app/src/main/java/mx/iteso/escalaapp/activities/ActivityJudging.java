@@ -229,7 +229,7 @@ public class ActivityJudging extends AppCompatActivity {
                         db.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                long bestResult = Long.parseLong(dataSnapshot.getValue().toString()) * 1111;
+                                long bestResult = Long.parseLong(dataSnapshot.getValue().toString().substring(0, 1)) * 1111;
                                 long calculong = Math.abs(Long.parseLong(calculateRanking) - bestResult);
                                 DatabaseReference rank = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("ranking");
                                 rank.setValue(String.valueOf(calculong));
