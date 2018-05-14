@@ -31,13 +31,12 @@ import java.util.Map;
 
 import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.beans.Climber;
-import mx.iteso.escalaapp.fragmentclimber.AdapterClimber;
 
 public class ActivityJudging extends AppCompatActivity {
     int triesCounter = 0, bonusCounter = 0, time = 300, last;
     boolean top = false;
-    public TextView topV, triesV, bonusV, timerV, resultsV;
-    public String compKey = "", currentRound = "", currentBoulder = "";
+    public TextView topV, triesV, bonusV, timerV, resultsV, climber;
+    public String compKey = "", currentRound = "", currentBoulder = "", currentClimber = "Result1";
     private Spinner boulderSpinner, roundSpinner;
     private FirebaseUser currentUser;
     private DatabaseReference judgeDatabase, resultsDatabase;
@@ -46,6 +45,19 @@ public class ActivityJudging extends AppCompatActivity {
     private ArrayList<String> climberIDs;
     private ArrayList<Climber> registeredClimbers;
     boolean started = false;
+
+    public void initData() {
+        this.triesCounter = 0;
+        this.bonusCounter = 0;
+        this.time = 300;
+        this.top = false;
+
+        triesV.setText(String.valueOf(triesCounter));
+        topV.setText(String.valueOf(triesCounter));
+        bonusV.setText(String.valueOf(triesCounter));
+        resultsV.setText("t0-b0");
+        // PONER EL RELOJ EN 5:00 OTRA VEZ
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +70,10 @@ public class ActivityJudging extends AppCompatActivity {
         resultsV = findViewById(R.id.activity_judging_results);
         resultsV.setText("t0-b0");
         boulderSpinner = findViewById(R.id.activity_judging_boulderSpinner);
+        climber = findViewById(R.id.activity_judging_climber);
+
+        climber.setText(currentClimber);
+
         addClimber = findViewById(R.id.add_climber);
         competitors = new ArrayDeque<Climber>();
         climberIDs = new ArrayList<String>();
@@ -70,6 +86,8 @@ public class ActivityJudging extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     climberIDs.add(postSnapshot.getKey());
+                    Log.d("nueva", "climber id" + postSnapshot.getKey());
+
                 }
             }
             public void onCancelled(DatabaseError databaseError) {
@@ -81,10 +99,12 @@ public class ActivityJudging extends AppCompatActivity {
         Log.d("COMPETITION", ""+ compKey);
 
         for(String id : climberIDs){
-            climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").child(id);
-            climbersDatabase.addValueEventListener(new ValueEventListener() {
+            Query cd = FirebaseDatabase.getInstance().getReference().child("Climbers").child(id);
+            cd.addValueEventListener(new ValueEventListener() {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     registeredClimbers.add(dataSnapshot.getValue(Climber.class));
+                    Log.d("nueva", "" + dataSnapshot.getValue());
+
                 }
                 public void onCancelled(DatabaseError databaseError) {
                     Log.w("Climberlist", "loadPost:onCancelled", databaseError.toException());
@@ -112,10 +132,13 @@ public class ActivityJudging extends AppCompatActivity {
                 builder.show();
             }
         });
+
         boulderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 updateKeys("currentBoulder", boulderSpinner.getSelectedItem().toString());
+                setCurrentBoulder(boulderSpinner.getSelectedItem().toString());
+                initData();
             }
 
             @Override
@@ -128,6 +151,8 @@ public class ActivityJudging extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 updateKeys("currentRound", roundSpinner.getSelectedItem().toString());
+                setCurrentRound(roundSpinner.getSelectedItem().toString());
+                initData();
             }
 
             @Override
@@ -176,7 +201,7 @@ public class ActivityJudging extends AppCompatActivity {
     }
 
     public void setCurrentBoulder(String currentBoulder) {
-        this.currentBoulder = currentBoulder;
+        this.currentBoulder = "boulder" + currentBoulder;
     }
 
 
@@ -208,7 +233,7 @@ public class ActivityJudging extends AppCompatActivity {
             }
 
             public void onFinish() {
-                timerV.setText("try again");
+                timerV.setText("Time finished");
             }
 
         }.start();
@@ -240,7 +265,7 @@ public class ActivityJudging extends AppCompatActivity {
             topV.setText(String.valueOf(triesCounter));
             resultsV.setText("t" + (top ? triesCounter : "0") + "-b" + bonusCounter);
 
-            resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child("Principiantes").child("Result1").child("boulders").child(currentBoulder).child("top");
+            resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child("Principiantes").child(currentClimber).child("boulders").child(currentBoulder).child("top");
             resultsDatabase.setValue(topV.getText().toString());
         }
     }
@@ -251,7 +276,7 @@ public class ActivityJudging extends AppCompatActivity {
             bonusCounter = triesCounter;
             bonusV.setText(String.valueOf(bonusCounter));
             resultsV.setText("t" + (top ? triesCounter : "0") + "-b" + bonusCounter);
-            resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child("Principiantes").child("Result1").child("boulders").child(currentBoulder).child("bonus");
+            resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child("Principiantes").child(currentClimber).child("boulders").child(currentBoulder).child("bonus");
             resultsDatabase.setValue(bonusV.getText().toString());
         }
     }
@@ -265,7 +290,7 @@ public class ActivityJudging extends AppCompatActivity {
                 break;
             case 1:
                 top = false;
-                topV.setText("");
+                topV.setText("0");
                 resultsV.setText("t" + (top ? triesCounter : "0") + "-b" + bonusCounter);
                 resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child("Principiantes").child("Result1").child("boulders").child(currentBoulder).child("top");
                 resultsDatabase.setValue(topV.getText().toString());
@@ -273,7 +298,7 @@ public class ActivityJudging extends AppCompatActivity {
                 break;
             case 2:
                 bonusCounter = 0;
-                bonusV.setText("");
+                bonusV.setText("0");
                 resultsV.setText("t0-b0");
                 resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child("Principiantes").child("Result1").child("boulders").child(currentBoulder).child("bonus");
                 resultsDatabase.setValue(bonusV.getText().toString());
