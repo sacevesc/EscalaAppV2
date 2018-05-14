@@ -103,7 +103,7 @@ public class FragmentFinal extends Fragment {
                             results.setLastname(Objects.requireNonNull(postSnapshot.child("lastname").getValue()).toString());
                             results.setRanking((Objects.requireNonNull(postSnapshot.child("ranking").getValue()).toString()));
                             results.setSum(Objects.requireNonNull(postSnapshot.child("sum").getValue()).toString());
-                            results.setBoulder_round(Integer.parseInt(boulderFinals));
+                            results.setBoulder_round(Integer.parseInt(boulderFinals.substring(0, 1)));
                             String resultKey = postSnapshot.getKey();
                             results.setResultsKey(postSnapshot.getKey());
                             final Query bouldersDB = FirebaseDatabase.getInstance().getReference().child("Results").child("Finals").child(compKey).child(actualCategory).child(resultKey).child("boulders").orderByChild("number");

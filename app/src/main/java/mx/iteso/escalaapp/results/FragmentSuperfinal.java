@@ -35,7 +35,7 @@ public class FragmentSuperfinal extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView resultsList;
     private ArrayList<Results> resultsAList;
-    String boulderQualifications = "";
+    String boulderSuperfinal = "";
     FirebaseUser currentUser;
     DatabaseReference userDatabase, compDatabase;
 
@@ -80,7 +80,7 @@ public class FragmentSuperfinal extends Fragment {
                 compDatabase.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        boulderQualifications = dataSnapshot.getValue().toString();
+                        boulderSuperfinal = dataSnapshot.getValue().toString();
                     }
 
                     @Override
@@ -101,7 +101,7 @@ public class FragmentSuperfinal extends Fragment {
                             results.setLastname(Objects.requireNonNull(postSnapshot.child("lastname").getValue()).toString());
                             results.setRanking((Objects.requireNonNull(postSnapshot.child("ranking").getValue()).toString()));
                             results.setSum(Objects.requireNonNull(postSnapshot.child("sum").getValue()).toString());
-                            results.setBoulder_round(Integer.parseInt(boulderQualifications));
+                            results.setBoulder_round(Integer.parseInt(boulderSuperfinal.substring(0, 1)));
                             String resultKey = postSnapshot.getKey();
                             results.setResultsKey(postSnapshot.getKey());
                             final Query bouldersDB = FirebaseDatabase.getInstance().getReference().child("Results").child("Superfinals").child(compKey).child(actualCategory).child(resultKey).child("boulders").orderByChild("number");
