@@ -12,7 +12,7 @@ public class Gym {
     private String address;
     private String image;
     private String owner;
-    private String eslogan;
+    private String phone;
     private String key;
     private String thumb;
     private String members;
@@ -51,7 +51,7 @@ public class Gym {
         this.address = null;
         this.image = null;
         this.owner = null;
-        this.eslogan = null;
+        this.phone = null;
     }
 
 
@@ -71,7 +71,7 @@ public class Gym {
         this.key = key;
     }
 
-    public Gym(String name, String description, String city, String state, String address, String image, String owner, String eslogan) {
+    public Gym(String name, String description, String city, String state, String address, String image, String owner, String phone) {
         this.name = name;
         this.description = description;
         this.city = city;
@@ -79,8 +79,7 @@ public class Gym {
         this.address = address;
         this.image = image;
         this.owner = owner;
-        if (!eslogan.isEmpty())
-            this.eslogan = eslogan;
+        this.phone = phone;
     }
 
     public Gym(String name, String description, String city, String photo) {
@@ -114,12 +113,12 @@ public class Gym {
         this.owner = owner;
     }
 
-    public String getEslogan() {
-        return eslogan;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setEslogan(String eslogan) {
-        this.eslogan = eslogan;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getName() {

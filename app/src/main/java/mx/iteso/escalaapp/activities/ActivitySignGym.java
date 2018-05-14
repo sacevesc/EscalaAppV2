@@ -35,7 +35,7 @@ import java.util.Map;
 import mx.iteso.escalaapp.R;
 
 public class ActivitySignGym extends AppCompatActivity {
-    EditText name, eslogan, address, descrption;
+    EditText name, address, descrption, phone;
     AutoCompleteTextView city, state;
     private static final int GALLERY_PICK = 1;
     Button done, image_btn;
@@ -66,9 +66,9 @@ public class ActivitySignGym extends AppCompatActivity {
 
 
         name = findViewById(R.id.sign_gym_name);
-        eslogan = findViewById(R.id.sign_gym_eslogan);
         image_btn = findViewById(R.id.sign_gym_image_button);
         draweeView = findViewById(R.id.sign_gym_image);
+        phone = findViewById(R.id.sign_gym_phone);
 
 
         city = findViewById(R.id.sign_gym_city_autocomplete);
@@ -189,7 +189,7 @@ public class ActivitySignGym extends AppCompatActivity {
         String uid = currentUser.getUid();
         HashMap<String, String> gymMap = new HashMap<>();
         gymMap.put("name", name.getText().toString().toUpperCase());
-        gymMap.put("eslogan", eslogan.getText().toString().toUpperCase());
+        gymMap.put("phone", phone.getText().toString());
         gymMap.put("city", city.getText().toString().toUpperCase());
         gymMap.put("state", state.getText().toString().toUpperCase());
         gymMap.put("address", address.getText().toString());

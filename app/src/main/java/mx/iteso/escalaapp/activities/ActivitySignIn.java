@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -35,7 +34,6 @@ import java.util.regex.Pattern;
 
 import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.beans.Gym;
-import mx.iteso.escalaapp.fragmentgym.AdapterGym;
 
 public class ActivitySignIn extends AppCompatActivity {
     EditText firstname, lastname, email, password, password2;
@@ -146,7 +144,7 @@ public class ActivitySignIn extends AppCompatActivity {
     }
 
 
-    private void createAccount(String email, String password) {
+    private void createAccount(final String email, final String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -166,8 +164,10 @@ public class ActivitySignIn extends AppCompatActivity {
                             climbersMap.put("thumb", "default");
                             climbersMap.put("owner", "false");
                             climbersMap.put("category", categorySelected);
-                            climbersMap.put("curentCompKey", "");
+                            climbersMap.put("currentCompKey", "");
                             climbersMap.put("currentCategory", "");
+                            climbersMap.put("currentBoulder", "");
+                            climbersMap.put("currentRound", "");
 
 
                             firebaseDatabase.setValue(climbersMap).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -186,6 +186,8 @@ public class ActivitySignIn extends AppCompatActivity {
                                         }
 
                                         Intent intent = new Intent(ActivitySignIn.this, ActivityLogin.class);
+                                        intent.putExtra("mail", email);
+                                        intent.putExtra("password", password);
                                         startActivity(intent);
                                         finish();
                                     }

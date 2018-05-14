@@ -39,6 +39,7 @@
 
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/gym_social_networks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,6 +70,30 @@
                 android:layout_marginTop="7dp"
                 android:background="@drawable/twitter_logo" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/gym_linear_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/twenty"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_phone_24dp" />
+
+            <TextView
+                android:id="@+id/gym_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/two"
+                android:gravity="center"
+                android:text="33 12 20 96 30"
+                android:textSize="11sp" />
         </LinearLayout>
     </LinearLayout>
 
