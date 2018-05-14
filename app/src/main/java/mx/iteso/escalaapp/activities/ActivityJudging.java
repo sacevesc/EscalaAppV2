@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ import java.util.Map;
 
 import mx.iteso.escalaapp.R;
 import mx.iteso.escalaapp.beans.Climber;
+import mx.iteso.escalaapp.fragmentclimber.AdapterClimber;
 
 public class ActivityJudging extends AppCompatActivity {
     int triesCounter = 0, bonusCounter = 0, time = 300, last;
@@ -45,13 +47,21 @@ public class ActivityJudging extends AppCompatActivity {
     private ArrayList<String> climberIDs;
     private ArrayList<Climber> registeredClimbers;
     boolean started = false;
+    ImageView pause;
+    boolean paused = true;
+    CountDownTimer timer;
+    boolean timerStarted = false;
 
     public void initData() {
         this.triesCounter = 0;
         this.bonusCounter = 0;
         this.time = 300;
         this.top = false;
+        this.paused = true;
+        this.started = false;
 
+        pause.setVisibility(View.INVISIBLE);
+        timerV.setText("");
         triesV.setText(String.valueOf(triesCounter));
         topV.setText(String.valueOf(triesCounter));
         bonusV.setText(String.valueOf(triesCounter));
@@ -70,42 +80,42 @@ public class ActivityJudging extends AppCompatActivity {
         resultsV = findViewById(R.id.activity_judging_results);
         resultsV.setText("t0-b0");
         boulderSpinner = findViewById(R.id.activity_judging_boulderSpinner);
-        climber = findViewById(R.id.activity_judging_climber);
-
-        climber.setText(currentClimber);
-
         addClimber = findViewById(R.id.add_climber);
+        pause = findViewById(R.id.pause);
         competitors = new ArrayDeque<Climber>();
         climberIDs = new ArrayList<String>();
         registeredClimbers = new ArrayList<Climber>();
         compKey = getIntent().getStringExtra("comp_id");
 
+        climber = findViewById(R.id.activity_judging_climber);
 
-        Query climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Competitions").child(compKey).child("climbers");
+        climber.setText(currentClimber);
+        DatabaseReference climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Competitions").child(compKey).child("climbers");
         climbersDatabase.addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<String> lclimberIDs = new ArrayList<String>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    climberIDs.add(postSnapshot.getKey());
-                    Log.d("nueva", "climber id" + postSnapshot.getKey());
-
+                    lclimberIDs.add(postSnapshot.getKey());
                 }
+                climberIDs = new ArrayList<String>(lclimberIDs);
+                climberIDs.addAll(lclimberIDs);
             }
+
             public void onCancelled(DatabaseError databaseError) {
                 Log.w("Climberlist", "loadPost:onCancelled", databaseError.toException());
             }
         });
 
-        Log.d("CLIMBERS", ""+ climberIDs.size());
-        Log.d("COMPETITION", ""+ compKey);
+        Log.d("CLIMBERS", "" + climberIDs.size());
+        Log.d("COMPETITION", "" + compKey);
 
-        for(String id : climberIDs){
-            Query cd = FirebaseDatabase.getInstance().getReference().child("Climbers").child(id);
-            cd.addValueEventListener(new ValueEventListener() {
+        for (String id : climberIDs) {
+            climbersDatabase = FirebaseDatabase.getInstance().getReference().child("Climbers").child(id);
+            climbersDatabase.addValueEventListener(new ValueEventListener() {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     registeredClimbers.add(dataSnapshot.getValue(Climber.class));
-                    Log.d("nueva", "" + dataSnapshot.getValue());
-
                 }
+
                 public void onCancelled(DatabaseError databaseError) {
                     Log.w("Climberlist", "loadPost:onCancelled", databaseError.toException());
                 }
@@ -114,11 +124,11 @@ public class ActivityJudging extends AppCompatActivity {
 
         final CharSequence climberArray[] = new CharSequence[registeredClimbers.size()];
         int i = 0;
-        for(Climber c : registeredClimbers){
+        for (Climber c : registeredClimbers) {
             climberArray[i] = c.getFirstname() + " " + c.getLastname();
             i++;
         }
-        addClimber.setOnClickListener(new View.OnClickListener(){
+        addClimber.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(ActivityJudging.this);
@@ -133,6 +143,21 @@ public class ActivityJudging extends AppCompatActivity {
             }
         });
 
+
+        pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!top) {
+                    if (!paused) {
+                        paused = true;
+                        pause.setImageDrawable(getDrawable(R.drawable.ic_play_arrow_black_24dp));
+                    } else {
+                        paused = false;
+                        pause.setImageDrawable(getDrawable(R.drawable.ic_pause_black_24dp));
+                    }
+                }
+            }
+        });
         boulderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -224,16 +249,24 @@ public class ActivityJudging extends AppCompatActivity {
     }
 
     public void startTimer(){
-        new CountDownTimer(300000, 1000) {
+        pause.setVisibility(View.VISIBLE);
+        timer = new CountDownTimer(999999999, 1000) {
             public void onTick(long millisUntilFinished) {
-                if(!top) {
-                    timerV.setText(formatTime(time));
-                    time--;
+                if(!paused) {
+                    if (!top && time > 0) {
+                        timerV.setText(formatTime(time));
+                        time--;
+                        if(time == 0) {
+                            timerV.setText(R.string.time_up);
+                            paused = true;
+                            pause.setVisibility(View.INVISIBLE);
+                        }
+                    }
                 }
             }
 
             public void onFinish() {
-                timerV.setText("Time finished");
+                timerV.setText(R.string.time_up);
             }
 
         }.start();
@@ -249,8 +282,14 @@ public class ActivityJudging extends AppCompatActivity {
     public void addTry(View v){
         if(!top) {
             if (!started) {
-                startTimer();
+                if(!timerStarted) {
+                    startTimer();
+                    timerStarted = true;
+                }
                 started = true;
+                paused = false;
+                pause.setImageDrawable(getDrawable(R.drawable.ic_pause_black_24dp));
+                pause.setVisibility(View.VISIBLE);
             }
             last = 0;
             triesCounter++;
