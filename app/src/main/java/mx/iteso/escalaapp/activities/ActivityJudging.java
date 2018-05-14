@@ -45,7 +45,7 @@ public class ActivityJudging extends AppCompatActivity {
     private Spinner boulderSpinner, roundSpinner, competitorSpinner;
     private FirebaseUser currentUser;
     private DatabaseReference judgeDatabase, resultsDatabase;
-//    private Button addClimber;
+    //    private Button addClimber;
 //    private ArrayDeque<Climber> competitors;
     private ArrayList<String> climberIDs;
     private ArrayList<Climber> registeredClimbers;
@@ -175,7 +175,7 @@ public class ActivityJudging extends AppCompatActivity {
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!top) {
+                if (!top) {
                     if (!paused) {
                         paused = true;
                         pause.setImageDrawable(getDrawable(R.drawable.ic_play_arrow_black_24dp));
@@ -189,11 +189,21 @@ public class ActivityJudging extends AppCompatActivity {
         competitorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+//                updateKeys("currentClimber", competitorSpinner.getSelectedItem().toString());
 //                climber.setText(currentClimber);
-                initData();
                 judged = (Climber) competitorSpinner.getSelectedItem();
                 currentClimber = judged.toString();
+                initData();
+                resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("firstname");
+                resultsDatabase.setValue(judged.getFirstname());
+                resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("lastname");
+                resultsDatabase.setValue(judged.getLastname());
+                resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("ranking");
+                resultsDatabase.setValue("");
+                resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("sum");
+                resultsDatabase.setValue("0t0 0b0");
+                resultsDatabase = FirebaseDatabase.getInstance().getReference().child("Results").child(currentRound).child(compKey).child(judged.getCategory()).child(currentClimber).child("boulders").child(currentBoulder).child("number");
+                resultsDatabase.setValue(getCurrentBoulder().charAt(getCurrentBoulder().length()-1)+"");
             }
 
             @Override
@@ -292,15 +302,15 @@ public class ActivityJudging extends AppCompatActivity {
         });
     }
 
-    public void startTimer(){
+    public void startTimer() {
         pause.setVisibility(View.VISIBLE);
         timer = new CountDownTimer(999999999, 1000) {
             public void onTick(long millisUntilFinished) {
-                if(!paused) {
+                if (!paused) {
                     if (!top && time > 0) {
                         timerV.setText(formatTime(time));
                         time--;
-                        if(time == 0) {
+                        if (time == 0) {
                             timerV.setText(R.string.time_up);
                             paused = true;
                             pause.setVisibility(View.INVISIBLE);
@@ -316,17 +326,17 @@ public class ActivityJudging extends AppCompatActivity {
         }.start();
     }
 
-    public String formatTime(int totalSecs){
+    public String formatTime(int totalSecs) {
         int minutes = (totalSecs % 3600) / 60;
         int seconds = totalSecs % 60;
 
         return String.format("%02d:%02d", minutes, seconds);
     }
 
-    public void addTry(View v){
-        if(!top) {
+    public void addTry(View v) {
+        if (!top) {
             if (!started) {
-                if(!timerStarted) {
+                if (!timerStarted) {
                     startTimer();
                     timerStarted = true;
                 }
@@ -335,7 +345,7 @@ public class ActivityJudging extends AppCompatActivity {
                 pause.setImageDrawable(getDrawable(R.drawable.ic_pause_black_24dp));
                 pause.setVisibility(View.VISIBLE);
             }
-            if(!paused) {
+            if (!paused) {
                 last = 0;
                 triesCounter++;
                 triesV.setText(String.valueOf(triesCounter));
@@ -343,8 +353,8 @@ public class ActivityJudging extends AppCompatActivity {
         }
     }
 
-    public void setTop(View v){
-        if(!top && !paused) {
+    public void setTop(View v) {
+        if (!top && !paused) {
             last = 1;
             top = true;
             topV.setText(String.valueOf(triesCounter));
@@ -355,8 +365,8 @@ public class ActivityJudging extends AppCompatActivity {
         }
     }
 
-    public void setBonus(View v){
-        if(!top && !paused) {
+    public void setBonus(View v) {
+        if (!top && !paused) {
             last = 2;
             bonusCounter = triesCounter;
             bonusV.setText(String.valueOf(bonusCounter));
@@ -365,10 +375,11 @@ public class ActivityJudging extends AppCompatActivity {
             resultsDatabase.setValue(bonusV.getText().toString());
         }
     }
-    public void undo(View v){
-        switch(last){
+
+    public void undo(View v) {
+        switch (last) {
             case 0:
-                if(triesCounter > 0) {
+                if (triesCounter > 0) {
                     triesCounter--;
                     triesV.setText(String.valueOf(triesCounter));
                 }
