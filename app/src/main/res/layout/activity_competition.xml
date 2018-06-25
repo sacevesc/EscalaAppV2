@@ -40,7 +40,7 @@
             android:layout_height="124dp"
             android:layout_alignParentTop="true"
             android:layout_marginEnd="@dimen/fifeteen"
-            android:layout_marginStart="@dimen/fifeteen"
+            android:layout_marginStart="@dimen/twenty_five"
             android:layout_marginTop="20dp"
             android:scaleType="centerCrop"
             fresco:roundAsCircle="true" />

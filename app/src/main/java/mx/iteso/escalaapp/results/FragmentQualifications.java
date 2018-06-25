@@ -39,6 +39,8 @@ public class FragmentQualifications extends Fragment {
     FirebaseUser currentUser;
     DatabaseReference userDatabase, compDatabase;
 
+    int mTouchedRvTag = 0;
+
 
     public FragmentQualifications() {
         // Required empty public constructor
@@ -63,24 +65,14 @@ public class FragmentQualifications extends Fragment {
         resultsList = view.findViewById(R.id.fragment_recycler_view);
 
         resultsList.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        resultsList.setLayoutManager(mLayoutManager);
-
-        final RecyclerView.OnScrollListener[] scrollListeners = new RecyclerView.OnScrollListener[2];
         for (int i = 0; i < resultsList.getChildCount(); i++) {
-            final int j = i;
-            scrollListeners[i] = new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                    super.onScrolled(recyclerView, dx, dy);
-                    resultsList.removeOnScrollListener(scrollListeners[j]);
-                    resultsList.scrollBy(dx, dy);
-                    resultsList.addOnScrollListener(scrollListeners[j]);
-                }
-            };
-            resultsList.addOnScrollListener(scrollListeners[i]);
+            resultsList.getChildAt(i).setTag(i);
         }
-
+        // resultsList.addOnScrollListener(your_scroll_listener);
+        //resultsList.addOnItemTouchListener(your_touch_listener);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager.canScrollHorizontally();
+        resultsList.setLayoutManager(mLayoutManager);
 
         return view;
     }
@@ -121,8 +113,8 @@ public class FragmentQualifications extends Fragment {
                         resultsAList = new ArrayList<>();
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             final Results results = new Results();
-                            results.setFirstname(Objects.requireNonNull(postSnapshot.child("firstname").getValue()).toString());
-                            results.setLastname(Objects.requireNonNull(postSnapshot.child("lastname").getValue()).toString());
+                            results.setFirstname((postSnapshot.child("firstname").getValue()).toString());
+                            results.setLastname((postSnapshot.child("lastname").getValue()).toString());
                             results.setRanking((Objects.requireNonNull(postSnapshot.child("ranking").getValue()).toString()));
                             results.setSum(Objects.requireNonNull(postSnapshot.child("sum").getValue()).toString());
                             results.setBoulder_round(Integer.parseInt(boulderQualifications.substring(0, 1)));
@@ -142,6 +134,7 @@ public class FragmentQualifications extends Fragment {
                                     results.setBoulders(boulderArrayList);
                                     AdapterResults adapterResults = new AdapterResults(resultsAList);
                                     resultsList.setAdapter(adapterResults);
+
                                 }
 
                                 @Override
@@ -165,4 +158,44 @@ public class FragmentQualifications extends Fragment {
             }
         });
     }
+
+    /*private RecyclerView.OnScrollListener your_scroll_listener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            Log.d("scroll", "onScrolled: "+recyclerView.getTag()+" "+mTouchedRvTag);
+            super.onScrolled(recyclerView, dx, dy);
+           if ((int) recyclerView.getTag() ==  mTouchedRvTag) {
+                for (int noOfRecyclerView = 0; noOfRecyclerView < resultsList.getChildCount(); noOfRecyclerView++) {
+                    if (noOfRecyclerView != (int) recyclerView.getTag()) {
+                       // RecyclerView tempRecyclerView = (RecyclerView) mLayoutManager.findViewWithTag(noOfRecyclerView);
+                        //tempRecyclerView.scrollBy(dx, dy);
+                    }
+                }
+            }
+        }
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+        }
+    };
+
+    private RecyclerView.OnItemTouchListener your_touch_listener = new RecyclerView.OnItemTouchListener() {
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            mTouchedRvTag = (int) rv.getTag();
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
+    };
+
+*/
 }

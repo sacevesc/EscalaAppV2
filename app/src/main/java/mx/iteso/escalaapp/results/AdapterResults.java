@@ -59,7 +59,6 @@ public class AdapterResults extends RecyclerView.Adapter<AdapterResults.ViewHold
                 Log.w("Exception", e.getMessage(), null);
 
             }
-
             holder.linearBoulders.addView(boulderResult);
         }
 
@@ -99,6 +98,7 @@ public class AdapterResults extends RecyclerView.Adapter<AdapterResults.ViewHold
             mSum = v.findViewById(R.id.item_results_sum);
 
         }
+
     }
 }
 

@@ -3,7 +3,6 @@ package mx.iteso.escalaapp.utils;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +35,7 @@ public class AdapterSectionPagerResults extends FragmentPagerAdapter {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("logs", "onDataChange ADAPTER : " + dataSnapshot.child("no_rounds").getValue().toString());
+                // Log.d("logs", "onDataChange ADAPTER : " + dataSnapshot.child("no_rounds").getValue().toString());
                 rondas = Integer.parseInt(dataSnapshot.child("no_rounds").getValue().toString());
                 notifyDataSetChanged();
             }
@@ -53,7 +52,7 @@ public class AdapterSectionPagerResults extends FragmentPagerAdapter {
 
     public void setActualCategory(String actualCategory) {
         this.actualCategory = actualCategory;
-        Log.e("logs", " MSPR setCategory: " + actualCategory, null);
+        // Log.e("logs", " MSPR setCategory: " + actualCategory, null);
     }
 
     public String getCompKey() {
@@ -62,7 +61,7 @@ public class AdapterSectionPagerResults extends FragmentPagerAdapter {
 
     public void setCompKey(String compKey) {
         this.compKey = compKey;
-        Log.e("logs", " MSPR setCompKey: " + compKey, null);
+        //Log.e("logs", " MSPR setCompKey: " + compKey, null);
     }
 
     @Override

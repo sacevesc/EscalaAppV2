@@ -23,29 +23,29 @@
 
                 <Button
                     android:id="@+id/general_settings"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/ten"
-                    android:background="@drawable/edit_profile_blue"
+                    android:background="@drawable/ic_person_24dp"
                     android:onClick="settingsHandler" />
 
                 <Button
                     android:id="@+id/gym_settings"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/ten"
-                    android:background="@drawable/pavilions"
+                    android:background="@drawable/ic_gym_24dp"
                     android:onClick="settingsHandler" />
 
                 <Button
                     android:id="@+id/other_settings"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/ten"
-                    android:background="@drawable/climber"
+                    android:background="@drawable/ic_help_24dp"
                     android:onClick="settingsHandler" />
 
 
@@ -57,7 +57,6 @@
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:background="@color/colorCardViews">
-
         </FrameLayout>
 
 
@@ -68,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:orientation="horizontal"
         android:paddingEnd="@dimen/fifeteen">
 
@@ -141,7 +140,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="@dimen/ten"
-                android:background="@drawable/climber" />
+                android:background="@drawable/ic_exit_to_app_24dp" />
 
             <TextView
                 android:layout_width="wrap_content"

@@ -152,6 +152,7 @@ public class ActivityJudging extends AppCompatActivity {
             climberArray[i] = c.getFirstname() + " " + c.getLastname();
             i++;
         }
+
 //        addClimber.setOnClickListener(new View.OnClickListener() {
 //            public void onClick(View v) {
 //

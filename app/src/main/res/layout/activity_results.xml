@@ -35,8 +35,8 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/activity_results_image"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_alignParentTop="true"
             android:layout_marginEnd="@dimen/fifeteen"
             android:layout_marginStart="@dimen/twenty_five"

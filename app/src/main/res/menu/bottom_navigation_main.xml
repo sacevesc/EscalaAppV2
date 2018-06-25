@@ -4,7 +4,7 @@
     <item
         android:id="@+id/action_gyms"
         android:enabled="true"
-        android:icon="@drawable/pavilions"
+        android:icon="@drawable/ic_gym_24dp"
         android:title="@string/tab_gyms"
         app:showAsAction="ifRoom" />
     <item

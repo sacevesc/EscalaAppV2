@@ -19,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -311,10 +312,10 @@ public class ActivityCreateCompetition extends AppCompatActivity {
         compMap.put("year", year.getSelectedItem().toString());
         compMap.put("gym", "-LBY51lk9iZRHXWhSGN9");
         compMap.put("owner", uid);
-        compMap.put("qualifications", String.valueOf(qualifications.getSelectedItemPosition()+1));
-        compMap.put("semifinals", String.valueOf(semifinals.getSelectedItemPosition()+1));
-        compMap.put("finals", String.valueOf(finals.getSelectedItemPosition()+1));
-        compMap.put("superfinals", String.valueOf(superfinals.getSelectedItemPosition()+1));
+        compMap.put("qualifications", String.valueOf(qualifications.getSelectedItemPosition() + 1));
+        compMap.put("semifinals", String.valueOf(semifinals.getSelectedItemPosition() + 1));
+        compMap.put("finals", String.valueOf(finals.getSelectedItemPosition() + 1));
+        compMap.put("superfinals", String.valueOf(superfinals.getSelectedItemPosition() + 1));
         compMap.put("no_rounds", String.valueOf(numberRounds.getSelectedItemPosition() + 1));
         compMap.put("no_categories", String.valueOf(numberCat.getSelectedItemPosition() + 1));
         compMap.put("description", description.getText().toString());
@@ -355,14 +356,24 @@ public class ActivityCreateCompetition extends AppCompatActivity {
 
 
     public void updateImageComp(final String compId) {
-        StorageReference filepath = mStorageRef.child("competition_images").child(compId + ".jpg");
+        final StorageReference filepath = mStorageRef.child("competition_images").child(compId + ".jpg");
         firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Competitions").child(compId);
+        UploadTask uploadTask = filepath.putFile(image_comp_id);
 
-        filepath.putFile(image_comp_id).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+                // Continue with the task to get the download URL
+                return filepath.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
-                    final String downloadUrl = task.getResult().getDownloadUrl().toString();
+                    final String downloadUrl = task.getResult().toString();
 
                     Map updateHashmap = new HashMap();
                     updateHashmap.put("image", downloadUrl);
@@ -388,11 +399,20 @@ public class ActivityCreateCompetition extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Competitions").child(compId);
         final StorageReference thumb_filePath = mStorageRef.child("competition_images").child("thumbs").child(compId + ".jpg");
 
-        UploadTask uploadTask = thumb_filePath.putBytes(datas);
-        uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+        uploadTask = thumb_filePath.putBytes(datas);
+        Task<Uri> urlTask2 = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
-                String thumb_downloadUrl = thumb_task.getResult().getDownloadUrl().toString();
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+                // Continue with the task to get the download URL
+                return thumb_filePath.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> thumb_task) {
+                String thumb_downloadUrl = thumb_filePath.getDownloadUrl().toString();//thumb_task.getResult().getDownloadUrl().toString();
 
                 if (thumb_task.isSuccessful()) {
                     Map updateHashmap = new HashMap();
@@ -423,8 +443,8 @@ public class ActivityCreateCompetition extends AppCompatActivity {
     public boolean checkDataUser() {
         if (compName.getText().toString().isEmpty())
             Toast.makeText(ActivityCreateCompetition.this, "Falta el nombre", Toast.LENGTH_SHORT).show();
-       // else if (description.getText().toString().length() > 100)
-        //    Toast.makeText(ActivityCreateCompetition.this, "Descripción max(100)", Toast.LENGTH_SHORT).show();
+            // else if (description.getText().toString().length() > 100)
+            //    Toast.makeText(ActivityCreateCompetition.this, "Descripción max(100)", Toast.LENGTH_SHORT).show();
         else return true;
         return false;
     }

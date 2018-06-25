@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -219,7 +220,8 @@ public class ActivityEditProfile extends AppCompatActivity {
             final Uri image_uri = data.getData();
             String userUid = curretnUser.getUid();
 
-            StorageReference filepath = mStorageRef.child("profile_images").child(userUid + ".jpg");
+            final StorageReference filepath = mStorageRef.child("profile_images").child(userUid + ".jpg");
+            UploadTask uploadTask = filepath.putFile(image_uri);
 
             progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Loading Image");
@@ -227,12 +229,20 @@ public class ActivityEditProfile extends AppCompatActivity {
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
 
-            filepath.putFile(image_uri)
-                    .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+                    // Continue with the task to get the download URL
+                    return filepath.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                         @Override
-                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        public void onComplete(@NonNull Task<Uri> task) {
                             if (task.isSuccessful()) {
-                                final String downloadUrl = task.getResult().getDownloadUrl().toString();
+                                final String downloadUrl = task.getResult().toString();
                                 draweeView.setImageURI(image_uri);
                                 Map updateHashmap = new HashMap();
                                 updateHashmap.put("image", downloadUrl);
@@ -263,12 +273,21 @@ public class ActivityEditProfile extends AppCompatActivity {
             datas = baos.toByteArray();
             final StorageReference thumb_filePath = mStorageRef.child("profile_images").child("thumbs").child(userUid + ".jpg");
 
-            UploadTask uploadTask = thumb_filePath.putBytes(datas);
-            uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
-                    String thumb_downloadUrl = thumb_task.getResult().getDownloadUrl().toString();
+            uploadTask = thumb_filePath.putBytes(datas);
 
+            Task<Uri> urlTask2 = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+                    // Continue with the task to get the download URL
+                    return thumb_filePath.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> thumb_task) {
+                    String thumb_downloadUrl = thumb_task.getResult().toString();
                     if (thumb_task.isSuccessful()) {
                         Map updateHashmap = new HashMap();
                         updateHashmap.put("thumb", thumb_downloadUrl);

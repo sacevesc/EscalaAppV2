@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">inBloc</string>
+    <string name="app_name">Topper</string>
     <string name="login_user">User</string>
     <string name="log_in">Log In</string>
     <string name="sign_in">Sign In</string>
@@ -216,6 +216,7 @@
 
 
     <string-array name="array_boulders">
+        <item>select</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -230,7 +231,7 @@
     </string-array>
 
     <string-array name="categorias_ejemplo">
-        <item>Principiantes</item>
+        <item>Principiante</item>
         <item>Intermedio</item>
         <item>Avanzado</item>
         <item>Mutante</item>

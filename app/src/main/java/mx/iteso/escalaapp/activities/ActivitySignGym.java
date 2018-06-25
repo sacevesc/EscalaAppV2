@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -125,30 +126,6 @@ public class ActivitySignGym extends AppCompatActivity {
             String userUid = currentUser.getUid();
             draweeView.setImageURI(image_uri);
 
-            /*StorageReference filepath = mStorageRef.child("gym_images").child("originalonresult" + ".jpg");
-
-            progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Loading Image");
-            progressDialog.setMessage("Please wait while your image is being saved");
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.show();
-
-            filepath.putFile(image_uri)
-                    .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                final String downloadUrl = task.getResult().getDownloadUrl().toString();
-                                draweeView.setImageURI(image_uri);
-                                progressDialog.dismiss();
-                                Log.d("Image", "uploadImage:success");
-                            } else {
-                                Log.d("Image", "uploadThumbnail:FAILURE");
-                                progressDialog.dismiss();
-                            }
-                        }
-                    });
-*/
             Bitmap bitmap = null;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), image_uri);
@@ -158,27 +135,6 @@ public class ActivitySignGym extends AppCompatActivity {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 40, baos);
             datas = baos.toByteArray();
-
-
-           /* final StorageReference thumb_filePath = mStorageRef.child("gym_images").child("thumbs").child("onresultthumb "+ ".jpg");
-                                UploadTask uploadTask = thumb_filePath.putBytes(datas);
-                                uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                                  @Override
-                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
-
-                                  String thumb_downloadUrl = thumb_task.getResult().getDownloadUrl().toString();
-                                if (thumb_task.isSuccessful()) {
-                                progressDialog.dismiss();
-                                Log.d("Image", "uploadImage:success");
-
-
-                            } else {
-                                Log.d("Image", "uploadThumbnail:FAILURE");
-                                progressDialog.dismiss();
-                            }
-                        }
-                    });
-*/
         }
     }
 
@@ -255,14 +211,22 @@ public class ActivitySignGym extends AppCompatActivity {
 
     public void updateImageGym(final String gymId) {
         firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Gyms").child(gymId);
-        StorageReference filepath = mStorageRef.child("gym_images").child(gymId + ".jpg");
-
-
-        filepath.putFile(image_gym_id).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+        final StorageReference filepath = mStorageRef.child("gym_images").child(gymId + ".jpg");
+        UploadTask uploadTask = filepath.putFile(image_gym_id);
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+                // Continue with the task to get the download URL
+                return filepath.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
-                    final String downloadUrl = task.getResult().getDownloadUrl().toString();
+                    final String downloadUrl = task.getResult().toString();
 
                     Map updateHashmap = new HashMap();
                     updateHashmap.put("image", downloadUrl);
@@ -287,11 +251,20 @@ public class ActivitySignGym extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Gyms").child(gymId);
         final StorageReference thumb_filePath = mStorageRef.child("gym_images").child("thumbs").child(gymId + ".jpg");
 
-        UploadTask uploadTask = thumb_filePath.putBytes(datas);
-        uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+        uploadTask = thumb_filePath.putBytes(datas);
+        Task<Uri> urlTask2 = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
-                String thumb_downloadUrl = thumb_task.getResult().getDownloadUrl().toString();
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+                // Continue with the task to get the download URL
+                return thumb_filePath.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> thumb_task) {
+                String thumb_downloadUrl = thumb_task.getResult().toString();
 
                 if (thumb_task.isSuccessful()) {
                     Map updateHashmap = new HashMap();
